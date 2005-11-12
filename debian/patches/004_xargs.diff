@@ -1,0 +1,30 @@
+--- sys.old/conf/kmod.mk	2005-04-22 13:39:58.000000000 -0400
++++ sys/conf/kmod.mk	2005-09-03 16:11:36.000000000 -0400
+@@ -180,7 +180,7 @@
+ 	grep -v '^#' < ${EXPORT_SYMS} > export_syms
+ .endif
+ 	awk -f ${SYSDIR}/conf/kmod_syms.awk ${.TARGET} \
+-	    export_syms | xargs -J% ${OBJCOPY} % ${.TARGET}
++	    export_syms | xargs -i% ${OBJCOPY} % ${.TARGET}
+ .endif
+ .endif
+ .if !defined(DEBUG_FLAGS) && ${MACHINE_ARCH} == amd64diff -ur sys.old/conf/kmod.mk sys/conf/kmod.mk
+
+diff -ur sys.old/contrib/dev/acpica/acpica_prep.sh sys/contrib/dev/acpica/acpica_prep.sh
+--- sys.old/contrib/dev/acpica/acpica_prep.sh	2004-04-14 04:03:33.000000000 +0200
++++ sys/contrib/dev/acpica/acpica_prep.sh	2004-11-16 18:22:34.000000000 +0100
+@@ -52,12 +52,12 @@
+ 
+ echo copying full dirs
+ for i in ${fulldirs}; do
+-    find ${wrk} -name ${i} -type d | xargs -J % mv % ${dst}
++    find ${wrk} -name ${i} -type d | xargs -i % mv % ${dst}
+ done
+ 
+ # move files to destination
+ echo copying flat dirs
+-find ${wrk} -type f | xargs -J % mv % ${dst}
++find ${wrk} -type f | xargs -i % mv % ${dst}
+ mv CHANGES.txt ${dst}
+ 
+ # update src/headers for appropriate paths
