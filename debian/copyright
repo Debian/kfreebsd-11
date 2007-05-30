@@ -37,9 +37,9 @@ under other licenses:
   (and disabled in the build system):
 
 src/sys/contrib/dev/ath
-src/sys/contrib/dev/hptmv
 src/sys/contrib/dev/nve
 src/sys/contrib/dev/oltr
+src/sys/dev/hptmv
 src/sys/dev/rr232x
 
   The following directories contained code that is itself free, but depends
@@ -47,9 +47,8 @@ src/sys/dev/rr232x
 
 src/sys/modules/ath
 src/sys/modules/hptmv
+src/sys/modules/rr232x
 src/sys/modules/nve
 src/sys/modules/oltr
-src/sys/modules/rr232x
 src/sys/dev/ath
-src/sys/dev/hptmv
 src/sys/dev/nve

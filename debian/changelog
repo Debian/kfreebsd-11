@@ -1,19 +1,94 @@
-kfreebsd-7 (6.99+20060506-0.2) UNRELEASED; urgency=low
+kfreebsd-6 (6.2-2) unreleased; urgency=low
+
+  * Fix a possible DoS using IPv6 Routing Header 0 (FreeBSD-SA-07:03.ipv6
+    / CVE-2007-2242).
+
+ -- Aurelien Jarno <aurel32@debian.org>  Thu, 03 May 2007 16:05:58 +0200
+
+kfreebsd-6 (6.2-1) unreleased; urgency=low
+
+  [ Petr Salinger ]
+  * New upstream version (RELENG_6_2_0_RELEASE)
+     - drop obsolete 000_kmem, 000_net, 000_ppp, 000_smbfs,
+                     002_glibc_dev_isp, 006_proc_mounts patches
+     - update 009_disable_duped_modules, 
+              903_disable_non-free_drivers,
+              999_config patches
+
+ -- Aurelien Jarno <aurel32@debian.org>  Thu,  4 Jan 2007 21:56:16 +0100
+
+kfreebsd-6 (6.1-4) unreleased; urgency=low
+
+  [ Petr Salinger ]
+  * restrict renaming of ld.so only for native FreeBSD libc
+
+ -- Aurelien Jarno <aurel32@debian.org>  Thu,  4 Jan 2007 21:56:16 +0100
+
+kfreebsd-6 (6.1-3) unreleassed; urgency=low
+
+  * Remove the CVS/ directory from kfreebsd-source-6.
+  * Change the linker script from from elf64-x86-64 to elf64-x86-64-freebsd.
+
+ -- Aurelien Jarno <aurel32@debian.org>  Tue,  2 Jan 2007 00:37:24 +0100
+
+kfreebsd-6 (6.1-2) unreleased; urgency=low
 
   * Remove kldutils from the dependencies alternatives.
   * Remove kfreebsd-common from the dependencies now that module-init-tools
     does the job, and bump the dependency on module-init-tools to (>= 6.1-6).
   * Create a /boot/kernel/ directory.
-  * Remove the CVS/ directory from kfreebsd-source-7.
-  * Change the linker script from from elf64-x86-64 to elf64-x86-64-freebsd.
 
- -- Aurelien Jarno <aurel32@debian.org>  Mon,  1 Jan 2007 23:17:38 +0100
+ -- Aurelien Jarno <aurel32@debian.org>  Mon,  1 Jan 2007 23:15:59 +0100
 
-kfreebsd-7 (6.99+20060506-0.1) unreleased; urgency=low
+kfreebsd-6 (6.1-1) unreleased; urgency=low
 
-  * Fork for 7-CURRENT, based on r1560.
+  * Urgency set to high as this fixes a security bug.
+  * Fix a memory disclosure in firewire (FreeBSD-SA-06:25.kmem
+    / CVE-2006-6013).
 
- -- Robert Millan <rmh@aybabtu.com>  Sat,  6 May 2006 09:04:52 +0200
+ -- Aurelien Jarno <aurel32@debian.org>  Mon, 11 Dec 2006 11:34:26 +0100
+
+kfreebsd-6 (6.1-0.4) unreleased; urgency=low
+
+  * Backport the NVIDIA nForce MCP Ethernet driver from FREEBSD-7.0.
+
+ -- Aurelien Jarno <aurel32@debian.org>  Fri,  3 Nov 2006 18:23:17 +0100
+
+kfreebsd-6 (6.1-0.3) unreleased; urgency=low
+
+  * Relax the conflict with kfreebsd-loader to (<< 5.4-1.3). 
+
+ -- Aurelien Jarno <aurel32@debian.org>  Thu, 12 Oct 2006 16:19:38 +0200
+
+kfreebsd-6 (6.1-0.2) unreleased; urgency=low
+
+  [ Aurelien Jarno ]
+  * patches/999_config.diff: remove COMPAT_LINUX from amd64.
+  * Make the images conflict with kfreebsd-loader (<< 5.4-3).
+
+  [ Petr Salinger ]
+  * Fix buffer overflow in sppp (FreeBSD-SA-06:08.ppp / CVE-2006-4304).
+  * Fix networking issues (FreeBSD-EN-06:02.net).
+
+ -- Aurelien Jarno <aurel32@debian.org>  Tue, 10 Oct 2006 11:47:04 +0200
+
+kfreebsd-6 (6.1-0.1) unreleased; urgency=low
+
+  [ Petr Salinger ]
+  * New upstream version (RELENG_6_1_0_RELEASE)
+     - drop 000_* patches (already in upstream)
+     - rework 010_ET_DYN.diff
+     - update remaining patches (with great help from quilt)
+     - add 018_genassym_MAXCPU.diff
+  * Fix smbfs chroot escape (FreeBSD-SA-06:16.smbfs / CVE-2006-2654).
+  * Re-enable hwpmc driver
+  * Disable non-free "rr232x" driver - another Highpoint RocketRAID
+  * Do not load directly executed shared library (e.g. ld.so) at base addr 0
+
+  [ Aurelien Jarno ]
+  * Bumped Standards-Version to 3.7.2 (no changes). 
+
+ -- Aurelien Jarno <aurel32@debian.org>  Tue, 25 Jul 2006 00:58:48 +0200
 
 kfreebsd-6 (6.0-0.4) unreleased; urgency=low
 

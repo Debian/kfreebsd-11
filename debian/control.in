@@ -3,10 +3,8 @@ Section: devel
 Priority: optional
 Maintainer: GNU/kFreeBSD Maintainers <debian-bsd@lists.debian.org>
 Uploaders: Aurelien Jarno <aurel32@debian.org>, Guillem Jover <guillem@debian.org>
-Build-Depends-Indep: debhelper (>= 4.1.0), bzip2
-Build-Depends: debhelper (>= 4.1.0), bzip2, freebsd@major@-buildutils | freebsd6-buildutils (>= 6.0-0.2), libdb4.4-dev | libdb-dev, flex-old | flex, libbsd-dev
-# freebsd@major@-buildutils | freebsd6-buildutils (>= 6.0-0.2):  Needed for new MK_* variable cruft (in 6.0-0.2 it's been backported).
-Standards-Version: 3.6.2
+Build-Depends: debhelper (>= 4.1.0), bzip2, freebsd@major@-buildutils, libdb4.4-dev | libdb-dev, flex-old | flex, libbsd-dev
+Standards-Version: 3.7.2
 
 Package: kfreebsd-source-@version@
 Architecture: all
@@ -18,7 +16,7 @@ Description: source code for kernel of FreeBSD @version@ with Debian patches
  a GNU/kFreeBSD system.
 
 Package: kfreebsd-headers-@version@-@abiname@
-Architecture: kfreebsd-i386
+Architecture: kfreebsd-i386 kfreebsd-amd64
 Section: devel
 Depends: coreutils
 Description: Common architecture-specific header files for kernel of FreeBSD @version@

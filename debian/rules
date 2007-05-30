@@ -60,9 +60,9 @@ src: src-stamp
 src-stamp:
 	tar xfj $(CURDIR)/src.tar.bz2
 	
-	set -e ; find src -type d -name CVS -exec rm -rf {} \;
+	set -e ; find src -type d -name CVS | xargs rm -rf
 
-	set -e ; find src -type f -name "*.[ch]" | (while read i ; do \
+	set -e ; find src -type f | (while read i ; do \
 		sed -i $$i \
 		-e 's/defined\( \|\t\)*(\( \|\t\)*__FreeBSD__\( \|\t\)*)/defined(__FreeBSD_kernel__)/g' \
 		-e 's/#\( \|\t\)*ifdef\( \|\t\)*__FreeBSD__/#ifdef __FreeBSD_kernel__/g' \
@@ -91,6 +91,12 @@ build-indep-stamp: src
 	cp -af src $(SRC_DIR)
 
 	touch build-indep-stamp
+
+ifeq ($(os), kfreebsd)
+build: build-arch build-indep
+else
+build: build-indep
+endif
 
 install-indep: install-indep-stamp
 install-indep-stamp: build-indep
