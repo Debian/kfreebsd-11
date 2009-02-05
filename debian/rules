@@ -16,7 +16,7 @@ cpu		:= $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
 config_files	:= $(wildcard debian/arch/$(cpu)/*.config)
 flavours	:= $(config_files:debian/arch/$(cpu)/%.config=%)
 configfile	:= DEBCUSTOM
-abiname		:= 1
+abiname		:= 0
 
 SOURCE_PACKAGE	:= $(CURDIR)/debian/kfreebsd-source-$(version)
 IMAGE_PACKAGE	:= $(CURDIR)/debian/kfreebsd-image-$(version)-$(abiname)
@@ -40,15 +40,6 @@ control: clean
 			sed -e "s/@major@/$(major)/g" -e "s/@version@/$(version)/g" -e "s/@abiname@/$(abiname)/g" -e "s/@flavor@/$$flavor/g" -e "s/@arch@/$$arch/g" -e "s/@recommends@/$$recommends/g" \
 				$(CURDIR)/debian/control.flavor.in >> $(CURDIR)/debian/control ; \
 		done ; \
-	done
-	# create compat for dropped images
-	for flavor in 586 586-smp ; do \
-		sed -e "s/@major@/$(major)/g" -e "s/@flavor@/$$flavor/g" -e "s/@arch@/i386/g" -e "s/@compatflavor@/486/g" \
-			$(CURDIR)/debian/control.compat.in >> $(CURDIR)/debian/control ; \
-	done
-	for flavor in amd64-generic amd64-k8-smp amd64-k8 em64t-p4-smp em64t-p4 ; do \
-		sed -e "s/@major@/$(major)/g" -e "s/@flavor@/$$flavor/g" -e "s/@arch@/amd64/g" -e "s/@compatflavor@/amd64/g" \
-			$(CURDIR)/debian/control.compat.in >> $(CURDIR)/debian/control ; \
 	done
 
 clean:

@@ -1,3 +1,14 @@
+kfreebsd-8 (8.0~cvs20090205-1) EXPERIMENTAL; urgency=low
+
+  [Luca Favatella]
+  * New upstream snapshot of HEAD
+
+  [ Petr Salinger ]
+  * Drop kfreebsd-7 only transitional packages
+  * Alter Build-depends as freebsd-buildutils 7.0 is still sufficent
+
+ -- Aurelien Jarno <aurel32@debian.org>  Thu, 05 Feb 2009 10:00:00 +0100
+
 kfreebsd-7 (7.1-2) unstable; urgency=low
 
   [ Petr Salinger ]
