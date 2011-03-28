@@ -35,7 +35,7 @@ Status: gotta uncomment WARNS (see #351366), and find a portable way to add
  
  #include <assert.h>
  #include <ctype.h>
-@@ -607,7 +612,11 @@
+@@ -591,7 +596,11 @@
  	if ((dirp = opendir(p)) == NULL)
  		err(EX_OSERR, "opendir %s", p);
  	while ((dp = readdir(dirp)) != NULL) {
@@ -49,13 +49,11 @@ Status: gotta uncomment WARNS (see #351366), and find a portable way to add
  			continue;
 --- a/usr.sbin/config/Makefile
 +++ b/usr.sbin/config/Makefile
-@@ -9,11 +9,11 @@
+@@ -9,10 +9,10 @@
  kernconf.c: kernconf.tmpl
  	file2c 'char kernconfstr[] = {' ',0};' < ${.CURDIR}/kernconf.tmpl > kernconf.c
  
--WARNS?=	6
 -CFLAGS+= -I. -I${.CURDIR}
-+#WARNS?=	6
 +CFLAGS+= -I. -I${.CURDIR} -D_GNU_SOURCE
  
  DPADD=	${LIBL} ${LIBSBUF}

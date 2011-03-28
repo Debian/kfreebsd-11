@@ -6,7 +6,7 @@
  DPADD=	${LIBL}
 -LDADD=	-ll
 +LDADD=	-ll -ldb
- WARNS?=	6
+ WARNS?=	5
 +NO_WERROR?=	1
  
  # Correct path for kernel builds
@@ -15,7 +15,7 @@
  DEPENDFILE=	.depend_aicasm
  .endif
  
--.if ${CC} == "icc"
+-.if ${CC:T:Micc} == "icc"
 -CFLAGS+=	-restrict
 -NOSTDINC=	-X
 -.else

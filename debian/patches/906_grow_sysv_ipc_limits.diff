@@ -23,35 +23,31 @@ options         SEMMAP=256
 
 --- a/sys/amd64/conf/GENERIC
 +++ b/sys/amd64/conf/GENERIC
-@@ -63,8 +63,14 @@
- options 	KTRACE			# ktrace(1) support
- options 	STACK			# stack(9) support
+@@ -55,6 +55,12 @@
  options 	SYSVSHM			# SYSV-style shared memory
-+options		SHMMAXPGS=4096
-+options		SHMSEG=256
  options 	SYSVMSG			# SYSV-style message queues
  options 	SYSVSEM			# SYSV-style semaphores
-+options		SEMMNI=256
-+options		SEMMNS=512
-+options		SEMMNU=256
-+options		SEMMAP=256
- options 	P1003_1B_SEMAPHORES	# POSIX-style semaphores
++options                SHMMAXPGS=4096
++options                SHMSEG=256
++options                SEMMNI=256
++options                SEMMNS=512
++options                SEMMNU=256
++options                SEMMAP=256
  options 	_KPOSIX_PRIORITY_SCHEDULING # POSIX P1003_1B real-time extensions
  options 	PRINTF_BUFR_SIZE=128	# Prevent printf output being interspersed.
+ options 	KBD_INSTALL_CDEV	# install a CDEV entry in /dev
 --- a/sys/i386/conf/GENERIC
 +++ b/sys/i386/conf/GENERIC
-@@ -64,8 +64,14 @@
- options 	KTRACE			# ktrace(1) support
- options 	STACK			# stack(9) support
+@@ -56,6 +56,12 @@
  options 	SYSVSHM			# SYSV-style shared memory
-+options		SHMMAXPGS=4096
-+options		SHMSEG=256
  options 	SYSVMSG			# SYSV-style message queues
  options 	SYSVSEM			# SYSV-style semaphores
-+options		SEMMNI=256
-+options		SEMMNS=512
-+options		SEMMNU=256
-+options		SEMMAP=256
- options 	P1003_1B_SEMAPHORES	# POSIX-style semaphores
++options                SHMMAXPGS=4096
++options                SHMSEG=256
++options                SEMMNI=256
++options                SEMMNS=512
++options                SEMMNU=256
++options                SEMMAP=256
  options 	_KPOSIX_PRIORITY_SCHEDULING # POSIX P1003_1B real-time extensions
  options 	PRINTF_BUFR_SIZE=128	# Prevent printf output being interspersed.
+ options 	KBD_INSTALL_CDEV	# install a CDEV entry in /dev

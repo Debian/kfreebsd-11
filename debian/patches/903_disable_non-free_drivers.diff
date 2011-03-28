@@ -28,7 +28,7 @@
  compat/linprocfs/linprocfs.c	optional linprocfs
  compat/linsysfs/linsysfs.c	optional linsysfs
  compat/linux/linux_emul.c	optional compat_linux
-@@ -164,14 +143,6 @@
+@@ -173,14 +152,6 @@
  dev/fe/if_fe_isa.c		optional fe isa
  dev/glxsb/glxsb.c		optional glxsb
  dev/glxsb/glxsb_hash.c		optional glxsb
@@ -43,7 +43,7 @@
  dev/hwpmc/hwpmc_amd.c		optional hwpmc
  dev/hwpmc/hwpmc_intel.c		optional hwpmc
  dev/hwpmc/hwpmc_core.c		optional hwpmc
-@@ -202,7 +173,6 @@
+@@ -213,7 +184,6 @@
  dev/mse/mse.c			optional mse
  dev/mse/mse_isa.c		optional mse isa
  dev/nfe/if_nfe.c		optional nfe pci
@@ -64,7 +64,7 @@
  device		mly		# Mylex AcceleRAID/eXtremeRAID
 --- a/sys/modules/Makefile
 +++ b/sys/modules/Makefile
-@@ -97,8 +97,6 @@
+@@ -106,8 +106,6 @@
  	hifn \
  	hme \
  	${_hptiop} \
@@ -73,7 +73,7 @@
  	hwpmc \
  	${_i2c} \
  	${_ibcs2} \
-@@ -203,7 +201,6 @@
+@@ -225,7 +223,6 @@
  	ntfs \
  	ntfs_iconv \
  	nullfs \
@@ -81,7 +81,7 @@
  	${_nvram} \
  	${_nwfs} \
  	${_nxge} \
-@@ -424,8 +421,6 @@
+@@ -478,8 +475,6 @@
  _dpt=		dpt
  _ex=		ex
  _hptiop=	hptiop
@@ -90,15 +90,15 @@
  _ichwd=		ichwd
  _ida=		ida
  _iir=		iir
-@@ -440,7 +435,6 @@
- _ixgb=		ixgb
+@@ -495,7 +490,6 @@
+ _ixgbe=		ixgbe
  _mly=		mly
  _nfe=		nfe
 -_nve=		nve
  _nvram=		nvram
  _nxge=		nxge
- _wpi=		wpi
-@@ -489,8 +483,6 @@
+ _tpm=		tpm
+@@ -549,8 +543,6 @@
  _exca=		exca
  _ext2fs=	ext2fs
  _hptiop=	hptiop
@@ -107,8 +107,8 @@
  _i2c=		i2c
  _ichwd=		ichwd
  _ida=		ida
-@@ -511,7 +503,6 @@
- _mly=		mly
+@@ -581,7 +573,6 @@
+ .endif
  _ndis=		ndis
  _nfe=		nfe
 -_nve=		nve
@@ -117,7 +117,7 @@
  .if ${MK_CDDL} != "no" || defined(ALL_MODULES)
 --- a/sys/amd64/conf/GENERIC
 +++ b/sys/amd64/conf/GENERIC
-@@ -135,8 +135,6 @@
+@@ -136,8 +136,6 @@
  #device		asr		# DPT SmartRAID V, VI and Adaptec SCSI RAID
  device		ciss		# Compaq Smart RAID 5*
  device		dpt		# DPT Smartcache III, IV - See NOTES for options
@@ -152,10 +152,10 @@
 -	compile-with	"uudecode < $S/dev/hptrr/amd64-elf.hptrr_lib.o.uu" \
 -	no-implicit-rule
 -#
- amd64/acpica/OsdEnvironment.c	optional	acpi
  amd64/acpica/acpi_machdep.c	optional	acpi
  amd64/acpica/acpi_switch.S	optional	acpi
-@@ -190,14 +170,6 @@
+ acpi_wakecode.o			optional	acpi			\
+@@ -188,14 +168,6 @@
  dev/fdc/fdc_acpi.c		optional	fdc
  dev/fdc/fdc_isa.c		optional	fdc isa
  dev/fdc/fdc_pccard.c		optional	fdc pccard
@@ -171,8 +171,8 @@
  dev/hwpmc/hwpmc_intel.c		optional	hwpmc
  dev/hwpmc/hwpmc_core.c		optional	hwpmc
 @@ -207,7 +179,6 @@
- dev/kbd/kbd.c			optional	atkbd | sc | ukbd | usb2_input_kbd
- dev/mem/memutil.c		optional	mem
+ dev/lindev/full.c		optional	lindev
+ dev/lindev/lindev.c		optional	lindev
  dev/nfe/if_nfe.c		optional	nfe pci
 -dev/nve/if_nve.c		optional	nve pci
  dev/nvram/nvram.c		optional	nvram isa
