@@ -1,9 +1,15 @@
-kfreebsd-9 (9.0~svn225586-2) UNRELEASED; urgency=low
+kfreebsd-10 (10.0~svn225709-1) UNRELEASED; urgency=low
 
+  * New upstream snapshot.  Begin tracking 10-CURRENT.
+
+  [ Robert Millan ]
   * Relax grub-common requirement now that ada support has been
     backported to 1.98+20100804-14+squeeze1.
 
- -- Robert Millan <rmh@debian.org>  Mon, 19 Sep 2011 21:07:42 +0200
+  [ Petr Salinger ]
+  * extend ld_target detection
+
+ -- Robert Millan <rmh@debian.org>  Fri, 23 Sep 2011 21:06:33 +0200
 
 kfreebsd-9 (9.0~svn225586-1) experimental; urgency=low
 
