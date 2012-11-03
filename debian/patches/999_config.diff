@@ -1,5 +1,7 @@
---- a/sys/amd64/conf/GENERIC
-+++ b/sys/amd64/conf/GENERIC
+Index: kfreebsd-10/sys/amd64/conf/GENERIC
+===================================================================
+--- kfreebsd-10.orig/sys/amd64/conf/GENERIC	2012-11-02 12:57:47.299210575 -0700
++++ kfreebsd-10/sys/amd64/conf/GENERIC	2012-11-02 12:57:49.109210819 -0700
 @@ -18,11 +18,11 @@
  #
  # $FreeBSD$
@@ -48,7 +50,7 @@
  # ATA controllers
  device		ahci		# AHCI-compatible SATA controllers
  device		ata		# Legacy ATA/SATA controllers
-@@ -199,10 +196,6 @@
+@@ -200,10 +197,6 @@
  # Parallel port
  device		ppc
  device		ppbus		# Parallel port bus (required)
@@ -59,8 +61,8 @@
  
  device		puc		# Multi I/O cards and multi-channel UARTs
  
-@@ -298,10 +291,7 @@
- device		random		# Entropy device
+@@ -301,10 +294,7 @@
+ options 	RDRAND_RNG	# Intel Bull Mountain RNG
  device		ether		# Ethernet support
  device		vlan		# 802.1Q VLAN support
 -device		tun		# Packet tunnel.
@@ -70,8 +72,10 @@
  device		firmware	# firmware assist module
  
  # The `bpf' device enables the Berkeley Packet Filter.
---- a/sys/i386/conf/GENERIC
-+++ b/sys/i386/conf/GENERIC
+Index: kfreebsd-10/sys/i386/conf/GENERIC
+===================================================================
+--- kfreebsd-10.orig/sys/i386/conf/GENERIC	2012-11-02 12:57:47.299210575 -0700
++++ kfreebsd-10/sys/i386/conf/GENERIC	2012-11-02 12:57:49.109210819 -0700
 @@ -18,13 +18,13 @@
  #
  # $FreeBSD$
@@ -131,7 +135,7 @@
  # ATA controllers
  device		ahci		# AHCI-compatible SATA controllers
  device		ata		# Legacy ATA/SATA controllers
-@@ -209,10 +208,6 @@
+@@ -211,10 +210,6 @@
  # Parallel port
  device		ppc
  device		ppbus		# Parallel port bus (required)
@@ -142,8 +146,8 @@
  
  device		puc		# Multi I/O cards and multi-channel UARTs
  
-@@ -311,10 +306,7 @@
- device		random		# Entropy device
+@@ -315,10 +310,7 @@
+ options 	RDRAND_RNG	# Intel Bull Mountain RNG
  device		ether		# Ethernet support
  device		vlan		# 802.1Q VLAN support
 -device		tun		# Packet tunnel.
@@ -153,8 +157,10 @@
  device		firmware	# firmware assist module
  
  # The `bpf' device enables the Berkeley Packet Filter.
---- /dev/null
-+++ b/sys/conf/DEBIAN
+Index: kfreebsd-10/sys/conf/DEBIAN
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ kfreebsd-10/sys/conf/DEBIAN	2012-11-02 12:57:49.109210819 -0700
 @@ -0,0 +1,52 @@
 +# Common options to all Debian GNU/kFreeBSD kernels
 +

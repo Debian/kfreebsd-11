@@ -1,8 +1,10 @@
 
 Co-authored by Nali Toja
 
---- a/sys/conf/kern.mk
-+++ b/sys/conf/kern.mk
+Index: kfreebsd-10/sys/conf/kern.mk
+===================================================================
+--- kfreebsd-10.orig/sys/conf/kern.mk	2012-11-02 12:57:20.000000000 -0700
++++ kfreebsd-10/sys/conf/kern.mk	2012-11-02 12:57:45.699217540 -0700
 @@ -1,11 +1,18 @@
  # $FreeBSD$
  
@@ -23,10 +25,10 @@ Co-authored by Nali Toja
  		-Wmissing-include-dirs -fdiagnostics-show-option \
  		${CWARNEXTRA}
  #
-@@ -52,7 +59,7 @@
+@@ -53,7 +60,7 @@
  #
  .if ${MACHINE_CPUARCH} == "i386"
- .if ${MK_CLANG_IS_CC} == "no" && ${CC:T:Mclang} != "clang"
+ .if ${COMPILER_TYPE} != "clang"
 -CFLAGS+=	-mno-align-long-strings -mpreferred-stack-boundary=2
 +CFLAGS+=	${no_align_long_strings} -mpreferred-stack-boundary=2
  .else

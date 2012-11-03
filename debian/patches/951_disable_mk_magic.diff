@@ -1,8 +1,10 @@
 
 freebsd-buildutils 9.0 doesn't define MK_CTF.
 
---- a/sys/conf/kern.post.mk
-+++ b/sys/conf/kern.post.mk
+Index: kfreebsd-10/sys/conf/kern.post.mk
+===================================================================
+--- kfreebsd-10.orig/sys/conf/kern.post.mk	2012-11-02 12:57:46.469212125 -0700
++++ kfreebsd-10/sys/conf/kern.post.mk	2012-11-02 12:57:48.969213512 -0700
 @@ -125,7 +125,7 @@
  	@rm -f ${.TARGET}
  	@echo linking ${.TARGET}
@@ -12,8 +14,10 @@ freebsd-buildutils 9.0 doesn't define MK_CTF.
  	${CTFMERGE} ${CTFFLAGS} -o ${.TARGET} ${SYSTEM_OBJS} vers.o
  .endif
  .if !defined(DEBUG)
---- a/sys/conf/kern.pre.mk
-+++ b/sys/conf/kern.pre.mk
+Index: kfreebsd-10/sys/conf/kern.pre.mk
+===================================================================
+--- kfreebsd-10.orig/sys/conf/kern.pre.mk	2012-11-02 12:57:48.679211527 -0700
++++ kfreebsd-10/sys/conf/kern.pre.mk	2012-11-02 12:57:48.969213512 -0700
 @@ -142,7 +142,7 @@
  ZFS_C=		${CC} -c ${ZFS_CFLAGS} ${WERROR} ${PROF} ${.IMPSRC}
  ZFS_S=		${CC} -c ${ZFS_ASM_CFLAGS} ${WERROR} ${.IMPSRC}

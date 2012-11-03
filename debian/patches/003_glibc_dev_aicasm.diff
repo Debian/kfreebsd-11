@@ -1,8 +1,10 @@
 
 Partially sent to freebsd-hackers (2011-07-02)
 
---- a/sys/dev/aic7xxx/aicasm/Makefile
-+++ b/sys/dev/aic7xxx/aicasm/Makefile
+Index: kfreebsd-10/sys/dev/aic7xxx/aicasm/Makefile
+===================================================================
+--- kfreebsd-10.orig/sys/dev/aic7xxx/aicasm/Makefile	2012-11-02 12:57:20.000000000 -0700
++++ kfreebsd-10/sys/dev/aic7xxx/aicasm/Makefile	2012-11-02 12:57:46.319210733 -0700
 @@ -16,6 +16,9 @@
  DPADD=	${LIBL}
  LDADD=	-ll

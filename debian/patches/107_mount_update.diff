@@ -5,8 +5,10 @@ comment below).
 
 Also see PR kern/150206
 
---- a/sys/kern/vfs_mount.c
-+++ b/sys/kern/vfs_mount.c
+Index: kfreebsd-10/sys/kern/vfs_mount.c
+===================================================================
+--- kfreebsd-10.orig/sys/kern/vfs_mount.c	2012-11-02 12:57:20.000000000 -0700
++++ kfreebsd-10/sys/kern/vfs_mount.c	2012-11-02 12:57:46.609212205 -0700
 @@ -652,6 +652,24 @@
  	}
  

@@ -1,0 +1,19 @@
+Index: modules/cxgbe/Makefile
+===================================================================
+--- a/sys/modules/cxgbe/Makefile	(revision 242489)
++++ b/sys/modules/cxgbe/Makefile	(working copy)
+@@ -2,8 +2,14 @@
+ # $FreeBSD$
+ #
+ 
++.include <bsd.own.mk>
++
+ SUBDIR = if_cxgbe
++
++.if ${MK_SOURCELESS_UCODE} != "no"
+ SUBDIR+= firmware
++.endif
++
+ SUBDIR+= ${_tom}
+ 
+ .if ${MACHINE_CPUARCH} == "amd64" || ${MACHINE_CPUARCH} == "i386"

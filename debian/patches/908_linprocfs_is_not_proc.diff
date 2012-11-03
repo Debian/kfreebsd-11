@@ -1,6 +1,8 @@
---- a/sys/compat/linprocfs/linprocfs.c
-+++ b/sys/compat/linprocfs/linprocfs.c
-@@ -361,10 +361,6 @@
+Index: kfreebsd-10/sys/compat/linprocfs/linprocfs.c
+===================================================================
+--- kfreebsd-10.orig/sys/compat/linprocfs/linprocfs.c	2012-11-02 12:57:20.000000000 -0700
++++ kfreebsd-10/sys/compat/linprocfs/linprocfs.c	2012-11-02 12:57:47.439210964 -0700
+@@ -360,10 +360,6 @@
  
  		/* determine fs type */
  		fstype = mp->mnt_stat.f_fstypename;

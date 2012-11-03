@@ -1,5 +1,7 @@
---- a/sys/netinet6/in6_proto.c
-+++ b/sys/netinet6/in6_proto.c
+Index: kfreebsd-10/sys/netinet6/in6_proto.c
+===================================================================
+--- kfreebsd-10.orig/sys/netinet6/in6_proto.c	2012-11-02 12:57:20.000000000 -0700
++++ kfreebsd-10/sys/netinet6/in6_proto.c	2012-11-02 12:57:47.979210715 -0700
 @@ -396,7 +396,7 @@
  VNET_DEFINE(int, ip6_sendredirects) = IPV6_SENDREDIRECTS;
  VNET_DEFINE(int, ip6_defhlim) = IPV6_DEFHLIM;

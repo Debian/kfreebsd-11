@@ -3,8 +3,10 @@ Just to make sure NKPT is defined in config and not here.
 
 Also see #596577.
 
---- a/sys/amd64/include/pmap.h
-+++ b/sys/amd64/include/pmap.h
+Index: kfreebsd-10/sys/amd64/include/pmap.h
+===================================================================
+--- kfreebsd-10.orig/sys/amd64/include/pmap.h	2012-11-02 12:57:20.000000000 -0700
++++ kfreebsd-10/sys/amd64/include/pmap.h	2012-11-02 12:57:48.129211080 -0700
 @@ -115,7 +115,7 @@
  
  /* Initial number of kernel page tables. */

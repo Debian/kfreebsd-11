@@ -2,8 +2,10 @@
 Status: FIONBIO/FIOASYNC is in http://www.freebsd.org/cgi/query-pr.cgi?pr=138526
 	/dev/full already rejected in upstream (kern/68961)
 
---- a/sys/dev/null/null.c
-+++ b/sys/dev/null/null.c
+Index: kfreebsd-10/sys/dev/null/null.c
+===================================================================
+--- kfreebsd-10.orig/sys/dev/null/null.c	2012-11-02 12:57:20.000000000 -0700
++++ kfreebsd-10/sys/dev/null/null.c	2012-11-02 12:57:47.169211704 -0700
 @@ -46,9 +46,11 @@
  
  /* For use with destroy_dev(9). */

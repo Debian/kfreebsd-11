@@ -1,4 +1,12 @@
-kfreebsd-10 (10.0~svn238475-3) experimental; urgency=low
+kfreebsd-10 (10.0~svn242489-1) experimental; urgency=low
+
+  * Update to SVN 242489
+    * Includes Upstream fix for SCTP DoS (Closes: #686963)
+    * Drop xfs and ntfs modules not build upstream currently
+
+ -- Christoph Egger <christoph@debian.org>  Sun, 30 Sep 2012 18:13:53 -0700
+
+kfreebsd-10 (10.0~svn240469-1) experimental; urgency=low
 
   * Add byacc to Build-Depends.
 
