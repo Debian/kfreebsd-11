@@ -3,10 +3,8 @@ Rejected on freebsd-hackers:
 
 http://lists.freebsd.org/pipermail/freebsd-hackers/2011-July/thread.html#35854
 
-Index: kfreebsd-10/sys/conf/kern.pre.mk
-===================================================================
---- kfreebsd-10.orig/sys/conf/kern.pre.mk	2012-11-02 12:57:46.879211260 -0700
-+++ kfreebsd-10/sys/conf/kern.pre.mk	2012-11-02 12:57:48.679211527 -0700
+--- a/sys/conf/kern.pre.mk
++++ b/sys/conf/kern.pre.mk
 @@ -97,6 +97,8 @@
  .endif
  WERROR?= -Werror
@@ -16,10 +14,8 @@ Index: kfreebsd-10/sys/conf/kern.pre.mk
  # XXX LOCORE means "don't declare C stuff" not "for locore.s".
  ASM_CFLAGS= -x assembler-with-cpp -DLOCORE ${CFLAGS}
  
-Index: kfreebsd-10/sys/conf/kmod.mk
-===================================================================
---- kfreebsd-10.orig/sys/conf/kmod.mk	2012-11-02 12:57:46.879211260 -0700
-+++ kfreebsd-10/sys/conf/kmod.mk	2012-11-02 12:57:48.679211527 -0700
+--- a/sys/conf/kmod.mk
++++ b/sys/conf/kmod.mk
 @@ -95,6 +95,8 @@
  CFLAGS+=	-D_KERNEL
  CFLAGS+=	-DKLD_MODULE

@@ -1,7 +1,5 @@
-Index: kfreebsd-10/sys/conf/options.mips
-===================================================================
---- kfreebsd-10.orig/sys/conf/options.mips	2012-11-02 12:57:20.000000000 -0700
-+++ kfreebsd-10/sys/conf/options.mips	2012-11-02 12:57:46.749210745 -0700
+--- a/sys/conf/options.mips
++++ b/sys/conf/options.mips
 @@ -63,6 +63,9 @@
  TICK_USE_YAMON_FREQ	opt_global.h
  TICK_USE_MALTA_RTC	opt_global.h

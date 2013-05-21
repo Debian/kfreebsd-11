@@ -13,7 +13,7 @@
 109_linprocfs_non_x86.diff
 
 # Patches that are likely to be Debian-specific
-901_disable_optimization_2.diff
+#901_disable_optimization_2.diff
 902_version.diff
 904_dev_full.diff
 906_grow_sysv_ipc_limits.diff
@@ -22,7 +22,7 @@
 913_uudecode.diff
 914_psm.diff
 915_ip6.v6only.diff
-916_NKPT_amd64.diff
+#916_NKPT_amd64.diff
 917_disable_kgssapi.diff
 918_unix_socket_overflow.diff
 919_delete_key.diff
@@ -30,3 +30,7 @@
 921_signal_watchdog.diff
 951_disable_mk_magic.diff
 999_config.diff
+
+# temporary
+debugger.diff
+cc_version.diff

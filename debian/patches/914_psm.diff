@@ -5,10 +5,8 @@ It is a revert of upstream commit r18970:
 | 
 | This makes Xorg happy if you aren't using moused.
 
-Index: kfreebsd-10/sys/dev/atkbdc/psm.c
-===================================================================
---- kfreebsd-10.orig/sys/dev/atkbdc/psm.c	2012-11-02 12:57:20.000000000 -0700
-+++ kfreebsd-10/sys/dev/atkbdc/psm.c	2012-11-02 12:57:47.849210714 -0700
+--- a/sys/dev/atkbdc/psm.c
++++ b/sys/dev/atkbdc/psm.c
 @@ -70,10 +70,7 @@
  #include <sys/module.h>
  #include <sys/bus.h>
@@ -20,7 +18,7 @@ Index: kfreebsd-10/sys/dev/atkbdc/psm.c
  #include <sys/syslog.h>
  #include <machine/bus.h>
  #include <sys/rman.h>
-@@ -297,7 +294,6 @@
+@@ -335,7 +332,6 @@
  	struct cdev	*bdev;
  	int		lasterr;
  	int		cmdcount;
@@ -28,7 +26,7 @@ Index: kfreebsd-10/sys/dev/atkbdc/psm.c
  };
  static devclass_t psm_devclass;
  
-@@ -1518,7 +1514,6 @@
+@@ -1565,7 +1561,6 @@
  	sc->mode.level = sc->dflt_mode.level;
  	sc->mode.protocol = sc->dflt_mode.protocol;
  	sc->watchdog = FALSE;
@@ -36,7 +34,7 @@ Index: kfreebsd-10/sys/dev/atkbdc/psm.c
  
  	/* flush the event queue */
  	sc->queue.count = 0;
-@@ -1659,12 +1654,6 @@
+@@ -1706,12 +1701,6 @@
  	/* remove anything left in the output buffer */
  	empty_aux_buffer(sc->kbdc, 10);
  
@@ -49,7 +47,7 @@ Index: kfreebsd-10/sys/dev/atkbdc/psm.c
  	/* close is almost always successful */
  	sc->state &= ~PSM_OPEN;
  	kbdc_lock(sc->kbdc, FALSE);
-@@ -2226,15 +2215,6 @@
+@@ -2273,15 +2262,6 @@
  		break;
  #endif /* MOUSE_GETHWID */
  
@@ -65,7 +63,7 @@ Index: kfreebsd-10/sys/dev/atkbdc/psm.c
  	default:
  		return (ENOTTY);
  	}
-@@ -3501,9 +3481,6 @@
+@@ -3549,9 +3529,6 @@
  		wakeup(sc);
  	}
  	selwakeuppri(&sc->rsel, PZERO);

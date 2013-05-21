@@ -3,10 +3,8 @@ Debian Policy 9.8 Keyboard configuration
 The (Linux) console is configured to make <-- generate DEL, and Delete generate ESC [ 3 ~.
 
 
-Index: kfreebsd-10/sys/dev/kbd/kbdtables.h
-===================================================================
---- kfreebsd-10.orig/sys/dev/kbd/kbdtables.h	2012-11-02 12:57:19.000000000 -0700
-+++ kfreebsd-10/sys/dev/kbd/kbdtables.h	2012-11-02 12:57:48.549213888 -0700
+--- a/sys/dev/kbd/kbdtables.h
++++ b/sys/dev/kbd/kbdtables.h
 @@ -56,7 +56,7 @@
  /*0b*/{{  '0',   ')',   NOP,   NOP,   '0',   ')',   NOP,   NOP, }, 0x33,0x00 },
  /*0c*/{{  '-',   '_',  0x1F,  0x1F,   '-',   '_',  0x1F,  0x1F, }, 0x00,0x00 },

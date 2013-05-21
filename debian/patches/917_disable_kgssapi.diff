@@ -1,8 +1,6 @@
-Index: kfreebsd-10/sys/modules/Makefile
-===================================================================
---- kfreebsd-10.orig/sys/modules/Makefile	2012-11-02 12:57:20.000000000 -0700
-+++ kfreebsd-10/sys/modules/Makefile	2012-11-02 12:57:48.279210520 -0700
-@@ -167,8 +167,6 @@
+--- a/sys/modules/Makefile
++++ b/sys/modules/Makefile
+@@ -169,8 +169,6 @@
  	jme \
  	joy \
  	kbdmux \

@@ -1,0 +1,14 @@
+Ensure we don't accidentally match lines with 'version' as a substring in
+some other term (such as a compiler flag) when grepping for the compiler
+version.
+--- a/sys/conf/newvers.sh
++++ b/sys/conf/newvers.sh
+@@ -86,7 +86,7 @@
+ touch version
+ v=`cat version` u=${USER:-root} d=`pwd` h=${HOSTNAME:-`hostname`} t=`date`
+ i=`${MAKE:-make} -V KERN_IDENT`
+-compiler_v=$($(${MAKE:-make} -V CC) -v 2>&1 | grep 'version')
++compiler_v=$($(${MAKE:-make} -V CC) -v 2>&1 | grep ' version ')
+ 
+ for dir in /bin /usr/bin /usr/local/bin; do
+ 	if [ -x "${dir}/svnversion" ] && [ -z ${svnversion} ] ; then

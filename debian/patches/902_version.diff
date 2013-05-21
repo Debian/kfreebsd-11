@@ -1,8 +1,6 @@
-Index: kfreebsd-10/sys/conf/newvers.sh
-===================================================================
---- kfreebsd-10.orig/sys/conf/newvers.sh	2012-11-02 12:57:20.000000000 -0700
-+++ kfreebsd-10/sys/conf/newvers.sh	2012-11-02 12:57:47.019211750 -0700
-@@ -154,7 +154,7 @@
+--- a/sys/conf/newvers.sh
++++ b/sys/conf/newvers.sh
+@@ -155,7 +155,7 @@
  cat << EOF > vers.c
  $COPYRIGHT
  #define SCCSSTR "@(#)${VERSION} #${v}${svn}${git}${p4version}: ${t}"

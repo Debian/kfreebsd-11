@@ -1,8 +1,6 @@
-Index: modules/cxgbe/Makefile
-===================================================================
---- a/sys/modules/cxgbe/Makefile	(revision 242489)
-+++ b/sys/modules/cxgbe/Makefile	(working copy)
-@@ -2,8 +2,14 @@
+--- a/sys/modules/cxgbe/Makefile
++++ b/sys/modules/cxgbe/Makefile
+@@ -2,9 +2,15 @@
  # $FreeBSD$
  #
  
@@ -11,7 +9,8 @@ Index: modules/cxgbe/Makefile
  SUBDIR = if_cxgbe
 +
 +.if ${MK_SOURCELESS_UCODE} != "no"
- SUBDIR+= firmware
+ SUBDIR+= t4_firmware
+ #SUBDIR+= t5_firmware
 +.endif
 +
  SUBDIR+= ${_tom}

@@ -1,17 +1,13 @@
-Index: kfreebsd-10-10.0~svn242489/sys/modules/ralfw/Makefile.inc
-===================================================================
---- kfreebsd-10-10.0~svn242489.orig/sys/modules/ralfw/Makefile.inc	2008-04-20 13:35:46.000000000 -0700
-+++ kfreebsd-10-10.0~svn242489/sys/modules/ralfw/Makefile.inc	2012-11-02 13:05:40.379258875 -0700
+--- a/sys/modules/ralfw/Makefile.inc
++++ b/sys/modules/ralfw/Makefile.inc
 @@ -12,4 +12,4 @@
  FIRMWS=	${_FIRM}:${KMOD}
  
  ${_FIRM}: ${.CURDIR}/../../../contrib/dev/ral/${_FIRM}.uu
 -	uudecode -p $? > ${.TARGET}
 +	uudecode -o- $? > ${.TARGET}
-Index: kfreebsd-10-10.0~svn242489/sys/modules/mwlfw/Makefile
-===================================================================
---- kfreebsd-10-10.0~svn242489.orig/sys/modules/mwlfw/Makefile	2009-06-01 11:07:01.000000000 -0700
-+++ kfreebsd-10-10.0~svn242489/sys/modules/mwlfw/Makefile	2012-11-02 13:05:40.429272420 -0700
+--- a/sys/modules/mwlfw/Makefile
++++ b/sys/modules/mwlfw/Makefile
 @@ -6,9 +6,9 @@
  CLEANFILES+= mw88W8363.fw mwlboot.fw
  
@@ -24,10 +20,8 @@ Index: kfreebsd-10-10.0~svn242489/sys/modules/mwlfw/Makefile
 +	uudecode -o- $? > ${.TARGET}
  
  .include <bsd.kmod.mk>
-Index: kfreebsd-10-10.0~svn242489/sys/modules/ipwfw/ipw_bss/Makefile
-===================================================================
---- kfreebsd-10-10.0~svn242489.orig/sys/modules/ipwfw/ipw_bss/Makefile	2007-03-02 03:42:56.000000000 -0800
-+++ kfreebsd-10-10.0~svn242489/sys/modules/ipwfw/ipw_bss/Makefile	2012-11-02 13:05:40.489224406 -0700
+--- a/sys/modules/ipwfw/ipw_bss/Makefile
++++ b/sys/modules/ipwfw/ipw_bss/Makefile
 @@ -9,7 +9,7 @@
  CLEANFILES=	ipw_bss
  
@@ -37,10 +31,8 @@ Index: kfreebsd-10-10.0~svn242489/sys/modules/ipwfw/ipw_bss/Makefile
  
  .include <bsd.kmod.mk>
  
-Index: kfreebsd-10-10.0~svn242489/sys/modules/ipwfw/ipw_ibss/Makefile
-===================================================================
---- kfreebsd-10-10.0~svn242489.orig/sys/modules/ipwfw/ipw_ibss/Makefile	2007-03-02 03:42:56.000000000 -0800
-+++ kfreebsd-10-10.0~svn242489/sys/modules/ipwfw/ipw_ibss/Makefile	2012-11-02 13:05:40.519214575 -0700
+--- a/sys/modules/ipwfw/ipw_ibss/Makefile
++++ b/sys/modules/ipwfw/ipw_ibss/Makefile
 @@ -9,7 +9,7 @@
  CLEANFILES=	ipw_ibss
  
@@ -50,25 +42,19 @@ Index: kfreebsd-10-10.0~svn242489/sys/modules/ipwfw/ipw_ibss/Makefile
  
  .include <bsd.kmod.mk>
  
-Index: kfreebsd-10-10.0~svn242489/sys/modules/ipwfw/ipw_monitor/Makefile
-===================================================================
---- kfreebsd-10-10.0~svn242489.orig/sys/modules/ipwfw/ipw_monitor/Makefile	2007-03-02 03:42:56.000000000 -0800
-+++ kfreebsd-10-10.0~svn242489/sys/modules/ipwfw/ipw_monitor/Makefile	2012-11-02 13:05:40.549216559 -0700
-@@ -8,8 +8,8 @@
- 
+--- a/sys/modules/ipwfw/ipw_monitor/Makefile
++++ b/sys/modules/ipwfw/ipw_monitor/Makefile
+@@ -9,7 +9,7 @@
  CLEANFILES=	ipw_monitor
  
--ipw_monitor: ${.CURDIR}/../../../contrib/dev/ipw/ipw2100-1.3-p.fw.uu
+ ipw_monitor: ${.CURDIR}/../../../contrib/dev/ipw/ipw2100-1.3-p.fw.uu
 -	uudecode -p ${.CURDIR}/../../../contrib/dev/ipw/ipw2100-1.3-p.fw.uu > ${.TARGET}
-+ipw_monitor: ${.CURDIR}/../../../contrib/dev/ipw/ipw2100-1.3-o-.fw.uu
-+	uudecode -o- ${.CURDIR}/../../../contrib/dev/ipw/ipw2100-1.3-o-.fw.uu > ${.TARGET}
++	uudecode -o- ${.CURDIR}/../../../contrib/dev/ipw/ipw2100-1.3-p.fw.uu > ${.TARGET}
  
  .include <bsd.kmod.mk>
  
-Index: kfreebsd-10-10.0~svn242489/sys/modules/iwifw/iwi_bss/Makefile
-===================================================================
---- kfreebsd-10-10.0~svn242489.orig/sys/modules/iwifw/iwi_bss/Makefile	2007-03-02 03:42:56.000000000 -0800
-+++ kfreebsd-10-10.0~svn242489/sys/modules/iwifw/iwi_bss/Makefile	2012-11-02 13:05:40.569230894 -0700
+--- a/sys/modules/iwifw/iwi_bss/Makefile
++++ b/sys/modules/iwifw/iwi_bss/Makefile
 @@ -9,7 +9,7 @@
  CLEANFILES=	iwi_bss
  
@@ -78,10 +64,8 @@ Index: kfreebsd-10-10.0~svn242489/sys/modules/iwifw/iwi_bss/Makefile
  
  .include <bsd.kmod.mk>
  
-Index: kfreebsd-10-10.0~svn242489/sys/modules/iwifw/iwi_ibss/Makefile
-===================================================================
---- kfreebsd-10-10.0~svn242489.orig/sys/modules/iwifw/iwi_ibss/Makefile	2007-03-02 03:42:56.000000000 -0800
-+++ kfreebsd-10-10.0~svn242489/sys/modules/iwifw/iwi_ibss/Makefile	2012-11-02 13:05:40.589247592 -0700
+--- a/sys/modules/iwifw/iwi_ibss/Makefile
++++ b/sys/modules/iwifw/iwi_ibss/Makefile
 @@ -9,7 +9,7 @@
  CLEANFILES=	iwi_fw
  
@@ -91,10 +75,8 @@ Index: kfreebsd-10-10.0~svn242489/sys/modules/iwifw/iwi_ibss/Makefile
  
  .include <bsd.kmod.mk>
  
-Index: kfreebsd-10-10.0~svn242489/sys/modules/iwifw/iwi_monitor/Makefile
-===================================================================
---- kfreebsd-10-10.0~svn242489.orig/sys/modules/iwifw/iwi_monitor/Makefile	2007-03-02 03:42:56.000000000 -0800
-+++ kfreebsd-10-10.0~svn242489/sys/modules/iwifw/iwi_monitor/Makefile	2012-11-02 13:05:40.619214236 -0700
+--- a/sys/modules/iwifw/iwi_monitor/Makefile
++++ b/sys/modules/iwifw/iwi_monitor/Makefile
 @@ -9,7 +9,7 @@
  CLEANFILES=	iwi_monitor
  
@@ -104,10 +86,8 @@ Index: kfreebsd-10-10.0~svn242489/sys/modules/iwifw/iwi_monitor/Makefile
  
  .include <bsd.kmod.mk>
  
-Index: kfreebsd-10-10.0~svn242489/sys/modules/wpifw/Makefile
-===================================================================
---- kfreebsd-10-10.0~svn242489.orig/sys/modules/wpifw/Makefile	2010-12-19 03:37:44.000000000 -0800
-+++ kfreebsd-10-10.0~svn242489/sys/modules/wpifw/Makefile	2012-11-02 13:05:40.639213265 -0700
+--- a/sys/modules/wpifw/Makefile
++++ b/sys/modules/wpifw/Makefile
 @@ -8,6 +8,6 @@
  CLEANFILES=	iwlwifi-3945-15.32.2.9.fw
  
@@ -116,20 +96,16 @@ Index: kfreebsd-10-10.0~svn242489/sys/modules/wpifw/Makefile
 +	uudecode -o- ${.CURDIR}/../../contrib/dev/wpi/iwlwifi-3945-15.32.2.9.fw.uu > ${.TARGET}
  
  .include <bsd.kmod.mk>
-Index: kfreebsd-10-10.0~svn242489/sys/modules/iwnfw/Makefile.inc
-===================================================================
---- kfreebsd-10-10.0~svn242489.orig/sys/modules/iwnfw/Makefile.inc	2010-05-27 05:54:42.000000000 -0700
-+++ kfreebsd-10-10.0~svn242489/sys/modules/iwnfw/Makefile.inc	2012-11-02 13:05:40.659224312 -0700
+--- a/sys/modules/iwnfw/Makefile.inc
++++ b/sys/modules/iwnfw/Makefile.inc
 @@ -15,4 +15,4 @@
  #FIRMWARE_LICENSE=
  
  ${_FIRM}: ${.CURDIR}/../../../contrib/dev/iwn/${_FIRM}.uu
 -	uudecode -p $? > ${.TARGET}
 +	uudecode -o- $? > ${.TARGET}
-Index: kfreebsd-10-10.0~svn242489/sys/modules/runfw/Makefile
-===================================================================
---- kfreebsd-10-10.0~svn242489.orig/sys/modules/runfw/Makefile	2010-01-28 19:35:01.000000000 -0800
-+++ kfreebsd-10-10.0~svn242489/sys/modules/runfw/Makefile	2012-11-02 13:05:40.689225577 -0700
+--- a/sys/modules/runfw/Makefile
++++ b/sys/modules/runfw/Makefile
 @@ -6,6 +6,6 @@
  CLEANFILES=	runfw
  

@@ -1,7 +1,5 @@
-Index: kfreebsd-10/usr.sbin/config/main.c
-===================================================================
---- kfreebsd-10.orig/usr.sbin/config/main.c	2012-11-02 12:57:20.000000000 -0700
-+++ kfreebsd-10/usr.sbin/config/main.c	2012-11-02 12:57:46.099211664 -0700
+--- a/usr.sbin/config/main.c
++++ b/usr.sbin/config/main.c
 @@ -60,6 +60,10 @@
  #include "config.h"
  #include "configvers.h"
@@ -13,10 +11,8 @@ Index: kfreebsd-10/usr.sbin/config/main.c
  #ifndef TRUE
  #define TRUE	(1)
  #endif
-Index: kfreebsd-10/usr.sbin/config/mkmakefile.c
-===================================================================
---- kfreebsd-10.orig/usr.sbin/config/mkmakefile.c	2012-11-02 12:57:20.000000000 -0700
-+++ kfreebsd-10/usr.sbin/config/mkmakefile.c	2012-11-02 12:57:46.099211664 -0700
+--- a/usr.sbin/config/mkmakefile.c
++++ b/usr.sbin/config/mkmakefile.c
 @@ -50,6 +50,10 @@
  #include "config.h"
  #include "configvers.h"
@@ -28,10 +24,8 @@ Index: kfreebsd-10/usr.sbin/config/mkmakefile.c
  #define next_word(fp, wd) \
  	{ char *word = get_word(fp); \
  	  if (word == (char *)EOF) \
-Index: kfreebsd-10/usr.sbin/config/mkoptions.c
-===================================================================
---- kfreebsd-10.orig/usr.sbin/config/mkoptions.c	2012-11-02 12:57:20.000000000 -0700
-+++ kfreebsd-10/usr.sbin/config/mkoptions.c	2012-11-02 12:57:46.099211664 -0700
+--- a/usr.sbin/config/mkoptions.c
++++ b/usr.sbin/config/mkoptions.c
 @@ -48,6 +48,10 @@
  #include "config.h"
  #include "y.tab.h"
@@ -43,10 +37,8 @@ Index: kfreebsd-10/usr.sbin/config/mkoptions.c
  static	struct users {
  	int	u_default;
  	int	u_min;
-Index: kfreebsd-10/sys/dev/aic7xxx/aicasm/aicasm_scan.l
-===================================================================
---- kfreebsd-10.orig/sys/dev/aic7xxx/aicasm/aicasm_scan.l	2012-11-02 12:57:20.000000000 -0700
-+++ kfreebsd-10/sys/dev/aic7xxx/aicasm/aicasm_scan.l	2012-11-02 12:57:46.099211664 -0700
+--- a/sys/dev/aic7xxx/aicasm/aicasm_scan.l
++++ b/sys/dev/aic7xxx/aicasm/aicasm_scan.l
 @@ -57,6 +57,10 @@
  #include "aicasm_symbol.h"
  #include "aicasm_gram.h"

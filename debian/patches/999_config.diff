@@ -1,7 +1,5 @@
-Index: kfreebsd-10/sys/amd64/conf/GENERIC
-===================================================================
---- kfreebsd-10.orig/sys/amd64/conf/GENERIC	2012-11-02 12:57:47.299210575 -0700
-+++ kfreebsd-10/sys/amd64/conf/GENERIC	2012-11-02 12:57:49.109210819 -0700
+--- a/sys/amd64/conf/GENERIC
++++ b/sys/amd64/conf/GENERIC
 @@ -18,11 +18,11 @@
  #
  # $FreeBSD$
@@ -18,7 +16,7 @@ Index: kfreebsd-10/sys/amd64/conf/GENERIC
  
  options 	SCHED_ULE		# ULE scheduler
  options 	PREEMPTION		# Enable kernel thread preemption
-@@ -52,7 +52,7 @@
+@@ -53,7 +53,7 @@
  options 	COMPAT_FREEBSD5		# Compatible with FreeBSD5
  options 	COMPAT_FREEBSD6		# Compatible with FreeBSD6
  options 	COMPAT_FREEBSD7		# Compatible with FreeBSD7
@@ -27,7 +25,7 @@ Index: kfreebsd-10/sys/amd64/conf/GENERIC
  options 	KTRACE			# ktrace(1) support
  options 	STACK			# stack(9) support
  options 	SYSVSHM			# SYSV-style shared memory
-@@ -71,9 +71,9 @@
+@@ -72,9 +72,9 @@
  options 	CAPABILITY_MODE		# Capsicum capability mode
  options 	CAPABILITIES		# Capsicum capabilities
  options 	MAC			# TrustedBSD MAC Framework
@@ -40,7 +38,7 @@ Index: kfreebsd-10/sys/amd64/conf/GENERIC
  options 	INCLUDE_CONFIG_FILE     # Include this file in kernel
  
  # Debugging support.  Always need this:
-@@ -100,9 +100,6 @@
+@@ -101,9 +101,6 @@
  device		acpi
  device		pci
  
@@ -50,18 +48,17 @@ Index: kfreebsd-10/sys/amd64/conf/GENERIC
  # ATA controllers
  device		ahci		# AHCI-compatible SATA controllers
  device		ata		# Legacy ATA/SATA controllers
-@@ -200,10 +197,6 @@
+@@ -200,9 +197,6 @@
  # Parallel port
  device		ppc
  device		ppbus		# Parallel port bus (required)
 -device		lpt		# Printer
--device		plip		# TCP/IP over parallel
 -device		ppi		# Parallel port interface device
 -#device		vpo		# Requires scbus and da
  
  device		puc		# Multi I/O cards and multi-channel UARTs
  
-@@ -301,10 +294,7 @@
+@@ -300,10 +294,7 @@
  options 	RDRAND_RNG	# Intel Bull Mountain RNG
  device		ether		# Ethernet support
  device		vlan		# 802.1Q VLAN support
@@ -72,10 +69,8 @@ Index: kfreebsd-10/sys/amd64/conf/GENERIC
  device		firmware	# firmware assist module
  
  # The `bpf' device enables the Berkeley Packet Filter.
-Index: kfreebsd-10/sys/i386/conf/GENERIC
-===================================================================
---- kfreebsd-10.orig/sys/i386/conf/GENERIC	2012-11-02 12:57:47.299210575 -0700
-+++ kfreebsd-10/sys/i386/conf/GENERIC	2012-11-02 12:57:49.109210819 -0700
+--- a/sys/i386/conf/GENERIC
++++ b/sys/i386/conf/GENERIC
 @@ -18,13 +18,13 @@
  #
  # $FreeBSD$
@@ -96,7 +91,7 @@ Index: kfreebsd-10/sys/i386/conf/GENERIC
  
  options 	SCHED_ULE		# ULE scheduler
  options 	PREEMPTION		# Enable kernel thread preemption
-@@ -45,6 +45,8 @@
+@@ -46,6 +46,8 @@
  options 	MSDOSFS			# MSDOS Filesystem
  options 	CD9660			# ISO 9660 Filesystem
  options 	PROCFS			# Process filesystem (requires PSEUDOFS)
@@ -105,7 +100,7 @@ Index: kfreebsd-10/sys/i386/conf/GENERIC
  options 	PSEUDOFS		# Pseudo-filesystem framework
  options 	GEOM_PART_GPT		# GUID Partition Tables.
  options 	GEOM_RAID		# Soft RAID functionality.
-@@ -53,7 +55,7 @@
+@@ -54,7 +56,7 @@
  options 	COMPAT_FREEBSD5		# Compatible with FreeBSD5
  options 	COMPAT_FREEBSD6		# Compatible with FreeBSD6
  options 	COMPAT_FREEBSD7		# Compatible with FreeBSD7
@@ -114,7 +109,7 @@ Index: kfreebsd-10/sys/i386/conf/GENERIC
  options 	KTRACE			# ktrace(1) support
  options 	STACK			# stack(9) support
  options 	SYSVSHM			# SYSV-style shared memory
-@@ -72,8 +74,8 @@
+@@ -73,8 +75,8 @@
  options 	CAPABILITY_MODE		# Capsicum capability mode
  options 	CAPABILITIES		# Capsicum capabilities
  options 	MAC			# TrustedBSD MAC Framework
@@ -125,7 +120,7 @@ Index: kfreebsd-10/sys/i386/conf/GENERIC
  options 	INCLUDE_CONFIG_FILE     # Include this file in kernel
  
  # Debugging support.  Always need this:
-@@ -102,9 +104,6 @@
+@@ -103,9 +105,6 @@
  device		eisa
  device		pci
  
@@ -135,18 +130,17 @@ Index: kfreebsd-10/sys/i386/conf/GENERIC
  # ATA controllers
  device		ahci		# AHCI-compatible SATA controllers
  device		ata		# Legacy ATA/SATA controllers
-@@ -211,10 +210,6 @@
+@@ -211,9 +210,6 @@
  # Parallel port
  device		ppc
  device		ppbus		# Parallel port bus (required)
 -device		lpt		# Printer
--device		plip		# TCP/IP over parallel
 -device		ppi		# Parallel port interface device
 -#device		vpo		# Requires scbus and da
  
  device		puc		# Multi I/O cards and multi-channel UARTs
  
-@@ -315,10 +310,7 @@
+@@ -314,10 +310,7 @@
  options 	RDRAND_RNG	# Intel Bull Mountain RNG
  device		ether		# Ethernet support
  device		vlan		# 802.1Q VLAN support
@@ -157,10 +151,8 @@ Index: kfreebsd-10/sys/i386/conf/GENERIC
  device		firmware	# firmware assist module
  
  # The `bpf' device enables the Berkeley Packet Filter.
-Index: kfreebsd-10/sys/conf/DEBIAN
-===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ kfreebsd-10/sys/conf/DEBIAN	2012-11-02 12:57:49.109210819 -0700
+--- /dev/null
++++ b/sys/conf/DEBIAN
 @@ -0,0 +1,52 @@
 +# Common options to all Debian GNU/kFreeBSD kernels
 +

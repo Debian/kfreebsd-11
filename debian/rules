@@ -22,7 +22,7 @@ flavours	:= $(config_files:debian/arch/$(cpu)/%.config=%)
 configfile	:= DEBCUSTOM
 abiname		:= 0
 ld_target	:= $(shell ld --help | sed -ne "s/[^ :]*: supported targets: \([^ ]*\) .*/\1/p")
-kernel_cc	:= gcc-4.6
+kernel_cc	:= gcc-4.8
 
 ifeq ($(cpu), mipsel)
 kfreebsd_cpu	:= mips

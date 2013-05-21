@@ -11,10 +11,8 @@ It handles three situations:
 
   - The spares in struct sigevent are claimed by upstream (see #666454).
 
-Index: kfreebsd-10/sys/sys/signal.h
-===================================================================
---- kfreebsd-10.orig/sys/sys/signal.h	2012-11-02 12:57:19.000000000 -0700
-+++ kfreebsd-10/sys/sys/signal.h	2012-11-02 12:57:48.819211401 -0700
+--- a/sys/sys/signal.h
++++ b/sys/sys/signal.h
 @@ -108,11 +108,7 @@
  #define	SIGUSR1		30	/* user defined signal 1 */
  #define	SIGUSR2		31	/* user defined signal 2 */
@@ -37,10 +35,8 @@ Index: kfreebsd-10/sys/sys/signal.h
  		long __spare__[8];
  	} _sigev_un;
  };
-Index: kfreebsd-10/sys/kern/kern_prot.c
-===================================================================
---- kfreebsd-10.orig/sys/kern/kern_prot.c	2012-11-02 12:57:19.000000000 -0700
-+++ kfreebsd-10/sys/kern/kern_prot.c	2012-11-02 12:57:48.819211401 -0700
+--- a/sys/kern/kern_prot.c
++++ b/sys/kern/kern_prot.c
 @@ -1557,8 +1557,8 @@
  	 * pretty safe to do since the only way to create two processes
  	 * with the same p_leader is via rfork(2).
@@ -52,10 +48,8 @@ Index: kfreebsd-10/sys/kern/kern_prot.c
  		return (0);
  
  	return (cr_cansignal(td->td_ucred, p, signum));
-Index: kfreebsd-10/sys/sys/rctl.h
-===================================================================
---- kfreebsd-10.orig/sys/sys/rctl.h	2012-11-02 12:57:19.000000000 -0700
-+++ kfreebsd-10/sys/sys/rctl.h	2012-11-02 12:57:48.819211401 -0700
+--- a/sys/sys/rctl.h
++++ b/sys/sys/rctl.h
 @@ -124,7 +124,7 @@
  #define	RCTL_ACTION_SIGINFO		SIGINFO
  #define	RCTL_ACTION_SIGUSR1		SIGUSR1

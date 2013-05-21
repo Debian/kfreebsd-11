@@ -1,3 +1,17 @@
+kfreebsd-10 (10.0~svn250856-1) UNRELEASED; urgency=low
+
+  * Update to SVN 250856
+
+  [Petr Salinger]   
+  * refresh all patches
+  * switch to gcc-4.8
+  * disable 901_disable_optimization_2.diff
+
+  [Steven McDonald]
+  * temporary patches debugger.diff and cc_version.diff
+
+ -- Christoph Egger <christoph@debian.org>  Tue, 21 May 2013 18:13:53 +0200
+
 kfreebsd-10 (10.0~svn242489-1) experimental; urgency=low
 
   * Update to SVN 242489
