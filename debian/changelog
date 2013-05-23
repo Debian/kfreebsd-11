@@ -6,6 +6,7 @@ kfreebsd-10 (10.0~svn250856-1) UNRELEASED; urgency=low
   * refresh all patches
   * switch to gcc-4.8
   * disable 901_disable_optimization_2.diff
+  * bump Breaks of grub due to #699002.
 
   [Steven McDonald]
   * temporary patches debugger.diff and cc_version.diff
