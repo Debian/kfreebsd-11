@@ -28,9 +28,9 @@
 919_delete_key.diff
 920_linux_cflags.diff
 921_signal_watchdog.diff
+922_cc_version.diff
 951_disable_mk_magic.diff
 999_config.diff
 
 # temporary
 debugger.diff
-cc_version.diff

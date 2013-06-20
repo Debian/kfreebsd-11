@@ -1,17 +1,18 @@
-kfreebsd-10 (10.0~svn250856-1) UNRELEASED; urgency=low
-
-  * Update to SVN 250856
+kfreebsd-10 (10.0~svn252032-1) UNRELEASED; urgency=low
 
   [Petr Salinger]   
+  * New upstream snapshot.
+    - fix for FreeBSD-SA-13:06.mmap (CVE-2013-2171). (Closes: #712892)
   * refresh all patches
   * switch to gcc-4.8
   * disable 901_disable_optimization_2.diff
   * bump Breaks of grub due to #699002.
 
   [Steven McDonald]
-  * temporary patches debugger.diff and cc_version.diff
+  * add 922_cc_version.diff
+  * temporary patch debugger.diff
 
- -- Christoph Egger <christoph@debian.org>  Tue, 21 May 2013 18:13:53 +0200
+ -- Christoph Egger <christoph@debian.org>  Thu, 20 Jun 2013 18:13:53 +0200
 
 kfreebsd-10 (10.0~svn242489-1) experimental; urgency=low
 
