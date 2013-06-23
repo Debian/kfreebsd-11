@@ -12,6 +12,10 @@ kfreebsd-10 (10.0~svn252032-1) UNRELEASED; urgency=low
   * add 922_cc_version.diff
   * temporary patch debugger.diff
 
+  [ Robert Millan ]
+  * patches/913_uudecode.diff: Remove. It is pointless when using
+    WITHOUT_SOURCELESS.
+
  -- Christoph Egger <christoph@debian.org>  Thu, 20 Jun 2013 18:13:53 +0200
 
 kfreebsd-10 (10.0~svn242489-1) experimental; urgency=low

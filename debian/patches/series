@@ -19,7 +19,6 @@
 906_grow_sysv_ipc_limits.diff
 908_linprocfs_is_not_proc.diff
 910_GENERIC_hints.diff
-913_uudecode.diff
 914_psm.diff
 915_ip6.v6only.diff
 #916_NKPT_amd64.diff
