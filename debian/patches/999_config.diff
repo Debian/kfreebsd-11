@@ -1,6 +1,6 @@
 --- a/sys/amd64/conf/GENERIC
 +++ b/sys/amd64/conf/GENERIC
-@@ -18,11 +18,11 @@
+@@ -18,8 +18,8 @@
  #
  # $FreeBSD$
  
@@ -9,13 +9,8 @@
 +#cpu		HAMMER
 +#ident		GENERIC
  
--makeoptions	DEBUG=-g		# Build kernel with gdb(1) debug symbols
--makeoptions	WITH_CTF=1		# Run ctfconvert(1) for DTrace support
-+#makeoptions	DEBUG=-g		# Build kernel with gdb(1) debug symbols
-+#makeoptions	WITH_CTF=1		# Run ctfconvert(1) for DTrace support
- 
- options 	SCHED_ULE		# ULE scheduler
- options 	PREEMPTION		# Enable kernel thread preemption
+ makeoptions	DEBUG=-g		# Build kernel with gdb(1) debug symbols
+ makeoptions	WITH_CTF=1		# Run ctfconvert(1) for DTrace support
 @@ -53,7 +53,7 @@
  options 	COMPAT_FREEBSD5		# Compatible with FreeBSD5
  options 	COMPAT_FREEBSD6		# Compatible with FreeBSD6
@@ -25,19 +20,6 @@
  options 	KTRACE			# ktrace(1) support
  options 	STACK			# stack(9) support
  options 	SYSVSHM			# SYSV-style shared memory
-@@ -72,9 +72,9 @@
- options 	CAPABILITY_MODE		# Capsicum capability mode
- options 	CAPABILITIES		# Capsicum capabilities
- options 	MAC			# TrustedBSD MAC Framework
--options 	KDTRACE_FRAME		# Ensure frames are compiled in
--options 	KDTRACE_HOOKS		# Kernel DTrace hooks
--options 	DDB_CTF			# Kernel ELF linker loads CTF data
-+#options 	KDTRACE_FRAME		# Ensure frames are compiled in
-+#options 	KDTRACE_HOOKS		# Kernel DTrace hooks
-+#options 	DDB_CTF			# Kernel ELF linker loads CTF data
- options 	INCLUDE_CONFIG_FILE     # Include this file in kernel
- 
- # Debugging support.  Always need this:
 @@ -101,9 +101,6 @@
  device		acpi
  device		pci
@@ -71,7 +53,7 @@
  # The `bpf' device enables the Berkeley Packet Filter.
 --- a/sys/i386/conf/GENERIC
 +++ b/sys/i386/conf/GENERIC
-@@ -18,13 +18,13 @@
+@@ -18,10 +18,10 @@
  #
  # $FreeBSD$
  
@@ -84,13 +66,8 @@
 +#cpu		I686_CPU
 +#ident		GENERIC
  
--makeoptions	DEBUG=-g		# Build kernel with gdb(1) debug symbols
--makeoptions	WITH_CTF=1		# Run ctfconvert(1) for DTrace support
-+#makeoptions	DEBUG=-g		# Build kernel with gdb(1) debug symbols
-+#makeoptions	WITH_CTF=1		# Run ctfconvert(1) for DTrace support
- 
- options 	SCHED_ULE		# ULE scheduler
- options 	PREEMPTION		# Enable kernel thread preemption
+ makeoptions	DEBUG=-g		# Build kernel with gdb(1) debug symbols
+ makeoptions	WITH_CTF=1		# Run ctfconvert(1) for DTrace support
 @@ -46,6 +46,8 @@
  options 	MSDOSFS			# MSDOS Filesystem
  options 	CD9660			# ISO 9660 Filesystem
@@ -109,17 +86,6 @@
  options 	KTRACE			# ktrace(1) support
  options 	STACK			# stack(9) support
  options 	SYSVSHM			# SYSV-style shared memory
-@@ -73,8 +75,8 @@
- options 	CAPABILITY_MODE		# Capsicum capability mode
- options 	CAPABILITIES		# Capsicum capabilities
- options 	MAC			# TrustedBSD MAC Framework
--options 	KDTRACE_HOOKS		# Kernel DTrace hooks
--options 	DDB_CTF			# Kernel ELF linker loads CTF data
-+#options 	KDTRACE_HOOKS		# Kernel DTrace hooks
-+#options 	DDB_CTF			# Kernel ELF linker loads CTF data
- options 	INCLUDE_CONFIG_FILE     # Include this file in kernel
- 
- # Debugging support.  Always need this:
 @@ -103,9 +105,6 @@
  device		eisa
  device		pci
@@ -153,7 +119,7 @@
  # The `bpf' device enables the Berkeley Packet Filter.
 --- /dev/null
 +++ b/sys/conf/DEBIAN
-@@ -0,0 +1,52 @@
+@@ -0,0 +1,33 @@
 +# Common options to all Debian GNU/kFreeBSD kernels
 +
 +options		LINPROCFS
@@ -173,28 +139,9 @@
 +# but unfortunetely glibc doesn't support pts(4) yet (see #667448).
 +device		pty
 +
-+# Full debugger support is disabled by upstream when a branch is close to
-+# release.  Unfortunately this can trigger the appearance of heisenbugs
-+# which were previously hidden (we've been hit by this already, see #651624).
-+#
-+# This disables full debugger support in advance, so that the build
-+# configuration which is going to be used for release is tested during the
-+# whole release cycle.  If you need a debug kernel, simply remove/comment
-+# the following lines:
-+
-+nooption 	DDB			# Support DDB.
-+nooption 	GDB			# Support remote GDB.
-+nooption 	DEADLKRES		# Enable the deadlock resolver
-+nooption 	INVARIANTS		# Enable calls of extra sanity checking
-+nooption 	INVARIANT_SUPPORT	# Extra sanity checks of internal structures, required by INVARIANTS
-+nooption 	WITNESS			# Enable checks to detect deadlocks and cycles
-+nooption 	WITNESS_SKIPSPIN	# Don't run witness on spinlocks for speed
-+nooption 	MALLOC_DEBUG_MAXZONES	# Separate malloc(9) zones
-+
-+# Usually when full debugger is enabled, minimum debugger support is disabled.
-+# Bring it back:
-+
-+options 	KDB_TRACE		# Print a stack trace for a panic.
++# Toggle to enable/disable debug options.
++include		DEBIAN_DEBUG
++#include	DEBIAN_NODEBUG
 +
 +# Alternate queueing
 +options		ALTQ

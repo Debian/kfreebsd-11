@@ -15,6 +15,9 @@ kfreebsd-10 (10.0~svn252032-1) UNRELEASED; urgency=low
   [ Robert Millan ]
   * patches/913_uudecode.diff: Remove. It is pointless when using
     WITHOUT_SOURCELESS.
+  * Simplify handling of debug mode. To enable/disable debug options,
+    just edit sys/conf/DEBIAN in 999_config.diff and comment/uncomment
+    the appropiate line.
 
  -- Christoph Egger <christoph@debian.org>  Thu, 20 Jun 2013 18:13:53 +0200
 

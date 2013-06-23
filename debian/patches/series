@@ -30,6 +30,3 @@
 922_cc_version.diff
 951_disable_mk_magic.diff
 999_config.diff
-
-# temporary
-debugger.diff
