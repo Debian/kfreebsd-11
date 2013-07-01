@@ -43,7 +43,7 @@ HEADERS_DIR	:= kfreebsd-headers-$(version)-$(abiname)
 FLAVOR_DIR	:= flavor-$(version)-$(abiname)
 ORIG_DIR	:= kfreebsd-$(major)-$(tar_version)
 ORIG_TAR	:= kfreebsd-$(major)_$(tar_version).orig.tar.gz
-MAKE		:= make MACHINE_ARCH=$(kfreebsd_cpu) WERROR= WITHOUT_SOURCELESS=true
+MAKE		:= make MACHINE_ARCH=$(kfreebsd_cpu) WERROR= -DWITHOUT_SOURCELESS
 PATH		:= $(CURDIR)/config:/usr/lib/freebsd:$(PATH)
 
 # Disable install of *.ko.symbols files (their presence would trigger an
