@@ -1,18 +1,22 @@
---- a/sys/modules/cxgbe/Makefile
-+++ b/sys/modules/cxgbe/Makefile
-@@ -2,9 +2,15 @@
- # $FreeBSD$
- #
+--- a/sys/modules/Makefile
++++ b/sys/modules/Makefile
+@@ -80,7 +80,7 @@
+ 	${_ctau} \
+ 	ctl \
+ 	${_cxgb} \
+-	cxgbe \
++	${_cxgbe} \
+ 	${_cyclic} \
+ 	dc \
+ 	dcons \
+@@ -383,6 +383,10 @@
+ .endif
+ .endif
  
-+.include <bsd.own.mk>
-+
- SUBDIR = if_cxgbe
-+
 +.if ${MK_SOURCELESS_UCODE} != "no"
- SUBDIR+= t4_firmware
- #SUBDIR+= t5_firmware
++_cxgbe=		cxgbe
 +.endif
 +
- SUBDIR+= ${_tom}
- 
- .if ${MACHINE_CPUARCH} == "amd64" || ${MACHINE_CPUARCH} == "i386"
+ .if ${MK_CRYPT} != "no" || defined(ALL_MODULES)
+ .if exists(${.CURDIR}/../opencrypto)
+ _crypto=	crypto

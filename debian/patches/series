@@ -1,7 +1,7 @@
 # Patches from (or merged in) upstream
+000_cxgbe.diff
 
 # Other patches that might or might not be mergeable
-000_cxgbe.diff
 001_misc.diff
 002_maxpathlen.diff
 003_glibc_dev_aicasm.diff
