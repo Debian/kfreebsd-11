@@ -347,7 +347,7 @@ binary-arch: build-arch install-arch
 	dh_shlibdeps -s -X/boot -X/lib/modules
 	dh_gencontrol -s
 	dh_md5sums -s
-	dh_builddeb -s
+	dh_builddeb -s -- -Zxz
 
 binary: binary-indep binary-arch
 
