@@ -1,6 +1,6 @@
 --- a/sys/modules/Makefile
 +++ b/sys/modules/Makefile
-@@ -80,7 +80,7 @@
+@@ -81,7 +81,7 @@
  	${_ctau} \
  	ctl \
  	${_cxgb} \
@@ -9,7 +9,7 @@
  	${_cyclic} \
  	dc \
  	dcons \
-@@ -383,6 +383,10 @@
+@@ -384,6 +384,10 @@
  .endif
  .endif
  

@@ -14,7 +14,7 @@ freebsd-buildutils 9.0 doesn't define MK_CTF.
  .if !defined(DEBUG)
 --- a/sys/conf/kern.pre.mk
 +++ b/sys/conf/kern.pre.mk
-@@ -148,7 +148,7 @@
+@@ -145,7 +145,7 @@
  ZFS_C=		${CC} -c ${ZFS_CFLAGS} ${WERROR} ${PROF} ${.IMPSRC}
  ZFS_S=		${CC} -c ${ZFS_ASM_CFLAGS} ${WERROR} ${.IMPSRC}
  
