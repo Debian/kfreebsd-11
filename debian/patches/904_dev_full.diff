@@ -1,6 +1,5 @@
 
-Status: FIONBIO/FIOASYNC is in http://www.freebsd.org/cgi/query-pr.cgi?pr=138526
-	/dev/full already rejected in upstream (kern/68961)
+Status: rejected in upstream (kern/68961)
 
 --- a/sys/dev/null/null.c
 +++ b/sys/dev/null/null.c
