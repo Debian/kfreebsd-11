@@ -48,6 +48,8 @@ PATH		:= $(CURDIR)/config:/usr/lib/freebsd:$(PATH)
 
 MAKE += -DWITHOUT_CLANG_IS_CC
 
+MAKE += -DWITHOUT_CTF
+
 # Disable install of *.ko.symbols files (their presence would trigger an
 # "unstripped-binary-or-object" lintian error).
 MAKE += -DWITHOUT_KERNEL_SYMBOLS	
