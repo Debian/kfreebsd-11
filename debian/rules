@@ -42,7 +42,7 @@ SRC_DIR		:= kfreebsd-source-$(version)
 HEADERS_DIR	:= kfreebsd-headers-$(version)-$(abiname)
 FLAVOR_DIR	:= flavor-$(version)-$(abiname)
 ORIG_DIR	:= kfreebsd-$(major)-$(tar_version)
-ORIG_TAR	:= kfreebsd-$(major)_$(tar_version).orig.tar.gz
+ORIG_TAR	:= kfreebsd-$(major)_$(tar_version).orig.tar.xz
 MAKE		:= make MACHINE_ARCH=$(kfreebsd_cpu) WERROR= -DWITHOUT_SOURCELESS
 PATH		:= $(CURDIR)/config:/usr/lib/freebsd:$(PATH)
 
@@ -64,7 +64,7 @@ get-orig-source:
 		svn export -r $(svn_revision) $(SVN)/$$i $(ORIG_DIR)/$$i ; \
 	done
 	cd $(ORIG_DIR) && $(CURDIR)/debian/prune.sh
-	tar --numeric-owner --owner 0 --group 0 -czf ../$(ORIG_TAR) $(ORIG_DIR)
+	tar --numeric-owner --owner 0 --group 0 -cJf ../$(ORIG_TAR) $(ORIG_DIR)
 	rm -rf $(ORIG_DIR)
 
 control: clean
