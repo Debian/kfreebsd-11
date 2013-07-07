@@ -8,7 +8,7 @@ Vcs-Svn: svn://svn.debian.org/glibc-bsd/trunk/kfreebsd-@major@/
 Build-Depends: debhelper (>= 5.0.0), bzip2, sharutils, flex-old | flex,
  freebsd-buildutils (>= 10~svn241078-1~),
  byacc,
- @kernel_cc@, libdb-dev,
+ @cc_pkg@, libdb-dev,
  libbsd-dev (>= 0.3.0), pkg-config,
  libsbuf-dev (>= 9.0+ds1-2),
  kernel-wedge (>= 2.79) [kfreebsd-any],
