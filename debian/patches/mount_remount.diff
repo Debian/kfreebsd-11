@@ -1,0 +1,15 @@
+
+Upstream wants this in kernel. See:
+http://lists.freebsd.org/pipermail/freebsd-fs/2013-July/017794.html
+
+--- a/sys/kern/vfs_mount.c
++++ b/sys/kern/vfs_mount.c
+@@ -578,7 +578,7 @@
+ 	 * when we want to update the root filesystem.
+ 	 */
+ 	TAILQ_FOREACH_SAFE(opt, optlist, link, tmp_opt) {
+-		if (strcmp(opt->name, "update") == 0) {
++		if (strcmp(opt->name, "update") == 0 || strcmp(opt->name, "remount") == 0) {
+ 			fsflags |= MNT_UPDATE;
+ 			vfs_freeopt(optlist, opt);
+ 		}

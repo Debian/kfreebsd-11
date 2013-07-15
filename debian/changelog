@@ -4,6 +4,8 @@ kfreebsd-10 (10.0~svn252032-2) UNRELEASED; urgency=low
   * Split kernel_cc into cc_cmd and cc_pkg (this makes it easier to
     enable clang when desired).
   * Bump B-D on freebsd-buildutils to 10~svn251967-3.
+  * mount_remount.diff: Implement "mount -o remount" glue in kernel like
+    upstream wants.
 
  -- Robert Millan <rmh@debian.org>  Tue, 02 Jul 2013 17:05:10 +0200
 
