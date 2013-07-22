@@ -10,5 +10,5 @@ version.
 -compiler_v=$($(${MAKE:-make} -V CC) -v 2>&1 | grep 'version')
 +compiler_v=$($(${MAKE:-make} -V CC) -v 2>&1 | grep ' version ')
  
- for dir in /bin /usr/bin /usr/local/bin; do
- 	if [ -x "${dir}/svnversion" ] && [ -z ${svnversion} ] ; then
+ if [ -x /usr/bin/svnliteversion ] ; then
+ 	svnversion=/usr/bin/svnliteversion

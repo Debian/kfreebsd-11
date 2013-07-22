@@ -1,5 +1,4 @@
 # Patches from (or merged in) upstream
-000_cxgbe.diff
 
 # Patches that are in good shape for merging upstream
 mount_remount.diff

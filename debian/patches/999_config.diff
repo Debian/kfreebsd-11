@@ -30,7 +30,7 @@
  # ATA controllers
  device		ahci		# AHCI-compatible SATA controllers
  device		ata		# Legacy ATA/SATA controllers
-@@ -201,9 +198,6 @@
+@@ -202,9 +199,6 @@
  # Parallel port
  device		ppc
  device		ppbus		# Parallel port bus (required)
@@ -40,7 +40,7 @@
  
  device		puc		# Multi I/O cards and multi-channel UARTs
  
-@@ -301,10 +295,7 @@
+@@ -302,10 +296,7 @@
  options 	RDRAND_RNG	# Intel Bull Mountain RNG
  device		ether		# Ethernet support
  device		vlan		# 802.1Q VLAN support
@@ -96,7 +96,7 @@
  # ATA controllers
  device		ahci		# AHCI-compatible SATA controllers
  device		ata		# Legacy ATA/SATA controllers
-@@ -212,9 +211,6 @@
+@@ -213,9 +212,6 @@
  # Parallel port
  device		ppc
  device		ppbus		# Parallel port bus (required)
@@ -106,7 +106,7 @@
  
  device		puc		# Multi I/O cards and multi-channel UARTs
  
-@@ -315,10 +311,7 @@
+@@ -316,10 +312,7 @@
  options 	RDRAND_RNG	# Intel Bull Mountain RNG
  device		ether		# Ethernet support
  device		vlan		# 802.1Q VLAN support
