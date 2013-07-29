@@ -13,6 +13,7 @@ kfreebsd-10 (10.0~svn253544-1) UNRELEASED; urgency=low
 
   [ Guillem Jover ]
   * Switch to canonical Vcs URLs.
+  * Place transitional packages on Section oldlibs and Priority extra.
 
  -- Robert Millan <rmh@debian.org>  Mon, 22 Jul 2013 16:53:35 +0200
 
