@@ -11,6 +11,9 @@ kfreebsd-10 (10.0~svn253544-1) UNRELEASED; urgency=low
   * mount_remount.diff: Implement "mount -o remount" glue in kernel like
     upstream wants.
 
+  [ Guillem Jover ]
+  * Switch to canonical Vcs URLs.
+
  -- Robert Millan <rmh@debian.org>  Mon, 22 Jul 2013 16:53:35 +0200
 
 kfreebsd-10 (10.0~svn252032-1) experimental; urgency=low
