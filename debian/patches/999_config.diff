@@ -40,8 +40,8 @@
  
  device		puc		# Multi I/O cards and multi-channel UARTs
  
-@@ -302,10 +296,7 @@
- options 	RDRAND_RNG	# Intel Bull Mountain RNG
+@@ -303,10 +297,7 @@
+ options 	YARROW_RNG	# Yarrow software RNG
  device		ether		# Ethernet support
  device		vlan		# 802.1Q VLAN support
 -device		tun		# Packet tunnel.
@@ -106,8 +106,8 @@
  
  device		puc		# Multi I/O cards and multi-channel UARTs
  
-@@ -316,10 +312,7 @@
- options 	RDRAND_RNG	# Intel Bull Mountain RNG
+@@ -317,10 +313,7 @@
+ options 	YARROW_RNG	# Yarrow software RNG
  device		ether		# Ethernet support
  device		vlan		# 802.1Q VLAN support
 -device		tun		# Packet tunnel.

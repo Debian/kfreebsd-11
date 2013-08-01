@@ -26,7 +26,7 @@ wpifw ?
 
 # USB wireless
 if_rum ?
-if_run
+if_run ?
 if_uath ?
 if_upgt
 if_ural
