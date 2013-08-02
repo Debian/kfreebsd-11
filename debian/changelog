@@ -1,4 +1,4 @@
-kfreebsd-10 (10.0~svn253832-1) UNRELEASED; urgency=low
+kfreebsd-10 (10.0~svn253832-1) experimental; urgency=low
 
   * New upstream snapshot.
     - Implements freebsd32_ktimer_* syscalls. (Closes: #666730)
@@ -19,7 +19,7 @@ kfreebsd-10 (10.0~svn253832-1) UNRELEASED; urgency=low
   [ Petr Salinger ]    
   * Re-enable 901_disable_optimization_2.diff. See: #718250.
 
- -- Robert Millan <rmh@debian.org>  Wed, 31 Jul 2013 13:54:21 +0200
+ -- Robert Millan <rmh@debian.org>  Fri, 02 Aug 2013 21:14:53 +0200
 
 kfreebsd-10 (10.0~svn252032-1) experimental; urgency=low
 
