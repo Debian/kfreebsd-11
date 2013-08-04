@@ -45,7 +45,7 @@ FLAVOR_DIR	:= flavor-$(version)-$(abiname)
 ORIG_DIR	:= kfreebsd-$(major)-$(tar_version)
 ORIG_TAR	:= kfreebsd-$(major)_$(tar_version).orig.tar.xz
 MAKE		:= make MACHINE_ARCH=$(kfreebsd_cpu) WERROR= -DWITHOUT_SOURCELESS
-PATH		:= $(CURDIR)/config:/usr/lib/freebsd:$(PATH)
+PATH		:= /usr/lib/freebsd:$(PATH)
 
 MAKE += -DWITHOUT_CLANG_IS_CC
 
@@ -65,9 +65,7 @@ MAKE += -DWITHOUT_SSP
 
 get-orig-source:
 	rm -rf $(ORIG_DIR)
-	for i in sys usr.sbin/config ; do \
-		svn export -r $(svn_revision) $(SVN)/$$i $(ORIG_DIR)/$$i ; \
-	done
+	svn export -r $(svn_revision) $(SVN)/sys $(ORIG_DIR)/sys
 	cd $(ORIG_DIR) && $(CURDIR)/debian/prune.sh
 	tar --numeric-owner --owner 0 --group 0 -cJf ../$(ORIG_TAR) $(ORIG_DIR)
 	rm -rf $(ORIG_DIR)
@@ -109,7 +107,7 @@ control: clean
 clean:
 	dh_testdir
 	dh_testroot
-	rm -rf src kfreebsd-source-* flavor-* config
+	rm -rf src kfreebsd-source-* flavor-*
 	rm -f debian/kfreebsd-image-*.preinst
 	rm -f debian/kfreebsd-image-*.prerm
 	rm -f debian/kfreebsd-image-*.postinst
@@ -148,15 +146,8 @@ install-indep-stamp: build-indep
 
 	touch install-indep-stamp
 
-config: config-stamp
-config-stamp: src
-	rm -rf config
-	cp -af src/usr.sbin/config config
-	CFLAGS="$(shell pkg-config --cflags libbsd-overlay) -lbsd" $(MAKE) -C config
-	touch $@
-
 build-arch: $(foreach flavor,$(flavours),build-flavor-$(flavor)-stamp)
-src-flavor-%-stamp: src config
+src-flavor-%-stamp: src
 	cp -af src $(FLAVOR_DIR)-$*
 	touch $@
 build-flavor-%-stamp: src-flavor-%-stamp

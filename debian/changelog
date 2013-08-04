@@ -6,6 +6,7 @@ kfreebsd-10 (10.0~svn253832-2) UNRELEASED; urgency=low
       be no particular reason to diverge on these.
     - Don't include LINPROCFS and COMPAT_LINUX in GENERIC. DEBIAN already does.
   * Add INCLUDE_CONFIG_FILE option.  (Closes: #706736)
+  * Use config(8) from freebsd-buildutils.
 
  -- Robert Millan <rmh@debian.org>  Sun, 04 Aug 2013 21:44:17 +0200
 
