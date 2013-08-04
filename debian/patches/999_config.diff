@@ -20,37 +20,6 @@
  options 	KTRACE			# ktrace(1) support
  options 	STACK			# stack(9) support
  options 	SYSVSHM			# SYSV-style shared memory
-@@ -101,9 +101,6 @@
- device		acpi
- device		pci
- 
--# Floppy drives
--device		fdc
--
- # ATA controllers
- device		ahci		# AHCI-compatible SATA controllers
- device		ata		# Legacy ATA/SATA controllers
-@@ -202,9 +199,6 @@
- # Parallel port
- device		ppc
- device		ppbus		# Parallel port bus (required)
--device		lpt		# Printer
--device		ppi		# Parallel port interface device
--#device		vpo		# Requires scbus and da
- 
- device		puc		# Multi I/O cards and multi-channel UARTs
- 
-@@ -303,10 +297,7 @@
- options 	YARROW_RNG	# Yarrow software RNG
- device		ether		# Ethernet support
- device		vlan		# 802.1Q VLAN support
--device		tun		# Packet tunnel.
- device		md		# Memory "disks"
--device		gif		# IPv6 and IPv4 tunneling
--device		faith		# IPv6-to-IPv4 relaying (translation)
- device		firmware	# firmware assist module
- 
- # The `bpf' device enables the Berkeley Packet Filter.
 --- a/sys/i386/conf/GENERIC
 +++ b/sys/i386/conf/GENERIC
 @@ -18,10 +18,10 @@
@@ -68,16 +37,7 @@
  
  makeoptions	DEBUG=-g		# Build kernel with gdb(1) debug symbols
  makeoptions	WITH_CTF=1		# Run ctfconvert(1) for DTrace support
-@@ -46,6 +46,8 @@
- options 	MSDOSFS			# MSDOS Filesystem
- options 	CD9660			# ISO 9660 Filesystem
- options 	PROCFS			# Process filesystem (requires PSEUDOFS)
-+options		LINPROCFS
-+options		COMPAT_LINUX		# Needed by LINPROCFS
- options 	PSEUDOFS		# Pseudo-filesystem framework
- options 	GEOM_PART_GPT		# GUID Partition Tables.
- options 	GEOM_RAID		# Soft RAID functionality.
-@@ -54,7 +56,7 @@
+@@ -54,7 +54,7 @@
  options 	COMPAT_FREEBSD5		# Compatible with FreeBSD5
  options 	COMPAT_FREEBSD6		# Compatible with FreeBSD6
  options 	COMPAT_FREEBSD7		# Compatible with FreeBSD7
@@ -86,40 +46,9 @@
  options 	KTRACE			# ktrace(1) support
  options 	STACK			# stack(9) support
  options 	SYSVSHM			# SYSV-style shared memory
-@@ -103,9 +105,6 @@
- device		eisa
- device		pci
- 
--# Floppy drives
--device		fdc
--
- # ATA controllers
- device		ahci		# AHCI-compatible SATA controllers
- device		ata		# Legacy ATA/SATA controllers
-@@ -213,9 +212,6 @@
- # Parallel port
- device		ppc
- device		ppbus		# Parallel port bus (required)
--device		lpt		# Printer
--device		ppi		# Parallel port interface device
--#device		vpo		# Requires scbus and da
- 
- device		puc		# Multi I/O cards and multi-channel UARTs
- 
-@@ -317,10 +313,7 @@
- options 	YARROW_RNG	# Yarrow software RNG
- device		ether		# Ethernet support
- device		vlan		# 802.1Q VLAN support
--device		tun		# Packet tunnel.
- device		md		# Memory "disks"
--device		gif		# IPv6 and IPv4 tunneling
--device		faith		# IPv6-to-IPv4 relaying (translation)
- device		firmware	# firmware assist module
- 
- # The `bpf' device enables the Berkeley Packet Filter.
 --- /dev/null
 +++ b/sys/conf/DEBIAN
-@@ -0,0 +1,33 @@
+@@ -0,0 +1,37 @@
 +# Common options to all Debian GNU/kFreeBSD kernels
 +
 +options		LINPROCFS
@@ -128,6 +57,10 @@
 +options		TMPFS
 +options         QUOTA
 +options		KTRACE
++
++# Floppy drives need not be built-in because our installer doesn't
++# include a "floppy" flavour (and probably never will).
++nodevice	fdc
 +
 +# Network options
 +device		carp

@@ -1,3 +1,13 @@
+kfreebsd-10 (10.0~svn253832-2) UNRELEASED; urgency=low
+
+  * Harmonize kernel config with upstream, reducing the GENERIC delta.
+    - Let GENERIC define fdc. DEBIAN can override this afterwards.
+    - Let GENERIC define lpt, ppi, tun, gif and faith. There seems to
+      be no particular reason to diverge on these.
+    - Don't include LINPROCFS and COMPAT_LINUX in GENERIC. DEBIAN already does.
+
+ -- Robert Millan <rmh@debian.org>  Sun, 04 Aug 2013 21:44:17 +0200
+
 kfreebsd-10 (10.0~svn253832-1) experimental; urgency=low
 
   * New upstream snapshot.
