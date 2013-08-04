@@ -5,6 +5,7 @@ kfreebsd-10 (10.0~svn253832-2) UNRELEASED; urgency=low
     - Let GENERIC define lpt, ppi, tun, gif and faith. There seems to
       be no particular reason to diverge on these.
     - Don't include LINPROCFS and COMPAT_LINUX in GENERIC. DEBIAN already does.
+  * Add INCLUDE_CONFIG_FILE option.  (Closes: #706736)
 
  -- Robert Millan <rmh@debian.org>  Sun, 04 Aug 2013 21:44:17 +0200
 

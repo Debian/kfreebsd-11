@@ -48,7 +48,7 @@
  options 	SYSVSHM			# SYSV-style shared memory
 --- /dev/null
 +++ b/sys/conf/DEBIAN
-@@ -0,0 +1,37 @@
+@@ -0,0 +1,40 @@
 +# Common options to all Debian GNU/kFreeBSD kernels
 +
 +options		LINPROCFS
@@ -57,6 +57,9 @@
 +options		TMPFS
 +options         QUOTA
 +options		KTRACE
++
++# See #706736
++options		INCLUDE_CONFIG_FILE
 +
 +# Floppy drives need not be built-in because our installer doesn't
 +# include a "floppy" flavour (and probably never will).
