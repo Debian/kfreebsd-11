@@ -1,5 +1,11 @@
-kfreebsd-10 (10.0~svn253832-2) UNRELEASED; urgency=low
+kfreebsd-10 (10.0~svn254663-1) UNRELEASED; urgency=low
 
+  * New upstream snapshot.
+    - Refresh all patches.
+    - Fix for CVE-2013-3077. (Closes: #720471)
+    - Fix for CVE-2013-5209. (Closes: #720478)
+
+  [ Robert Millan ]
   * Harmonize kernel config with upstream, reducing the GENERIC delta.
     - Let GENERIC define fdc. DEBIAN can override this afterwards.
     - Let GENERIC define lpt, ppi, tun, gif and faith. There seems to
@@ -8,7 +14,7 @@ kfreebsd-10 (10.0~svn253832-2) UNRELEASED; urgency=low
   * Add INCLUDE_CONFIG_FILE option.  (Closes: #706736)
   * Use config(8) from freebsd-buildutils.
 
- -- Robert Millan <rmh@debian.org>  Sun, 04 Aug 2013 21:44:17 +0200
+ -- Robert Millan <rmh@debian.org>  Thu, 22 Aug 2013 18:50:23 +0200
 
 kfreebsd-10 (10.0~svn253832-1) experimental; urgency=low
 

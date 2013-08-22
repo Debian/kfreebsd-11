@@ -119,7 +119,7 @@ clean:
 src: src-stamp
 src-stamp:
 	mkdir $(CURDIR)/src
-	cp -af $(CURDIR)/sys $(CURDIR)/usr.sbin $(CURDIR)/src
+	cp -af $(CURDIR)/sys $(CURDIR)/src
 
 	touch src-stamp
 
