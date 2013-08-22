@@ -1,4 +1,4 @@
-kfreebsd-10 (10.0~svn254663-1) UNRELEASED; urgency=low
+kfreebsd-10 (10.0~svn254663-1) experimental; urgency=low
 
   * New upstream snapshot.
     - Refresh all patches.
