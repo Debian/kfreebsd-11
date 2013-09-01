@@ -159,7 +159,6 @@ build-flavor-%-stamp: src-flavor-%-stamp
 
 	# Set /lib/modules/${RELEASE} as module dir
 	sed -i -e 's,^KODIR?=.*,KODIR="/lib/modules/$(version)-$(abiname)-$*",g' $(FLAVOR_DIR)-$*/sys/conf/kern.pre.mk
-	sed -i -e '/^static char linker_path/s,".*","/lib/modules/$(version)-$(abiname)-$*",g' $(FLAVOR_DIR)-$*/sys/kern/kern_linker.c
 
 	# Always set explicit link target to match with ld's implicit target (needed
 	# to build on non-kFreeBSD)
