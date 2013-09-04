@@ -1,6 +1,7 @@
 kfreebsd-10 (10.0~svn254663-2) UNRELEASED; urgency=low
 
   * Stop overriding linker_path, this is done in userland already.
+  * Make kfreebsd-headers-@version@-@abiname@ kfreebsd-specific.
 
  -- Robert Millan <rmh@debian.org>  Sun, 01 Sep 2013 21:52:37 +0200
 
