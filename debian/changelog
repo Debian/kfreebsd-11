@@ -1,9 +1,16 @@
-kfreebsd-10 (10.0~svn254663-2) UNRELEASED; urgency=low
+kfreebsd-10 (10.0~svn255412-1) experimental; urgency=low
 
+  * New upstream snapshot.
+    - 920_linux_cflags.diff: Set __FreeBSD__=10 in order to fix <stddef.h>
+      buildability.
+    - Switch to clang (at least until/unless GCC <wmmintrin.h> becomes
+      buildable).
+
+  [ Robert Millan ]
   * Stop overriding linker_path, this is done in userland already.
   * Make kfreebsd-headers-@version@-@abiname@ kfreebsd-specific.
 
- -- Robert Millan <rmh@debian.org>  Sun, 01 Sep 2013 21:52:37 +0200
+ -- Robert Millan <rmh@debian.org>  Mon, 09 Sep 2013 14:18:49 +0200
 
 kfreebsd-10 (10.0~svn254663-1) experimental; urgency=low
 

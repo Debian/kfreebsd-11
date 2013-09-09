@@ -63,7 +63,7 @@ It is a revert of upstream commit r18970:
  	default:
  		return (ENOTTY);
  	}
-@@ -3549,9 +3529,6 @@
+@@ -3579,9 +3559,6 @@
  		wakeup(sc);
  	}
  	selwakeuppri(&sc->rsel, PZERO);

@@ -7,6 +7,7 @@ Vcs-Browser: http://anonscm.debian.org/viewvc/glibc-bsd/trunk/kfreebsd-@major@/
 Vcs-Svn: svn://anonscm.debian.org/glibc-bsd/trunk/kfreebsd-@major@/
 Build-Depends: debhelper (>= 5.0.0), bzip2, sharutils, flex-old | flex,
  freebsd-buildutils (>= 10~svn253832),
+ freebsd-glue (>= 0.1.5),
  byacc,
  @cc_pkg@, libdb-dev,
  libbsd-dev (>= 0.3.0), pkg-config,
