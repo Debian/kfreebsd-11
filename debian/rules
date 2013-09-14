@@ -107,7 +107,7 @@ control: clean
 clean:
 	dh_testdir
 	dh_testroot
-	rm -rf src kfreebsd-source-* flavor-*
+	rm -rf kfreebsd-source-* flavor-*
 	rm -f debian/kfreebsd-image-*.preinst
 	rm -f debian/kfreebsd-image-*.prerm
 	rm -f debian/kfreebsd-image-*.postinst
@@ -116,18 +116,12 @@ clean:
 	rm -f *-stamp
 	dh_clean
 
-src: src-stamp
-src-stamp:
-	mkdir $(CURDIR)/src
-	cp -af $(CURDIR)/sys $(CURDIR)/src
-
-	touch src-stamp
-
 build-indep: build-indep-stamp
-build-indep-stamp: src
+build-indep-stamp:
 	dh_testdir
 
-	cp -af src $(SRC_DIR)
+	mkdir -p $(SRC_DIR)
+	cp -af sys $(SRC_DIR)/
 
 	touch build-indep-stamp
 
@@ -147,8 +141,9 @@ install-indep-stamp: build-indep
 	touch install-indep-stamp
 
 build-arch: $(foreach flavor,$(flavours),build-flavor-$(flavor)-stamp)
-src-flavor-%-stamp: src
-	cp -af src $(FLAVOR_DIR)-$*
+src-flavor-%-stamp:
+	mkdir -p $(FLAVOR_DIR)-$*
+	cp -af sys $(FLAVOR_DIR)-$*/
 	touch $@
 build-flavor-%-stamp: src-flavor-%-stamp
 	# Add the abiname and the flavor to the kernel version
@@ -181,15 +176,14 @@ build-flavor-%-stamp: src-flavor-%-stamp
 
 	touch build-flavor-$*-stamp
 
-install-common-stamp: src
+install-common-stamp:
 	dh_testdir
 	dh_testroot
 	mkdir -p $(HEADERS_PACKAGE)/usr/src/$(HEADERS_DIR)
-	cd src \
-		&& find . -type f -name "*.h" -not -regex ".*modules.*" -not -regex ".*sys/$(kfreebsd_cpu)/.*" -exec cp --parents {} $(HEADERS_PACKAGE)/usr/src/$(HEADERS_DIR) \;
+	find sys -type f -name "*.h" -not -regex ".*modules.*" -not -regex ".*sys/$(kfreebsd_cpu)/.*" -exec cp --parents {} $(HEADERS_PACKAGE)/usr/src/$(HEADERS_DIR) \;
 
 	mkdir -p $(HEADERS_PACKAGE)/usr/src/$(HEADERS_DIR)/conf
-	cd src && cp --parents \
+	cp --parents \
 		sys/conf/kern.mk \
 		sys/conf/kmod.mk \
 		sys/conf/kmod_syms.awk \
