@@ -44,8 +44,13 @@ HEADERS_DIR	:= kfreebsd-headers-$(version)-$(abiname)
 FLAVOR_DIR	:= flavor-$(version)-$(abiname)
 ORIG_DIR	:= kfreebsd-$(major)-$(tar_version)
 ORIG_TAR	:= kfreebsd-$(major)_$(tar_version).orig.tar.xz
-MAKE		:= make MACHINE_ARCH=$(kfreebsd_cpu) WERROR= -DWITHOUT_SOURCELESS
+MAKE		:= make MACHINE_ARCH=$(kfreebsd_cpu) -DWITHOUT_SOURCELESS
 PATH		:= /usr/lib/freebsd:$(PATH)
+
+ifneq ($(cc_cmd), clang)
+# Disable -Werror only for non-Clang compilers
+MAKE		+= WERROR=
+endif
 
 MAKE += -DWITHOUT_CLANG_IS_CC
 
