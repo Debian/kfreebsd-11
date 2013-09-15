@@ -47,12 +47,12 @@ ORIG_TAR	:= kfreebsd-$(major)_$(tar_version).orig.tar.xz
 MAKE		:= make MACHINE_ARCH=$(kfreebsd_cpu) -DWITHOUT_SOURCELESS
 PATH		:= /usr/lib/freebsd:$(PATH)
 
-ifneq ($(cc_cmd), clang)
-# Disable -Werror only for non-Clang compilers
-MAKE		+= WERROR=
+ifeq ($(cc_cmd), clang)
+MAKE	+= -DWITH_CLANG_IS_CC
+else
+MAKE	+= -DWITHOUT_CLANG_IS_CC
+MAKE	+= WERROR=
 endif
-
-MAKE += -DWITHOUT_CLANG_IS_CC
 
 MAKE += -DWITHOUT_CTF
 
