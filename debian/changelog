@@ -3,6 +3,7 @@ kfreebsd-10 (10.0~svn255412-2) UNRELEASED; urgency=low
   * Remove one gratuitous round of src copying.
   * Disable -Werror only for non-Clang compilers.
   * Properly set CLANG_IS_CC knob according to selected compiler.
+  * Re-enable -O2.
 
  -- Robert Millan <rmh@debian.org>  Sat, 14 Sep 2013 14:34:07 +0200
 
