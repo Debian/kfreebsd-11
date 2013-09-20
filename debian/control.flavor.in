@@ -30,7 +30,7 @@ Description: kernel of FreeBSD @major@ image (meta-package)
  @flavor@-class machines.
 
 Package: kfreebsd-headers-@version@-@abiname@-@flavor@
-Architecture: any-@arch@
+Architecture: kfreebsd-@arch@
 Provides: kfreebsd-headers-@major@, kfreebsd-headers
 Depends: kfreebsd-headers-@version@-@abiname@ (= ${binary:Version}), ${misc:Depends}
 Description: header files for kernel of FreeBSD @version@
@@ -41,7 +41,7 @@ Description: header files for kernel of FreeBSD @version@
  kfreebsd-image-@version@-@abiname@-@flavor@ package.
 
 Package: kfreebsd-headers-@major@-@flavor@
-Architecture: any-@arch@
+Architecture: kfreebsd-@arch@
 Depends: kfreebsd-headers-@version@-@abiname@-@flavor@, ${misc:Depends}
 Description: header files for kernel of FreeBSD @major@ (meta-package)
  This package depends on the latest header files for kernel of FreeBSD @major@ on
