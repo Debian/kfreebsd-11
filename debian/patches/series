@@ -28,4 +28,5 @@ mount_remount.diff
 920_linux_cflags.diff
 921_signal_watchdog.diff
 922_cc_version.diff
+923_newvers_timestamp.diff
 999_config.diff

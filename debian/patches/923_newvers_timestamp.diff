@@ -1,0 +1,24 @@
+Description: Use timestamp from debian/changelog
+  Use timestamp from the most recent debian/changelog entry,
+  instead of the exact time of the build.
+  .
+  This helps to make builds repeatable and the output more easily
+  comparable.
+Forwarded: not-needed
+Author: Steven Chamberlain <steven@pyro.eu.org>
+
+--- a/sys/conf/newvers.sh
++++ b/sys/conf/newvers.sh
+@@ -88,6 +88,12 @@
+ i=`${MAKE:-make} -V KERN_IDENT`
+ compiler_v=$($(${MAKE:-make} -V CC) -v 2>&1 | grep ' version ')
+ 
++if [ -f "${SYSDIR}/../../debian/changelog" ] ; then
++	# Use timestamp from the most recent debian/changelog entry,
++	# instead of the exact time of the build.
++	t=`dpkg-parsechangelog -l"${SYSDIR}/../../debian/changelog" -S"Date"`
++fi
++
+ for dir in /usr/bin /usr/local/bin; do
+ 	if [ ! -z "${svnversion}" ] ; then
+ 		break
