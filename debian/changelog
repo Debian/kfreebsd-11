@@ -1,4 +1,7 @@
-kfreebsd-10 (10.0~svn255412-2) UNRELEASED; urgency=low
+kfreebsd-10 (10.0~svn255915-1) UNRELEASED; urgency=low
+
+  * New upstream snapshot.
+    - Includes Xen HVM support.
 
   [ Robert Millan ]
   * Remove one gratuitous round of src copying.
@@ -13,7 +16,7 @@ kfreebsd-10 (10.0~svn255412-2) UNRELEASED; urgency=low
     - Use timestamp from debian/changelog for uname --kernel-release,
       instead of the exact time of the build.
 
- -- Robert Millan <rmh@debian.org>  Sat, 14 Sep 2013 14:34:07 +0200
+ -- Robert Millan <rmh@debian.org>  Fri, 27 Sep 2013 22:29:21 +0200
 
 kfreebsd-10 (10.0~svn255412-1) experimental; urgency=low
 

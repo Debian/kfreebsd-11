@@ -8,7 +8,7 @@ patch can be removed when we no longer care about supporting older glibc.
 
 --- a/sys/kern/uipc_usrreq.c
 +++ b/sys/kern/uipc_usrreq.c
-@@ -471,7 +471,12 @@
+@@ -472,7 +472,12 @@
  	KASSERT(unp != NULL, ("uipc_bind: unp == NULL"));
  
  	if (soun->sun_len > sizeof(struct sockaddr_un))
@@ -21,7 +21,7 @@ patch can be removed when we no longer care about supporting older glibc.
  	namelen = soun->sun_len - offsetof(struct sockaddr_un, sun_path);
  	if (namelen <= 0)
  		return (EINVAL);
-@@ -1289,7 +1294,12 @@
+@@ -1290,7 +1295,12 @@
  	KASSERT(unp != NULL, ("unp_connect: unp == NULL"));
  
  	if (nam->sa_len > sizeof(struct sockaddr_un))
