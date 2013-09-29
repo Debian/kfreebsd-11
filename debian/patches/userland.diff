@@ -1,0 +1,1086 @@
+
+Staging area for fixes needed by userland.
+
+--- a/sys/ia64/include/_types.h
++++ b/sys/ia64/include/_types.h
+@@ -74,7 +74,9 @@
+ typedef	__int32_t	__int_least32_t;
+ typedef	__int64_t	__int_least64_t;
+ typedef	__int64_t	__ptrdiff_t;		/* ptr1 - ptr2 */
++#ifdef __FreeBSD__
+ typedef	__int64_t	__register_t;
++#endif
+ typedef	__int64_t	__segsz_t;		/* segment size (in pages) */
+ typedef	__uint64_t	__size_t;		/* sizeof() */
+ typedef	__int64_t	__ssize_t;		/* byte count or error */
+--- a/sys/mips/include/_types.h
++++ b/sys/mips/include/_types.h
+@@ -94,10 +94,14 @@
+ typedef	__int32_t	__int_least32_t;
+ typedef	__int64_t	__int_least64_t;
+ #if defined(__mips_n64) || defined(__mips_n32)
++# ifdef __FreeBSD__
+ typedef	__int64_t	__register_t;
++# endif
+ typedef	__int64_t	f_register_t;
+ #else
++# ifdef __FreeBSD__
+ typedef	__int32_t	__register_t;
++# endif
+ typedef	__int32_t	f_register_t;
+ #endif
+ #ifdef __mips_n64
+--- a/sys/powerpc/include/_types.h
++++ b/sys/powerpc/include/_types.h
+@@ -94,7 +94,9 @@
+ typedef	__int64_t	__int_least64_t;
+ #ifdef __LP64__
+ typedef	__int64_t	__ptrdiff_t;		/* ptr1 - ptr2 */
++#ifdef __FreeBSD__
+ typedef	__int64_t	__register_t;
++#endif
+ typedef	__int64_t	__segsz_t;		/* segment size (in pages) */
+ typedef	__uint64_t	__size_t;		/* sizeof() */
+ typedef	__int64_t	__ssize_t;		/* byte count or error */
+@@ -103,7 +105,9 @@
+ typedef	__uint64_t	__uintptr_t;
+ #else
+ typedef	__int32_t	__ptrdiff_t;		/* ptr1 - ptr2 */
++#ifdef __FreeBSD__
+ typedef	__int32_t	__register_t;
++#endif
+ typedef	__int32_t	__segsz_t;		/* segment size (in pages) */
+ typedef	__uint32_t	__size_t;		/* sizeof() */
+ typedef	__int32_t	__ssize_t;		/* byte count or error */
+--- a/sys/sparc64/include/_types.h
++++ b/sys/sparc64/include/_types.h
+@@ -70,7 +70,9 @@
+ typedef	__int32_t	__int_least32_t;
+ typedef	__int64_t	__int_least64_t;
+ typedef	__int64_t	__ptrdiff_t;		/* ptr1 - ptr2 */
++#ifdef __FreeBSD__
+ typedef	__int64_t	__register_t;
++#endif
+ typedef	__int64_t	__segsz_t;		/* segment size (in pages) */
+ typedef	__uint64_t	__size_t;		/* sizeof() */
+ typedef	__int64_t	__ssize_t;		/* byte count or error */
+--- a/sys/sys/_timespec.h
++++ b/sys/sys/_timespec.h
+@@ -41,9 +41,14 @@
+ #define	_TIME_T_DECLARED
+ #endif
+ 
++#ifndef __FreeBSD__
++#define __need_timespec
++#include <time.h>
++#else
+ struct timespec {
+ 	time_t	tv_sec;		/* seconds */
+ 	long	tv_nsec;	/* and nanoseconds */
+ };
++#endif
+ 
+ #endif /* !_SYS__TIMESPEC_H_ */
+--- a/sys/sys/_timeval.h
++++ b/sys/sys/_timeval.h
+@@ -41,6 +41,10 @@
+ #define	_TIME_T_DECLARED
+ #endif
+ 
++#ifndef __FreeBSD__
++#define __need_timeval
++#include <bits/time.h>
++#else
+ /*
+  * Structure returned by gettimeofday(2) system call, and used in other calls.
+  */
+@@ -48,5 +52,6 @@
+ 	time_t		tv_sec;		/* seconds */
+ 	suseconds_t	tv_usec;	/* and microseconds */
+ };
++#endif
+ 
+ #endif /* !_SYS__TIMEVAL_H_ */
+--- a/sys/sys/_types.h
++++ b/sys/sys/_types.h
+@@ -39,10 +39,19 @@
+ typedef	__int64_t	__blkcnt_t;	/* file block count */
+ typedef	__int32_t	__clockid_t;	/* clock_gettime()... */
+ typedef	__uint32_t	__fflags_t;	/* file flags */
++#if defined(__GLIBC__) && !defined(_KERNEL)
++/* User-selectable types. Leave them to Glibc headers. */
++#else
+ typedef	__uint64_t	__fsblkcnt_t;
+ typedef	__uint64_t	__fsfilcnt_t;
++#endif
+ typedef	__uint32_t	__gid_t;
++#if defined(__GLIBC__) && !defined(_KERNEL)
++/* This divergence is probably accidental, but it can't be fixed now. */
++typedef	__uint32_t	__id_t;
++#else
+ typedef	__int64_t	__id_t;		/* can hold a gid_t, pid_t, or uid_t */
++#endif
+ typedef	__uint32_t	__ino_t;	/* inode number */
+ typedef	long		__key_t;	/* IPC key (for Sys V IPC) */
+ typedef	__int32_t	__lwpid_t;	/* Thread ID (a.k.a. LWP) */
+@@ -58,7 +67,11 @@
+ typedef	__uint8_t	__sa_family_t;
+ typedef	__uint32_t	__socklen_t;
+ typedef	long		__suseconds_t;	/* microseconds (signed) */
++#if defined(__GLIBC__) && !defined(_KERNEL)
++typedef	__int32_t	__timer_t;
++#else
+ typedef	struct __timer	*__timer_t;	/* timer_gettime()... */
++#endif
+ typedef	struct __mq	*__mqd_t;	/* mq_open()... */
+ typedef	__uint32_t	__uid_t;
+ typedef	unsigned int	__useconds_t;	/* microseconds (unsigned) */
+@@ -107,9 +120,13 @@
+  * mbstate_t is an opaque object to keep conversion state during multibyte
+  * stream conversions.
+  */
++#if defined(__GLIBC__) && !defined(_KERNEL)
++/* Defined in <wchar.h> */
++#else
+ typedef union {
+ 	char		__mbstate8[128];
+ 	__int64_t	_mbstateL;	/* for alignment */
+ } __mbstate_t;
++#endif
+ 
+ #endif /* !_SYS__TYPES_H_ */
+--- a/sys/sys/elf32.h
++++ b/sys/sys/elf32.h
+@@ -31,15 +31,21 @@
+ 
+ #include <sys/elf_common.h>
+ 
++#ifndef __FreeBSD__
++#include <elf.h>
++#endif
++
+ /*
+  * ELF definitions common to all 32-bit architectures.
+  */
+ 
++#ifdef __FreeBSD__
+ typedef uint32_t	Elf32_Addr;
+ typedef uint16_t	Elf32_Half;
+ typedef uint32_t	Elf32_Off;
+ typedef int32_t		Elf32_Sword;
+ typedef uint32_t	Elf32_Word;
++#endif
+ typedef uint64_t	Elf32_Lword;
+ 
+ typedef Elf32_Word	Elf32_Hashelt;
+@@ -48,6 +54,7 @@
+ typedef Elf32_Word	Elf32_Size;
+ typedef Elf32_Sword	Elf32_Ssize;
+ 
++#ifdef __FreeBSD__
+ /*
+  * ELF header.
+  */
+@@ -165,6 +172,8 @@
+ #define	ELF32_M_SIZE(info)	((unsigned char)(info))
+ #define	ELF32_M_INFO(sym, size)	(((sym)<<8)+(unsigned char)(size))
+ 
++#endif
++
+ /*
+  *	Hardware/Software capabilities entry
+  */
+@@ -176,6 +185,7 @@
+ 	} c_un;
+ } Elf32_Cap;
+ 
++#ifdef __FreeBSD__
+ /*
+  * Symbol table entries.
+  */
+@@ -234,12 +244,15 @@
+ 	Elf32_Word	vna_name;
+ 	Elf32_Word	vna_next;
+ } Elf32_Vernaux;
++#endif
+ 
+ typedef Elf32_Half Elf32_Versym;
+ 
++#ifdef __FreeBSD__
+ typedef struct {
+ 	Elf32_Half	si_boundto;	/* direct bindings - symbol bound to */
+ 	Elf32_Half	si_flags;	/* per symbol flags */
+ } Elf32_Syminfo;
++#endif
+ 
+ #endif /* !_SYS_ELF32_H_ */
+--- a/sys/sys/elf64.h
++++ b/sys/sys/elf64.h
+@@ -31,18 +31,26 @@
+ 
+ #include <sys/elf_common.h>
+ 
++#ifndef __FreeBSD__
++#include <elf.h>
++#endif
++
+ /*
+  * ELF definitions common to all 64-bit architectures.
+  */
+ 
++#ifdef __FreeBSD__
+ typedef uint64_t	Elf64_Addr;
+ typedef uint16_t	Elf64_Half;
+ typedef uint64_t	Elf64_Off;
+ typedef int32_t		Elf64_Sword;
+ typedef int64_t		Elf64_Sxword;
+ typedef uint32_t	Elf64_Word;
++#endif
+ typedef uint64_t	Elf64_Lword;
++#ifdef __FreeBSD__
+ typedef uint64_t	Elf64_Xword;
++#endif
+ 
+ /*
+  * Types of dynamic symbol hash table bucket and chain elements.
+@@ -57,6 +65,7 @@
+ typedef Elf64_Xword	Elf64_Size;
+ typedef Elf64_Sxword	Elf64_Ssize;
+ 
++#ifdef __FreeBSD__
+ /*
+  * ELF header.
+  */
+@@ -172,6 +181,8 @@
+ #define	ELF64_M_SIZE(info)	((unsigned char)(info))
+ #define	ELF64_M_INFO(sym, size)	(((sym)<<8)+(unsigned char)(size))
+ 
++#endif
++
+ /*
+  *	Hardware/Software capabilities entry
+  */
+@@ -183,6 +194,7 @@
+ 	} c_un;
+ } Elf64_Cap;
+ 
++#ifdef __FreeBSD__
+ /*
+  * Symbol table entries.
+  */
+@@ -237,12 +249,15 @@
+ 	Elf64_Word	vna_name;
+ 	Elf64_Word	vna_next;
+ } Elf64_Vernaux;
++#endif
+ 
+ typedef Elf64_Half Elf64_Versym;
+ 
++#ifdef __FreeBSD__
+ typedef struct {
+ 	Elf64_Half	si_boundto;	/* direct bindings - symbol bound to */
+ 	Elf64_Half	si_flags;	/* per symbol flags */
+ } Elf64_Syminfo;
++#endif
+ 
+ #endif /* !_SYS_ELF64_H_ */
+--- a/sys/sys/endian.h
++++ b/sys/sys/endian.h
+@@ -53,6 +53,10 @@
+ #define	_UINT64_T_DECLARED
+ #endif
+  
++#if !defined(_KERNEL) && defined(__GLIBC__)
++/* Avoid conflicting (but functionally equivalent) definitions below. */
++#include <endian.h>
++#else
+ /*
+  * General byte order swapping functions.
+  */
+@@ -93,6 +97,7 @@
+ #define	le32toh(x)	bswap32((x))
+ #define	le64toh(x)	bswap64((x))
+ #endif /* _BYTE_ORDER == _LITTLE_ENDIAN */
++#endif
+ 
+ /* Alignment-agnostic encode/decode bytestream to/from little/big endian. */
+ 
+--- a/sys/sys/limits.h
++++ b/sys/sys/limits.h
+@@ -35,6 +35,11 @@
+ #include <sys/cdefs.h>
+ #include <machine/_limits.h>
+ 
++#ifndef __FreeBSD__
++#include <limits.h>
++#endif
++
++#ifdef __FreeBSD__
+ #define	CHAR_BIT	__CHAR_BIT	/* number of bits in a char */
+ 
+ #define	SCHAR_MAX	__SCHAR_MAX	/* max value for a signed char */
+@@ -71,6 +76,7 @@
+ #if __POSIX_VISIBLE || __XSI_VISIBLE
+ #define	SSIZE_MAX	__SSIZE_MAX	/* max value for an ssize_t */
+ #endif
++#endif /* 0 */
+ 
+ #if __POSIX_VISIBLE >= 200112 || __XSI_VISIBLE
+ #define	SIZE_T_MAX	__SIZE_T_MAX	/* max value for a size_t */
+--- a/sys/sys/param.h
++++ b/sys/sys/param.h
+@@ -40,9 +40,15 @@
+ 
+ #include <sys/_null.h>
+ 
++#ifndef __FreeBSD__
++#include <sys/param.h>
++#endif
++
++#ifdef __FreeBSD__
+ #define	BSD	199506		/* System version (year & month). */
+-#define BSD4_3	1
+-#define BSD4_4	1
++#define BSD4_3        1
++#define BSD4_4        1
++#endif
+ 
+ /* 
+  * __FreeBSD_version numbers are documented in the Porter's Handbook.
+@@ -95,11 +101,15 @@
+ #include <sys/syslimits.h>
+ 
+ #define	MAXCOMLEN	19		/* max command name remembered */
++#ifdef __FreeBSD__
+ #define	MAXINTERP	PATH_MAX	/* max interpreter file name length */
++#endif
+ #define	MAXLOGNAME	33		/* max login name length (incl. NUL) */
+ #define	MAXUPRC		CHILD_MAX	/* max simultaneous processes */
+ #define	NCARGS		ARG_MAX		/* max bytes for an exec function */
++#ifdef __FreeBSD__
+ #define	NGROUPS		(NGROUPS_MAX+1)	/* max number groups */
++#endif
+ #define	NOFILE		OPEN_MAX	/* max open files per process */
+ #define	NOGROUP		65535		/* marker for empty group set member */
+ #define MAXHOSTNAMELEN	256		/* max hostname size */
+@@ -136,7 +146,9 @@
+ #ifndef DEV_BSHIFT
+ #define	DEV_BSHIFT	9		/* log2(DEV_BSIZE) */
+ #endif
++#ifdef __FreeBSD__
+ #define	DEV_BSIZE	(1<<DEV_BSHIFT)
++#endif
+ 
+ #ifndef BLKDEV_IOSIZE
+ #define BLKDEV_IOSIZE  PAGE_SIZE	/* default block device I/O size */
+@@ -212,9 +224,11 @@
+ #define	PCATCH	0x100		/* OR'd with pri for tsleep to check signals */
+ #define	PDROP	0x200	/* OR'd with pri to stop re-entry of interlock mutex */
+ 
++#ifdef __FreeBSD__
+ #define	NZERO	0		/* default "nice" */
+ 
+ #define	NBBY	8		/* number of bits in a byte */
++#endif
+ #define	NBPW	sizeof(int)	/* number of bytes per word (integer) */
+ 
+ #define	CMASK	022		/* default file mask: S_IWGRP|S_IWOTH */
+@@ -260,6 +274,7 @@
+ #define	MAXPATHLEN	PATH_MAX
+ #define MAXSYMLINKS	32
+ 
++#ifdef __FreeBSD__
+ /* Bit map related macros. */
+ #define	setbit(a,i)	(((unsigned char *)(a))[(i)/NBBY] |= 1<<((i)%NBBY))
+ #define	clrbit(a,i)	(((unsigned char *)(a))[(i)/NBBY] &= ~(1<<((i)%NBBY)))
+@@ -267,6 +282,7 @@
+ 	(((const unsigned char *)(a))[(i)/NBBY] & (1<<((i)%NBBY)))
+ #define	isclr(a,i)							\
+ 	((((const unsigned char *)(a))[(i)/NBBY] & (1<<((i)%NBBY))) == 0)
++#endif
+ 
+ /* Macros for counting and rounding. */
+ #ifndef howmany
+@@ -275,9 +291,13 @@
+ #define	nitems(x)	(sizeof((x)) / sizeof((x)[0]))
+ #define	rounddown(x, y)	(((x)/(y))*(y))
+ #define	rounddown2(x, y) ((x)&(~((y)-1)))          /* if y is power of two */
++#ifdef __FreeBSD__
+ #define	roundup(x, y)	((((x)+((y)-1))/(y))*(y))  /* to any y */
++#endif
+ #define	roundup2(x, y)	(((x)+((y)-1))&(~((y)-1))) /* if y is powers of two */
++#ifdef __FreeBSD__
+ #define powerof2(x)	((((x)-1)&(x))==0)
++#endif
+ 
+ /* Macros for min/max. */
+ #define	MIN(a,b) (((a)<(b))?(a):(b))
+--- a/sys/sys/queue.h
++++ b/sys/sys/queue.h
+@@ -30,8 +30,12 @@
+  * $FreeBSD$
+  */
+ 
+-#ifndef _SYS_QUEUE_H_
+-#define	_SYS_QUEUE_H_
++#ifndef __SYS_QUEUE_H_
++#define	__SYS_QUEUE_H_
++
++#ifndef __FreeBSD__
++#include <sys/queue.h>
++#endif
+ 
+ #include <sys/cdefs.h>
+ 
+@@ -166,10 +170,12 @@
+ 
+ #define	SLIST_FIRST(head)	((head)->slh_first)
+ 
++#if !defined(__GLIBC__) || defined(_KERNEL)
+ #define	SLIST_FOREACH(var, head, field)					\
+ 	for ((var) = SLIST_FIRST((head));				\
+ 	    (var);							\
+ 	    (var) = SLIST_NEXT((var), field))
++#endif
+ 
+ #define	SLIST_FOREACH_FROM(var, head, field)				\
+ 	for ((var) = ((var) ? (var) : SLIST_FIRST((head)));		\
+@@ -191,6 +197,7 @@
+ 	    ((var) = *(varp)) != NULL;					\
+ 	    (varp) = &SLIST_NEXT((var), field))
+ 
++#if !defined(__GLIBC__) || defined(_KERNEL)
+ #define	SLIST_INIT(head) do {						\
+ 	SLIST_FIRST((head)) = NULL;					\
+ } while (0)
+@@ -204,9 +211,11 @@
+ 	SLIST_NEXT((elm), field) = SLIST_FIRST((head));			\
+ 	SLIST_FIRST((head)) = (elm);					\
+ } while (0)
++#endif
+ 
+ #define	SLIST_NEXT(elm, field)	((elm)->field.sle_next)
+ 
++#if !defined(__GLIBC__) || defined(_KERNEL)
+ #define	SLIST_REMOVE(head, elm, type, field) do {			\
+ 	QMD_SAVELINK(oldnext, (elm)->field.sle_next);			\
+ 	if (SLIST_FIRST((head)) == (elm)) {				\
+@@ -220,7 +229,9 @@
+ 	}								\
+ 	TRASHIT(*oldnext);						\
+ } while (0)
++#endif
+ 
++#if !defined(__GLIBC__) || defined(_KERNEL)
+ #define SLIST_REMOVE_AFTER(elm, field) do {				\
+ 	SLIST_NEXT(elm, field) =					\
+ 	    SLIST_NEXT(SLIST_NEXT(elm, field), field);			\
+@@ -229,6 +240,7 @@
+ #define	SLIST_REMOVE_HEAD(head, field) do {				\
+ 	SLIST_FIRST((head)) = SLIST_NEXT(SLIST_FIRST((head)), field);	\
+ } while (0)
++#endif
+ 
+ #define SLIST_SWAP(head1, head2, type) do {				\
+ 	struct type *swap_first = SLIST_FIRST(head1);			\
+@@ -256,6 +268,7 @@
+ /*
+  * Singly-linked Tail queue functions.
+  */
++#if !defined(__GLIBC__) || defined(_KERNEL)
+ #define	STAILQ_CONCAT(head1, head2) do {				\
+ 	if (!STAILQ_EMPTY((head2))) {					\
+ 		*(head1)->stqh_last = (head2)->stqh_first;		\
+@@ -263,36 +276,44 @@
+ 		STAILQ_INIT((head2));					\
+ 	}								\
+ } while (0)
++#endif
+ 
+ #define	STAILQ_EMPTY(head)	((head)->stqh_first == NULL)
+ 
+ #define	STAILQ_FIRST(head)	((head)->stqh_first)
+ 
++#if !defined(__GLIBC__) || defined(_KERNEL)
+ #define	STAILQ_FOREACH(var, head, field)				\
+ 	for((var) = STAILQ_FIRST((head));				\
+ 	   (var);							\
+ 	   (var) = STAILQ_NEXT((var), field))
++#endif
+ 
+ #define	STAILQ_FOREACH_FROM(var, head, field)				\
+ 	for ((var) = ((var) ? (var) : STAILQ_FIRST((head)));		\
+ 	   (var);							\
+ 	   (var) = STAILQ_NEXT((var), field))
+ 
++#if !defined(__GLIBC__) || defined(_KERNEL)
+ #define	STAILQ_FOREACH_SAFE(var, head, field, tvar)			\
+ 	for ((var) = STAILQ_FIRST((head));				\
+ 	    (var) && ((tvar) = STAILQ_NEXT((var), field), 1);		\
+ 	    (var) = (tvar))
++#endif
+ 
+ #define	STAILQ_FOREACH_FROM_SAFE(var, head, field, tvar)		\
+ 	for ((var) = ((var) ? (var) : STAILQ_FIRST((head)));		\
+ 	    (var) && ((tvar) = STAILQ_NEXT((var), field), 1);		\
+ 	    (var) = (tvar))
+ 
++#if !defined(__GLIBC__) || defined(_KERNEL)
+ #define	STAILQ_INIT(head) do {						\
+ 	STAILQ_FIRST((head)) = NULL;					\
+ 	(head)->stqh_last = &STAILQ_FIRST((head));			\
+ } while (0)
++#endif
+ 
++#if !defined(__GLIBC__) || defined(_KERNEL)
+ #define	STAILQ_INSERT_AFTER(head, tqelm, elm, field) do {		\
+ 	if ((STAILQ_NEXT((elm), field) = STAILQ_NEXT((tqelm), field)) == NULL)\
+ 		(head)->stqh_last = &STAILQ_NEXT((elm), field);		\
+@@ -310,6 +331,7 @@
+ 	*(head)->stqh_last = (elm);					\
+ 	(head)->stqh_last = &STAILQ_NEXT((elm), field);			\
+ } while (0)
++#endif
+ 
+ #define	STAILQ_LAST(head, type, field)					\
+ 	(STAILQ_EMPTY((head)) ? NULL :					\
+@@ -317,6 +339,7 @@
+ 
+ #define	STAILQ_NEXT(elm, field)	((elm)->field.stqe_next)
+ 
++#if !defined(__GLIBC__) || defined(_KERNEL)
+ #define	STAILQ_REMOVE(head, elm, type, field) do {			\
+ 	QMD_SAVELINK(oldnext, (elm)->field.stqe_next);			\
+ 	if (STAILQ_FIRST((head)) == (elm)) {				\
+@@ -330,6 +353,7 @@
+ 	}								\
+ 	TRASHIT(*oldnext);						\
+ } while (0)
++#endif
+ 
+ #define STAILQ_REMOVE_AFTER(head, elm, field) do {			\
+ 	if ((STAILQ_NEXT(elm, field) =					\
+@@ -337,11 +361,13 @@
+ 		(head)->stqh_last = &STAILQ_NEXT((elm), field);		\
+ } while (0)
+ 
++#if !defined(__GLIBC__) || defined(_KERNEL)
+ #define	STAILQ_REMOVE_HEAD(head, field) do {				\
+ 	if ((STAILQ_FIRST((head)) =					\
+ 	     STAILQ_NEXT(STAILQ_FIRST((head)), field)) == NULL)		\
+ 		(head)->stqh_last = &STAILQ_FIRST((head));		\
+ } while (0)
++#endif
+ 
+ #define STAILQ_SWAP(head1, head2, type) do {				\
+ 	struct type *swap_first = STAILQ_FIRST(head1);			\
+@@ -407,30 +433,37 @@
+ 
+ #define	LIST_FIRST(head)	((head)->lh_first)
+ 
++#if !defined(__GLIBC__) || defined(_KERNEL)
+ #define	LIST_FOREACH(var, head, field)					\
+ 	for ((var) = LIST_FIRST((head));				\
+ 	    (var);							\
+ 	    (var) = LIST_NEXT((var), field))
++#endif
+ 
+ #define	LIST_FOREACH_FROM(var, head, field)				\
+ 	for ((var) = ((var) ? (var) : LIST_FIRST((head)));		\
+ 	    (var);							\
+ 	    (var) = LIST_NEXT((var), field))
+ 
++#if !defined(__GLIBC__) || defined(_KERNEL)
+ #define	LIST_FOREACH_SAFE(var, head, field, tvar)			\
+ 	for ((var) = LIST_FIRST((head));				\
+ 	    (var) && ((tvar) = LIST_NEXT((var), field), 1);		\
+ 	    (var) = (tvar))
++#endif
+ 
+ #define	LIST_FOREACH_FROM_SAFE(var, head, field, tvar)			\
+ 	for ((var) = ((var) ? (var) : LIST_FIRST((head)));		\
+ 	    (var) && ((tvar) = LIST_NEXT((var), field), 1);		\
+ 	    (var) = (tvar))
+ 
++#if !defined(__GLIBC__) || defined(_KERNEL)
+ #define	LIST_INIT(head) do {						\
+ 	LIST_FIRST((head)) = NULL;					\
+ } while (0)
++#endif
+ 
++#if !defined(__GLIBC__) || defined(_KERNEL)
+ #define	LIST_INSERT_AFTER(listelm, elm, field) do {			\
+ 	QMD_LIST_CHECK_NEXT(listelm, field);				\
+ 	if ((LIST_NEXT((elm), field) = LIST_NEXT((listelm), field)) != NULL)\
+@@ -455,6 +488,7 @@
+ 	LIST_FIRST((head)) = (elm);					\
+ 	(elm)->field.le_prev = &LIST_FIRST((head));			\
+ } while (0)
++#endif
+ 
+ #define	LIST_NEXT(elm, field)	((elm)->field.le_next)
+ 
+@@ -462,6 +496,7 @@
+ 	((elm)->field.le_prev == &LIST_FIRST((head)) ? NULL :		\
+ 	    __containerof((elm)->field.le_prev, struct type, field.le_next))
+ 
++#if !defined(__GLIBC__) || defined(_KERNEL)
+ #define	LIST_REMOVE(elm, field) do {					\
+ 	QMD_SAVELINK(oldnext, (elm)->field.le_next);			\
+ 	QMD_SAVELINK(oldprev, (elm)->field.le_prev);			\
+@@ -474,6 +509,7 @@
+ 	TRASHIT(*oldnext);						\
+ 	TRASHIT(*oldprev);						\
+ } while (0)
++#endif
+ 
+ #define LIST_SWAP(head1, head2, type, field) do {			\
+ 	struct type *swap_tmp = LIST_FIRST((head1));			\
+@@ -488,22 +524,26 @@
+ /*
+  * Tail queue declarations.
+  */
++#if !defined(__GLIBC__) || defined(_KERNEL)
+ #define	TAILQ_HEAD(name, type)						\
+ struct name {								\
+ 	struct type *tqh_first;	/* first element */			\
+ 	struct type **tqh_last;	/* addr of last next element */		\
+ 	TRACEBUF							\
+ }
++#endif
+ 
+ #define	TAILQ_HEAD_INITIALIZER(head)					\
+ 	{ NULL, &(head).tqh_first, TRACEBUF_INITIALIZER }
+ 
++#if !defined(__GLIBC__) || defined(_KERNEL)
+ #define	TAILQ_ENTRY(type)						\
+ struct {								\
+ 	struct type *tqe_next;	/* next element */			\
+ 	struct type **tqe_prev;	/* address of previous next element */	\
+ 	TRACEBUF							\
+ }
++#endif
+ 
+ /*
+  * Tail queue functions.
+@@ -539,6 +579,7 @@
+ #define	QMD_TAILQ_CHECK_PREV(elm, field)
+ #endif /* (_KERNEL && INVARIANTS) */
+ 
++#if !defined(__GLIBC__) || defined(_KERNEL)
+ #define	TAILQ_CONCAT(head1, head2, field) do {				\
+ 	if (!TAILQ_EMPTY(head2)) {					\
+ 		*(head1)->tqh_last = (head2)->tqh_first;		\
+@@ -549,51 +590,61 @@
+ 		QMD_TRACE_HEAD(head2);					\
+ 	}								\
+ } while (0)
++#endif
+ 
+ #define	TAILQ_EMPTY(head)	((head)->tqh_first == NULL)
+ 
+ #define	TAILQ_FIRST(head)	((head)->tqh_first)
+ 
++#if !defined(__GLIBC__) || defined(_KERNEL)
+ #define	TAILQ_FOREACH(var, head, field)					\
+ 	for ((var) = TAILQ_FIRST((head));				\
+ 	    (var);							\
+ 	    (var) = TAILQ_NEXT((var), field))
++#endif
+ 
+ #define	TAILQ_FOREACH_FROM(var, head, field)				\
+ 	for ((var) = ((var) ? (var) : TAILQ_FIRST((head)));		\
+ 	    (var);							\
+ 	    (var) = TAILQ_NEXT((var), field))
+ 
++#if !defined(__GLIBC__) || defined(_KERNEL)
+ #define	TAILQ_FOREACH_SAFE(var, head, field, tvar)			\
+ 	for ((var) = TAILQ_FIRST((head));				\
+ 	    (var) && ((tvar) = TAILQ_NEXT((var), field), 1);		\
+ 	    (var) = (tvar))
++#endif
+ 
+ #define	TAILQ_FOREACH_FROM_SAFE(var, head, field, tvar)			\
+ 	for ((var) = ((var) ? (var) : TAILQ_FIRST((head)));		\
+ 	    (var) && ((tvar) = TAILQ_NEXT((var), field), 1);		\
+ 	    (var) = (tvar))
+ 
++#if !defined(__GLIBC__) || defined(_KERNEL)
+ #define	TAILQ_FOREACH_REVERSE(var, head, headname, field)		\
+ 	for ((var) = TAILQ_LAST((head), headname);			\
+ 	    (var);							\
+ 	    (var) = TAILQ_PREV((var), headname, field))
++#endif
+ 
+ #define	TAILQ_FOREACH_REVERSE_FROM(var, head, headname, field)		\
+ 	for ((var) = ((var) ? (var) : TAILQ_LAST((head), headname));	\
+ 	    (var);							\
+ 	    (var) = TAILQ_PREV((var), headname, field))
+ 
++#if !defined(__GLIBC__) || defined(_KERNEL)
+ #define	TAILQ_FOREACH_REVERSE_SAFE(var, head, headname, field, tvar)	\
+ 	for ((var) = TAILQ_LAST((head), headname);			\
+ 	    (var) && ((tvar) = TAILQ_PREV((var), headname, field), 1);	\
+ 	    (var) = (tvar))
++#endif
+ 
+ #define	TAILQ_FOREACH_REVERSE_FROM_SAFE(var, head, headname, field, tvar) \
+ 	for ((var) = ((var) ? (var) : TAILQ_LAST((head), headname));	\
+ 	    (var) && ((tvar) = TAILQ_PREV((var), headname, field), 1);	\
+ 	    (var) = (tvar))
+ 
++#if !defined(__GLIBC__) || defined(_KERNEL)
+ #define	TAILQ_INIT(head) do {						\
+ 	TAILQ_FIRST((head)) = NULL;					\
+ 	(head)->tqh_last = &TAILQ_FIRST((head));			\
+@@ -647,6 +698,7 @@
+ 	QMD_TRACE_HEAD(head);						\
+ 	QMD_TRACE_ELEM(&(elm)->field);					\
+ } while (0)
++#endif
+ 
+ #define	TAILQ_LAST(head, headname)					\
+ 	(*(((struct headname *)((head)->tqh_last))->tqh_last))
+@@ -656,6 +708,7 @@
+ #define	TAILQ_PREV(elm, headname, field)				\
+ 	(*(((struct headname *)((elm)->field.tqe_prev))->tqh_last))
+ 
++#if !defined(__GLIBC__) || defined(_KERNEL)
+ #define	TAILQ_REMOVE(head, elm, field) do {				\
+ 	QMD_SAVELINK(oldnext, (elm)->field.tqe_next);			\
+ 	QMD_SAVELINK(oldprev, (elm)->field.tqe_prev);			\
+@@ -673,6 +726,7 @@
+ 	TRASHIT(*oldprev);						\
+ 	QMD_TRACE_ELEM(&(elm)->field);					\
+ } while (0)
++#endif
+ 
+ #define TAILQ_SWAP(head1, head2, type, field) do {			\
+ 	struct type *swap_first = (head1)->tqh_first;			\
+--- a/sys/sys/time.h
++++ b/sys/sys/time.h
+@@ -37,10 +37,16 @@
+ #include <sys/types.h>
+ #include <sys/timespec.h>
+ 
++#ifndef __FreeBSD__
++#include <sys/time.h>
++#endif
++
++#ifdef __FreeBSD__
+ struct timezone {
+ 	int	tz_minuteswest;	/* minutes west of Greenwich */
+ 	int	tz_dsttime;	/* type of dst correction */
+ };
++#endif
+ #define	DST_NONE	0	/* not on dst */
+ #define	DST_USA		1	/* USA style dst */
+ #define	DST_AUST	2	/* Australian style dst */
+@@ -49,7 +55,7 @@
+ #define	DST_EET		5	/* Eastern European dst */
+ #define	DST_CAN		6	/* Canada */
+ 
+-#if __BSD_VISIBLE
++#if 1 /* used by sys/devicestat.h and others */
+ struct bintime {
+ 	time_t	sec;
+ 	uint64_t frac;
+@@ -281,7 +287,7 @@
+ 
+ #endif /* _KERNEL */
+ 
+-#ifndef _KERNEL			/* NetBSD/OpenBSD compatible interfaces */
++#if 0
+ 
+ #define	timerclear(tvp)		((tvp)->tv_sec = (tvp)->tv_usec = 0)
+ #define	timerisset(tvp)		((tvp)->tv_sec || (tvp)->tv_usec)
+@@ -309,6 +315,7 @@
+ 	} while (0)
+ #endif
+ 
++#ifdef __FreeBSD__
+ /*
+  * Names of the interval timers, and structure
+  * defining a timer setting.
+@@ -361,6 +368,8 @@
+ #define	CPUCLOCK_WHICH_TID	1
+ #endif
+ 
++#endif
++
+ #ifdef _KERNEL
+ 
+ /*
+@@ -472,6 +481,7 @@
+ #include <sys/cdefs.h>
+ #include <sys/select.h>
+ 
++#if 0
+ __BEGIN_DECLS
+ int	setitimer(int, const struct itimerval *, struct itimerval *);
+ int	utimes(const char *, const struct timeval *);
+@@ -491,6 +501,7 @@
+ #endif
+ 
+ __END_DECLS
++#endif
+ 
+ #endif /* !_KERNEL */
+ 
+--- a/sys/sys/timespec.h
++++ b/sys/sys/timespec.h
+@@ -37,7 +37,9 @@
+ #include <sys/cdefs.h>
+ #include <sys/_timespec.h>
+ 
+-#if __BSD_VISIBLE
++#ifndef __FreeBSD__
++#include <sys/time.h>
++#else
+ #define	TIMEVAL_TO_TIMESPEC(tv, ts)					\
+ 	do {								\
+ 		(ts)->tv_sec = (tv)->tv_sec;				\
+@@ -51,6 +53,7 @@
+ 
+ #endif /* __BSD_VISIBLE */
+ 
++#ifdef __FreeBSD__
+ /*
+  * Structure defined by POSIX.1b to be like a itimerval, but with
+  * timespecs. Used in the timer_*() system calls.
+@@ -59,5 +62,6 @@
+ 	struct timespec  it_interval;
+ 	struct timespec  it_value;
+ };
++#endif
+ 
+ #endif /* _SYS_TIMESPEC_H_ */
+--- a/sys/sys/types.h
++++ b/sys/sys/types.h
+@@ -44,7 +44,21 @@
+ #include <machine/endian.h>
+ #include <sys/_types.h>
+ 
++#ifdef __FreeBSD__
+ #include <sys/_pthreadtypes.h>
++#endif
++
++#ifndef __FreeBSD__
++/* Allow conflicting declarations in glibc <sys/types.h> to override us.  */
++#include <sys/types.h>
++#define _CLOCK_T_DECLARED
++#define _FSBLKCNT_T_DECLARED
++#define _ID_T_DECLARED
++#define _TIME_T_DECLARED
++#define _TIMER_T_DECLARED
++#define _MQD_T_DECLARED
++#define _INO_T_DECLARED
++#endif
+ 
+ #if __BSD_VISIBLE
+ typedef	unsigned char	u_char;
+@@ -179,7 +193,9 @@
+ #define	_PID_T_DECLARED
+ #endif
+ 
++#ifdef __FreeBSD__
+ typedef	__register_t	register_t;
++#endif
+ 
+ #ifndef _RLIM_T_DECLARED
+ typedef	__rlim_t	rlim_t;		/* resource limit */
+@@ -285,10 +301,10 @@
+  * The following are all things that really shouldn't exist in this header,
+  * since its purpose is to provide typedefs, not miscellaneous doodads.
+  */
+-#if __BSD_VISIBLE
+ 
+ #include <sys/select.h>
+ 
++#ifdef __FreeBSD__
+ /*
+  * minor() gives a cookie instead of an index since we don't want to
+  * change the meanings of bits 0-15 or waste time and space shifting
+@@ -303,7 +319,7 @@
+  * <stdio.h> to give broken programs a better chance of working with
+  * 64-bit off_t's.
+  */
+-#ifndef _KERNEL
++#if 0
+ __BEGIN_DECLS
+ #ifndef _FTRUNCATE_DECLARED
+ #define	_FTRUNCATE_DECLARED
+--- a/sys/sys/_sigset.h
++++ b/sys/sys/_sigset.h
+@@ -48,9 +48,11 @@
+ #define	_SIG_BIT(sig)	(1 << (_SIG_IDX(sig) & 31))
+ #define	_SIG_VALID(sig)	((sig) <= _SIG_MAXSIG && (sig) > 0)
+ 
++#ifdef __FreeBSD__
+ typedef struct __sigset {
+ 	__uint32_t __bits[_SIG_WORDS];
+ } __sigset_t;
++#endif
+ 
+ #if defined(_KERNEL) && defined(COMPAT_43)
+ typedef unsigned int osigset_t;
+--- a/sys/sys/socket.h
++++ b/sys/sys/socket.h
+@@ -38,6 +38,8 @@
+ #include <sys/_iovec.h>
+ #include <machine/_align.h>
+ 
++#ifdef __FreeBSD__
++
+ /*
+  * Definitions related to sockets: types, address families, options.
+  */
+@@ -360,6 +362,10 @@
+ 
+ #define	PF_MAX		AF_MAX
+ 
++#endif /* __BSD_VISIBLE */
++#endif /* 0 */
++
++#if __BSD_VISIBLE
+ /*
+  * Definitions for network related sysctl, CTL_NET.
+  *
+@@ -388,6 +394,8 @@
+ 
+ #endif /* __BSD_VISIBLE */
+ 
++#ifdef __FreeBSD__
++
+ /*
+  * Maximum queue length specifiable by listen.
+  */
+@@ -661,5 +669,6 @@
+ 
+ #endif
+ 
++#endif
+ 
+ #endif /* !_SYS_SOCKET_H_ */
+--- a/sys/sys/_iovec.h
++++ b/sys/sys/_iovec.h
+@@ -40,9 +40,13 @@
+ #define	_SIZE_T_DECLARED
+ #endif
+ 
++#ifndef __FreeBSD__
++#include <sys/uio.h>
++#else
+ struct iovec {
+ 	void	*iov_base;	/* Base address. */
+ 	size_t	 iov_len;	/* Length. */
+ };
++#endif
+ 
+ #endif /* !_SYS__IOVEC_H_ */
+--- a/sys/x86/include/_types.h
++++ b/sys/x86/include/_types.h
+@@ -81,7 +81,10 @@
+ typedef	__int64_t	__intfptr_t;
+ typedef	__int64_t	__intptr_t;
+ #else
++#ifdef __FreeBSD__
++/* This divergence is probably accidental, but it can't be fixed now. */
+ typedef	unsigned long	__clock_t;
++#endif
+ typedef	__int32_t	__critical_t;
+ typedef	long double	__double_t;
+ typedef	long double	__float_t;
+@@ -99,11 +102,15 @@
+ typedef	__int64_t	__int_least64_t;
+ #ifdef	__LP64__
+ typedef	__int64_t	__ptrdiff_t;		/* ptr1 - ptr2 */
++#ifdef __FreeBSD__
+ typedef	__int64_t	__register_t;
++#endif
+ typedef	__int64_t	__segsz_t;		/* segment size (in pages) */
+ typedef	__uint64_t	__size_t;		/* sizeof() */
+ typedef	__int64_t	__ssize_t;		/* byte count or error */
++# ifdef __FreeBSD__
+ typedef	__int64_t	__time_t;		/* time()... */
++# endif
+ typedef	__uint64_t	__uintfptr_t;
+ typedef	__uint64_t	__uintptr_t;
+ #else
+@@ -112,7 +119,9 @@
+ typedef	__int32_t	__segsz_t;
+ typedef	__uint32_t	__size_t;
+ typedef	__int32_t	__ssize_t;
++# ifdef __FreeBSD__
+ typedef	__int32_t	__time_t;
++# endif
+ typedef	__uint32_t	__uintfptr_t;
+ typedef	__uint32_t	__uintptr_t;
+ #endif
+--- a/sys/x86/include/signal.h
++++ b/sys/x86/include/signal.h
+@@ -46,9 +46,15 @@
+ #endif
+ 
+ #ifdef __i386__
++
++#ifndef __FreeBSD__
++#define __need_sig_atomic_t
++#include <signal.h>
++#else
+ typedef int sig_atomic_t;
++#endif
+ 
+-#if __BSD_VISIBLE
++#ifdef __FreeBSD__
+ struct sigcontext {
+ 	struct __sigset sc_mask;	/* signal mask to restore */
+ 	int	sc_onstack;		/* sigstack state to restore */
+@@ -100,9 +106,15 @@
+ #endif /* __i386__ */
+ 
+ #ifdef __amd64__
++
++#ifndef __FreeBSD__
++#define __need_sig_atomic_t
++#include <signal.h>
++#else
+ typedef long sig_atomic_t;
++#endif
+ 
+-#if __BSD_VISIBLE
++#ifdef __FreeBSD__
+ /*
+  * Information pushed on stack when a signal is delivered.
+  * This is used by the kernel to restore state following
+--- a/sys/x86/include/endian.h
++++ b/sys/x86/include/endian.h
+@@ -56,7 +56,9 @@
+  * Deprecated variants that don't have enough underscores to be useful in more
+  * strict namespaces.
+  */
+-#if __BSD_VISIBLE
++#ifndef __FreeBSD__
++#include <endian.h>
++#else
+ #define	LITTLE_ENDIAN	_LITTLE_ENDIAN
+ #define	BIG_ENDIAN	_BIG_ENDIAN
+ #define	PDP_ENDIAN	_PDP_ENDIAN
+--- a/sys/x86/include/stdarg.h
++++ b/sys/x86/include/stdarg.h
+@@ -34,6 +34,8 @@
+ #include <sys/cdefs.h>
+ #include <sys/_types.h>
+ 
++#ifdef __FreeBSD__
++
+ #ifndef _VA_LIST_DECLARED
+ #define	_VA_LIST_DECLARED
+ typedef	__va_list	va_list;
+@@ -72,4 +74,6 @@
+ #error this file needs to be ported to your compiler
+ #endif
+ 
++#endif
++
+ #endif /* !_MACHINE_STDARG_H_ */
