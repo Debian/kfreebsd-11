@@ -1084,3 +1084,21 @@ Staging area for fixes needed by userland.
 +#endif
 +
  #endif /* !_MACHINE_STDARG_H_ */
+--- a/sys/sys/syslimits.h
++++ b/sys/sys/syslimits.h
+@@ -33,15 +33,6 @@
+ #ifndef _SYS_SYSLIMITS_H_
+ #define _SYS_SYSLIMITS_H_
+ 
+-#if !defined(_KERNEL) && !defined(_LIMITS_H_) && !defined(_SYS_PARAM_H_)
+-#ifndef _SYS_CDEFS_H_
+-#error this file needs sys/cdefs.h as a prerequisite
+-#endif
+-#ifdef __CC_SUPPORTS_WARNING
+-#warning "No user-serviceable parts inside."
+-#endif
+-#endif
+-
+ /*
+  * Do not add any new variables here.  (See the comment at the end of
+  * the file for why.)
