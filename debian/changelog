@@ -1,3 +1,10 @@
+kfreebsd-10 (10.0~svn255915-2) UNRELEASED; urgency=low
+
+  * Only build with Clang on architectures where it is the default in
+    upstream.
+
+ -- Robert Millan <rmh@debian.org>  Thu, 03 Oct 2013 01:45:47 +0200
+
 kfreebsd-10 (10.0~svn255915-1) experimental; urgency=low
 
   * New upstream snapshot.

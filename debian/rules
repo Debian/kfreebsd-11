@@ -22,8 +22,6 @@ flavours	:= $(config_files:debian/arch/$(cpu)/%.config=%)
 configfile	:= DEBCUSTOM
 abiname		:= 0
 ld_target	:= $(shell ld --help | sed -ne "s/[^ :]*: supported targets: \([^ ]*\) .*/\1/p")
-cc_cmd		:= clang
-cc_pkg		:= clang-3.3 (>= 1:3.3-9)
 
 ifeq ($(cpu), mipsel)
 kfreebsd_cpu	:= mips
@@ -46,6 +44,18 @@ ORIG_DIR	:= kfreebsd-$(major)-$(tar_version)
 ORIG_TAR	:= kfreebsd-$(major)_$(tar_version).orig.tar.xz
 MAKE		:= make MACHINE_ARCH=$(kfreebsd_cpu) -DWITHOUT_SOURCELESS
 PATH		:= /usr/lib/freebsd:$(PATH)
+
+# Clang is the default compiler on these architectures (see src/share/mk/bsd.own.mk)
+clang_cpus	:= i386 amd64 armel
+
+cc_pkg		:= clang-3.3 (>= 1:3.3-9) [$(foreach cpu,$(clang_cpus),any-$(cpu))], \
+		gcc-4.8 [$(foreach cpu,$(clang_cpus),!any-$(cpu))]
+
+ifneq (, $(filter $(clang_cpus), $(DEB_HOST_ARCH_CPU)))
+cc_cmd		:= clang
+else
+cc_cmd		:= gcc-4.8
+endif
 
 ifeq ($(cc_cmd), clang)
 MAKE	+= -DWITH_CLANG_IS_CC
