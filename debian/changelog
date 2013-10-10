@@ -1,4 +1,4 @@
-kfreebsd-11 (11.0~svn256281-1) UNRELEASED; urgency=low
+kfreebsd-11 (11.0~svn256281-1) experimental; urgency=low
 
   * New upstream snapshot.
     - Rename to kfreebsd-11.
