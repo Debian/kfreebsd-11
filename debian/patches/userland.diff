@@ -1077,7 +1077,7 @@ Staging area for fixes needed by userland.
  #ifndef _VA_LIST_DECLARED
  #define	_VA_LIST_DECLARED
  typedef	__va_list	va_list;
-@@ -72,4 +74,6 @@
+@@ -74,4 +76,6 @@
  #error this file needs to be ported to your compiler
  #endif
  

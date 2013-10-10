@@ -1,6 +1,6 @@
 --- a/sys/conf/newvers.sh
 +++ b/sys/conf/newvers.sh
-@@ -182,7 +182,7 @@
+@@ -189,7 +189,7 @@
  cat << EOF > vers.c
  $COPYRIGHT
  #define SCCSSTR "@(#)${VERSION} #${v}${svn}${git}${p4version}: ${t}"

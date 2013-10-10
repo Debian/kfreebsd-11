@@ -9,7 +9,7 @@ Author: Steven Chamberlain <steven@pyro.eu.org>
 
 --- a/sys/conf/newvers.sh
 +++ b/sys/conf/newvers.sh
-@@ -88,6 +88,12 @@
+@@ -91,6 +91,12 @@
  i=`${MAKE:-make} -V KERN_IDENT`
  compiler_v=$($(${MAKE:-make} -V CC) -v 2>&1 | grep ' version ')
  
