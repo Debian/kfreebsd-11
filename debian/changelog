@@ -7,6 +7,7 @@ kfreebsd-11 (11.0~svn256281-1) UNRELEASED; urgency=low
   [ Robert Millan ]
   * Only build with Clang on architectures where it is the default in
     upstream.
+  * Remove -686-smp transitional packages (not needed for kfreebsd-11).
 
  -- Robert Millan <rmh@debian.org>  Thu, 10 Oct 2013 20:02:00 +0200
 
