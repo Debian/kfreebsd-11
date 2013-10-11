@@ -1,3 +1,10 @@
+kfreebsd-11 (11.0~svn256281-2) UNRELEASED; urgency=low
+
+  * Remove (disabled) patch 006_mips_i8259_alloc.diff. Problem has been
+    fixed in upstream already.
+
+ -- Robert Millan <rmh@debian.org>  Sat, 12 Oct 2013 01:36:08 +0200
+
 kfreebsd-11 (11.0~svn256281-1) experimental; urgency=low
 
   * New upstream snapshot.
