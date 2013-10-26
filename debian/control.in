@@ -12,7 +12,7 @@ Build-Depends: debhelper (>= 5.0.0), bzip2, sharutils, flex-old | flex,
  @cc_pkg@, libdb-dev,
  libbsd-dev (>= 0.3.0), pkg-config,
  libsbuf-dev (>= 9.0+ds1-2),
- kernel-wedge (>= 2.79) [kfreebsd-any],
+ kernel-wedge (>= 2.88) [kfreebsd-any],
 Standards-Version: 3.9.2
 
 Package: kfreebsd-source-@version@
