@@ -13,7 +13,7 @@ It handles three situations:
 
 --- a/sys/sys/signal.h
 +++ b/sys/sys/signal.h
-@@ -108,11 +108,7 @@
+@@ -115,11 +115,7 @@
  #define	SIGUSR1		30	/* user defined signal 1 */
  #define	SIGUSR2		31	/* user defined signal 2 */
  #endif
@@ -26,7 +26,7 @@ It handles three situations:
  
  #define	SIGRTMIN	65
  #define	SIGRTMAX	126
-@@ -171,6 +167,8 @@
+@@ -178,6 +174,8 @@
  			void *_attribute; /* pthread_attr_t * */
  		} _sigev_thread;
  		unsigned short _kevent_flags;

@@ -347,7 +347,7 @@ Staging area for fixes needed by userland.
  
  /* 
   * __FreeBSD_version numbers are documented in the Porter's Handbook.
-@@ -95,11 +101,15 @@
+@@ -97,11 +103,15 @@
  #include <sys/syslimits.h>
  
  #define	MAXCOMLEN	19		/* max command name remembered */
@@ -363,7 +363,7 @@ Staging area for fixes needed by userland.
  #define	NOFILE		OPEN_MAX	/* max open files per process */
  #define	NOGROUP		65535		/* marker for empty group set member */
  #define MAXHOSTNAMELEN	256		/* max hostname size */
-@@ -136,7 +146,9 @@
+@@ -138,7 +148,9 @@
  #ifndef DEV_BSHIFT
  #define	DEV_BSHIFT	9		/* log2(DEV_BSIZE) */
  #endif
@@ -373,7 +373,7 @@ Staging area for fixes needed by userland.
  
  #ifndef BLKDEV_IOSIZE
  #define BLKDEV_IOSIZE  PAGE_SIZE	/* default block device I/O size */
-@@ -212,9 +224,11 @@
+@@ -214,9 +226,11 @@
  #define	PCATCH	0x100		/* OR'd with pri for tsleep to check signals */
  #define	PDROP	0x200	/* OR'd with pri to stop re-entry of interlock mutex */
  
@@ -385,7 +385,7 @@ Staging area for fixes needed by userland.
  #define	NBPW	sizeof(int)	/* number of bytes per word (integer) */
  
  #define	CMASK	022		/* default file mask: S_IWGRP|S_IWOTH */
-@@ -260,6 +274,7 @@
+@@ -262,6 +276,7 @@
  #define	MAXPATHLEN	PATH_MAX
  #define MAXSYMLINKS	32
  
@@ -393,7 +393,7 @@ Staging area for fixes needed by userland.
  /* Bit map related macros. */
  #define	setbit(a,i)	(((unsigned char *)(a))[(i)/NBBY] |= 1<<((i)%NBBY))
  #define	clrbit(a,i)	(((unsigned char *)(a))[(i)/NBBY] &= ~(1<<((i)%NBBY)))
-@@ -267,6 +282,7 @@
+@@ -269,6 +284,7 @@
  	(((const unsigned char *)(a))[(i)/NBBY] & (1<<((i)%NBBY)))
  #define	isclr(a,i)							\
  	((((const unsigned char *)(a))[(i)/NBBY] & (1<<((i)%NBBY))) == 0)
@@ -401,7 +401,7 @@ Staging area for fixes needed by userland.
  
  /* Macros for counting and rounding. */
  #ifndef howmany
-@@ -275,9 +291,13 @@
+@@ -277,9 +293,13 @@
  #define	nitems(x)	(sizeof((x)) / sizeof((x)[0]))
  #define	rounddown(x, y)	(((x)/(y))*(y))
  #define	rounddown2(x, y) ((x)&(~((y)-1)))          /* if y is power of two */

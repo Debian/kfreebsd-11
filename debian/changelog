@@ -1,4 +1,11 @@
-kfreebsd-11 (11.0~svn256281-2) UNRELEASED; urgency=low
+kfreebsd-11 (11.0~svn258494-1) experimental; urgency=low
+
+  * New upstream snapshot.
+    - Refresh all patches.
+    - Upstream moved aicasm off the kernel build process. Follow them and
+      aicasm from freebsd-buildutils (>= 10~svn258496-1~).
+    - r258281: Fix siginfo_t.si_status for wait6/waitid/SIGCHLD.
+      (Closes: #729698)
 
   [ Robert Millan ]
   * Remove (disabled) patch 006_mips_i8259_alloc.diff. Problem has been
@@ -10,7 +17,7 @@ kfreebsd-11 (11.0~svn256281-2) UNRELEASED; urgency=low
   [ Guillem Jover ]
   * Remove myself from Uploaders.
 
- -- Robert Millan <rmh@debian.org>  Sat, 02 Nov 2013 14:13:22 +0100
+ -- Robert Millan <rmh@debian.org>  Sat, 23 Nov 2013 13:24:23 +0100
 
 kfreebsd-11 (11.0~svn256281-1) experimental; urgency=low
 

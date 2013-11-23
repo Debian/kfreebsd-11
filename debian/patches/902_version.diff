@@ -1,11 +1,12 @@
 --- a/sys/conf/newvers.sh
 +++ b/sys/conf/newvers.sh
-@@ -189,7 +189,7 @@
- cat << EOF > vers.c
- $COPYRIGHT
- #define SCCSSTR "@(#)${VERSION} #${v}${svn}${git}${p4version}: ${t}"
--#define VERSTR "${VERSION} #${v}${svn}${git}${p4version}: ${t}\\n    ${u}@${h}:${d}\\n"
-+#define VERSTR "#${v} ${t}\\n"
+@@ -212,6 +212,9 @@
+ #define VERSTR "${VERSION} #${v}${svn}${git}${hg}${p4version}: ${t}\\n    ${u}@${h}:${d}\\n"
  #define RELSTR "${RELEASE}"
  
++#undef VERSTR
++#define VERSTR "#${v} ${t}\\n"
++
  char sccs[sizeof(SCCSSTR) > 128 ? sizeof(SCCSSTR) : 128] = SCCSSTR;
+ char version[sizeof(VERSTR) > 256 ? sizeof(VERSTR) : 256] = VERSTR;
+ char compiler_version[] = "${compiler_v}";

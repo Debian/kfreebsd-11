@@ -7,7 +7,6 @@ mount_remount.diff
 userland.diff
 001_misc.diff
 002_maxpathlen.diff
-003_glibc_dev_aicasm.diff
 004_xargs.diff
 #007_clone_signals.diff
 #009_disable_duped_modules.diff

@@ -6,11 +6,11 @@ Uploaders: Aurelien Jarno <aurel32@debian.org>, Robert Millan <rmh@debian.org>
 Vcs-Browser: http://anonscm.debian.org/viewvc/glibc-bsd/trunk/kfreebsd-@major@/
 Vcs-Svn: svn://anonscm.debian.org/glibc-bsd/trunk/kfreebsd-@major@/
 Build-Depends: debhelper (>= 5.0.0), bzip2, sharutils, flex-old | flex,
- freebsd-buildutils (>= 10~svn253832),
+# for aicasm
+ freebsd-buildutils (>= 10~svn258496-1~),
  freebsd-glue (>= 0.1.5),
  byacc,
  @cc_pkg@, libdb-dev,
- libbsd-dev (>= 0.3.0), pkg-config,
  libsbuf-dev (>= 9.0+ds1-2),
  kernel-wedge (>= 2.88) [kfreebsd-any],
 Standards-Version: 3.9.2

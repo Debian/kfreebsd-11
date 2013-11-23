@@ -1,6 +1,6 @@
 --- a/sys/compat/linprocfs/linprocfs.c
 +++ b/sys/compat/linprocfs/linprocfs.c
-@@ -356,10 +356,6 @@
+@@ -357,10 +357,6 @@
  
  		/* determine fs type */
  		fstype = mp->mnt_stat.f_fstypename;
