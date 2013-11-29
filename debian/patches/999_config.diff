@@ -48,7 +48,7 @@
  options 	SYSVSHM			# SYSV-style shared memory
 --- /dev/null
 +++ b/sys/conf/DEBIAN
-@@ -0,0 +1,40 @@
+@@ -0,0 +1,36 @@
 +# Common options to all Debian GNU/kFreeBSD kernels
 +
 +options		LINPROCFS
@@ -70,10 +70,6 @@
 +device		pf
 +device		pfsync
 +device		pflog
-+
-+# pty(4) was removed from GENERIC in 10-CURRENT (see rev 233271),
-+# but unfortunetely glibc doesn't support pts(4) yet (see #667448).
-+device		pty
 +
 +# Toggle to enable/disable debug options.
 +include		DEBIAN_DEBUG

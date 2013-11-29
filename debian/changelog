@@ -2,6 +2,7 @@ kfreebsd-11 (11.0~svn258494-2) UNRELEASED; urgency=low
 
   * Implement a watchdog to detect when upstream switches to a new Clang
     version.
+  * Disable pty(4) to follow upstream.
 
  -- Robert Millan <rmh@debian.org>  Fri, 29 Nov 2013 14:05:10 +0100
 

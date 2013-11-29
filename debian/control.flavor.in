@@ -9,9 +9,8 @@ Conflicts: kfreebsd-loader (<< 5.4-1.3)
 Breaks:
 # Prior versions can't boot kFreeBSD >= 9.1 (see #699002)
  grub-common (<< 1.99-27+deb7u2) [kfreebsd-any],
-# AT_* macros break LD_PRELOAD (see #630695)
-# Missing support for RFTSIGZMB (see 007_clone_signals.diff)
- libc0.1 (<< 2.11.3-1) [kfreebsd-any],
+# Missing support for pts(4) (see #667448)
+ libc0.1 (<< 2.17-4~) [kfreebsd-any],
 # Require ZFS v28 userland
  zfsutils (<< 8.3~) [kfreebsd-any],
 Provides: kfreebsd-image-@major@, kfreebsd-image
