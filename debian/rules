@@ -69,8 +69,6 @@ MAKE	+= -DWITHOUT_CLANG_IS_CC
 MAKE	+= WERROR=
 endif
 
-MAKE += -DWITHOUT_CTF
-
 # Disable install of *.ko.symbols files (their presence would trigger an
 # "unstripped-binary-or-object" lintian error).
 MAKE += -DWITHOUT_KERNEL_SYMBOLS	

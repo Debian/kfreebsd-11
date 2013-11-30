@@ -87,17 +87,15 @@
 +include		WITHOUT_SOURCELESS
 --- /dev/null
 +++ b/sys/conf/DEBIAN_DEBUG
-@@ -0,0 +1,22 @@
+@@ -0,0 +1,20 @@
 +makeoptions	DEBUG=-g		# Build kernel with gdb(1) debug symbols
 +
-+## Not yet
-+#makeoptions	WITH_CTF=1		# Run ctfconvert(1) for DTrace support
-+nomakeoptions	WITH_CTF
++makeoptions	WITH_CTF=1		# Run ctfconvert(1) for DTrace support
 +
-+## Not yet (IMPORTANT: KDTRACE_FRAME is only for amd64!!)
++## KDTRACE_FRAME is only for amd64
 +#options		KDTRACE_FRAME		# Ensure frames are compiled in
-+#options		KDTRACE_HOOKS		# Kernel DTrace hooks
-+#options		DDB_CTF			# Kernel ELF linker loads CTF data
++options		KDTRACE_HOOKS		# Kernel DTrace hooks
++options		DDB_CTF			# Kernel ELF linker loads CTF data
 +
 +options 	DDB			# Support DDB.
 +options 	GDB			# Support remote GDB.
