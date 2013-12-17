@@ -1,0 +1,27 @@
+
+vxge is too large for CTF to work correctly. Upstream solved this by
+ignoring the problem in ctfutils. Fixing it here is a bit quicker
+(remove this patch when updating ctfutils!).
+
+--- a/sys/modules/Makefile
++++ b/sys/modules/Makefile
+@@ -546,7 +546,9 @@
+ _stg=		stg
+ _streams=	streams
+ _svr4=		svr4
++.if ${MK_CTF} == "no"
+ _vxge=  	vxge
++.endif
+ _wbwd=		wbwd
+ _wi=		wi
+ _xe=		xe
+@@ -763,7 +765,9 @@
+ _viawd=		viawd
+ _virtio=	virtio
+ _vmm=		vmm
++.if ${MK_CTF} == "no"
+ _vxge=  	vxge
++.endif
+ _x86bios=	x86bios
+ _wbwd=		wbwd
+ _wi=		wi
