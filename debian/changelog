@@ -6,6 +6,9 @@ kfreebsd-11 (11.0~svn258494-2) UNRELEASED; urgency=low
   * Build with CTF debug information, and enable KDTRACE_HOOKS (DTrace
     hooks) and DDB_CTF (CTF support in ELF loader) for debug builds.
   * Fetch source code securely (https) in get-orig-source.
+  * Remove the kludges that modify srcdir in build target. Use override
+    variables instead when possible. This will allow sharing the srcdir
+    later.
 
  -- Robert Millan <rmh@debian.org>  Fri, 29 Nov 2013 14:05:10 +0100
 

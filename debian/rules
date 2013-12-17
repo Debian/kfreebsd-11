@@ -168,33 +168,22 @@ src-flavor-%-stamp:
 	cp -af sys $(FLAVOR_DIR)-$*/
 	touch $@
 build-flavor-%-stamp: src-flavor-%-stamp
-	# Add the abiname and the flavor to the kernel version
-	sed -i -e 's/^RELEASE=".*"/RELEASE="$(version)-$(abiname)-$*"/g' $(FLAVOR_DIR)-$*/sys/conf/newvers.sh
-
-	# Change ident to the kernel version
-	sed -i -e 's/^i=.*/i="Debian $* ($(full_version))"/g' $(FLAVOR_DIR)-$*/sys/conf/newvers.sh
-
-	# Override module dir
-	sed -i -e 's,^KODIR?=.*,KODIR="/boot/modules/$(version)-$(abiname)-$*",g' $(FLAVOR_DIR)-$*/sys/conf/kern.pre.mk
-
-	# Always set explicit link target to match with ld's implicit target (needed
-	# to build on non-kFreeBSD)
-	sed -i \
-		-e 's/elf32-i386-freebsd/$(ld_target)/g' \
-		-e 's/elf64-x86-64-freebsd/$(ld_target)/g' \
-		-e 's/elf32-tradlittlemips-freebsd/$(ld_target)/g' \
-		-e 's/elf32-tradbigmips-freebsd/$(ld_target)/g' \
-	$(FLAVOR_DIR)-$*/sys/conf/ldscript.$(kfreebsd_cpu)
-
 	# Configure the kernel
 	cp debian/arch/$(cpu)/$*.config $(FLAVOR_DIR)-$*/sys/$(kfreebsd_cpu)/conf/
 	ln -sf $*.config $(FLAVOR_DIR)-$*/sys/$(kfreebsd_cpu)/conf/$(configfile)
 	cd $(FLAVOR_DIR)-$*/sys/$(kfreebsd_cpu)/conf \
 		&& config $(configfile)
 
+	# Change ident to the kernel version
+	sed -i -e 's/^KERN_IDENT=.*/KERN_IDENT=Debian $* ($(full_version))/g' \
+		$(FLAVOR_DIR)-$*/sys/amd64/compile/DEBCUSTOM/Makefile
+
 	# Build it
-	$(MAKE) CC=$(cc_cmd) -C $(FLAVOR_DIR)-$*/sys/$(kfreebsd_cpu)/compile/$(configfile)/ depend
-	$(MAKE) CC=$(cc_cmd) -C $(FLAVOR_DIR)-$*/sys/$(kfreebsd_cpu)/compile/$(configfile)/
+	$(MAKE) \
+		BRANCH_OVERRIDE="$(abiname)-$*" \
+		CC=$(cc_cmd) \
+		-C $(FLAVOR_DIR)-$*/sys/$(kfreebsd_cpu)/compile/$(configfile)/ \
+		depend all
 
 	touch build-flavor-$*-stamp
 
@@ -228,9 +217,8 @@ install-flavor-%-stamp: install-common-stamp build-flavor-%-stamp
 	dh_testroot
 	dh_clean -k -pkfreebsd-image-$(version)-$(abiname)-$*
 
-	mkdir -p $(IMAGE_PACKAGE)-$*/boot/modules/$(version)-$(abiname)-$*
-
 	# make the install target happy
+	mkdir -p $(IMAGE_PACKAGE)-$*/boot
 	install -o root -g root -m 644 \
 		$(FLAVOR_DIR)-$*/sys/$(kfreebsd_cpu)/conf/GENERIC.hints \
 		$(IMAGE_PACKAGE)-$*/boot/device.hints || touch $(IMAGE_PACKAGE)-$*/boot/device.hints
@@ -249,12 +237,23 @@ install-flavor-%-stamp: install-common-stamp build-flavor-%-stamp
 
 	# now install the kernel
 	$(MAKE) CC=$(cc_cmd) -C $(FLAVOR_DIR)-$*/sys/$(kfreebsd_cpu)/compile/$(configfile) DESTDIR=$(IMAGE_PACKAGE)-$* install
-	mv $(IMAGE_PACKAGE)-$*/boot/modules/$(version)-$(abiname)-$*/kernel $(IMAGE_PACKAGE)-$*/boot/kfreebsd-$(version)-$(abiname)-$*
+
+	# reallocate kernel image
+	mv \
+		$(IMAGE_PACKAGE)-$*/boot/kernel/kernel \
+		$(IMAGE_PACKAGE)-$*/boot/kfreebsd-$(version)-$(abiname)-$*
 	chmod 644 $(IMAGE_PACKAGE)-$*/boot/kfreebsd-$(version)-$(abiname)-$*
 	gzip -9 -n $(IMAGE_PACKAGE)-$*/boot/kfreebsd-$(version)-$(abiname)-$*
 
-	# fix broken perms in module dir
+	# reallocate module dir (sans kernel image)
+	mkdir -p $(IMAGE_PACKAGE)-$*/lib/modules $(IMAGE_PACKAGE)-$*/boot/modules
+	mv \
+		$(IMAGE_PACKAGE)-$*/boot/kernel \
+		$(IMAGE_PACKAGE)-$*/boot/modules/$(version)-$(abiname)-$*
 	-chmod 644 $(IMAGE_PACKAGE)-$*/boot/modules/$(version)-$(abiname)-$*/*
+	ln -s \
+		../../boot/modules/$(version)-$(abiname)-$* \
+		$(IMAGE_PACKAGE)-$*/lib/modules/$(version)-$(abiname)-$*
 
 	# remove loader.conf (part of kfreebsd-loader)
 	rm -f $(IMAGE_PACKAGE)-$*/boot/loader.conf
@@ -262,13 +261,6 @@ install-flavor-%-stamp: install-common-stamp build-flavor-%-stamp
 
 	# remove device.hints (built into kernel)
 	rm -f $(IMAGE_PACKAGE)-$*/boot/device.hints
-
-	# compatibility symlink
-	mkdir -p $(IMAGE_PACKAGE)-$*/lib/modules
-	ln -s \
-		../../boot/modules/$(version)-$(abiname)-$* \
-		$(IMAGE_PACKAGE)-$*/lib/modules/$(version)-$(abiname)-$*
-
 
 	# README file
 	mkdir -p $(IMAGE_PACKAGE)-$*/usr/share/doc/kfreebsd-image-$(version)-$(abiname)-$*

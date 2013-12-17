@@ -1,0 +1,21 @@
+
+Explicit OUTPUT_FORMAT prevents ld from working on GNU/Linux, as the
+"-freebsd" variant is not present there. However, both formats work
+fine for the purpose of building a kernel.
+
+--- a/sys/conf/ldscript.amd64
++++ b/sys/conf/ldscript.amd64
+@@ -1,5 +1,4 @@
+ /* $FreeBSD$ */
+-OUTPUT_FORMAT("elf64-x86-64-freebsd", "elf64-x86-64-freebsd", "elf64-x86-64-freebsd")
+ OUTPUT_ARCH(i386:x86-64)
+ ENTRY(btext)
+ SEARCH_DIR("/usr/lib");
+--- a/sys/conf/ldscript.i386
++++ b/sys/conf/ldscript.i386
+@@ -1,5 +1,4 @@
+ /* $FreeBSD$ */
+-OUTPUT_FORMAT("elf32-i386-freebsd", "elf32-i386-freebsd", "elf32-i386-freebsd")
+ OUTPUT_ARCH(i386)
+ ENTRY(btext)
+ SEARCH_DIR(/usr/lib);

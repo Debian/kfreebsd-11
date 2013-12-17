@@ -1,0 +1,16 @@
+
+This argument breaks build if your KERN_IDENT contains special characters.
+
+It's not being used anyway, so remove it.
+
+--- a/sys/conf/kern.post.mk
++++ b/sys/conf/kern.post.mk
+@@ -286,7 +286,7 @@
+ 	${NORMAL_LINT}
+ 
+ vers.c: $S/conf/newvers.sh $S/sys/param.h ${SYSTEM_DEP}
+-	MAKE=${MAKE} sh $S/conf/newvers.sh ${KERN_IDENT}
++	MAKE=${MAKE} sh $S/conf/newvers.sh
+ 
+ vnode_if.c: $S/tools/vnode_if.awk $S/kern/vnode_if.src
+ 	${AWK} -f $S/tools/vnode_if.awk $S/kern/vnode_if.src -c
