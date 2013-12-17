@@ -10,6 +10,7 @@ kfreebsd-11 (11.0~svn258494-2) UNRELEASED; urgency=low
   * Remove the kludges that modify srcdir in build target. Use override
     variables instead when possible. This will allow sharing the srcdir
     later.
+  * Build and install linker.hints. (Closes: #684595)
 
  -- Robert Millan <rmh@debian.org>  Fri, 29 Nov 2013 14:05:10 +0100
 

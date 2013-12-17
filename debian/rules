@@ -255,6 +255,10 @@ install-flavor-%-stamp: install-common-stamp build-flavor-%-stamp
 		../../boot/modules/$(version)-$(abiname)-$* \
 		$(IMAGE_PACKAGE)-$*/lib/modules/$(version)-$(abiname)-$*
 
+	# Assert linker.hints presence (upstream build system silently skips it when
+	# it can't find kldxref).
+	test -e $(IMAGE_PACKAGE)-$*/lib/modules/$(version)-$(abiname)-$*/linker.hints
+
 	# remove loader.conf (part of kfreebsd-loader)
 	rm -f $(IMAGE_PACKAGE)-$*/boot/loader.conf
 	rm -rf $(IMAGE_PACKAGE)-$*/boot/defaults
