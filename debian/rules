@@ -87,7 +87,7 @@ get-orig-source:
 	# The Clang version used by upstream
 	svn cat -r $(svn_revision) $(SVN)/lib/clang/include/clang/Basic/Version.inc \
 		| sed -ne 's/.*\sCLANG_VERSION\s\+//p' \
-		> CLANG_VERSION
+		> $(ORIG_DIR)/CLANG_VERSION
 	cd $(ORIG_DIR) && $(CURDIR)/debian/prune.sh
 	tar --numeric-owner --owner 0 --group 0 -cJf ../$(ORIG_TAR) $(ORIG_DIR)
 	rm -rf $(ORIG_DIR)
