@@ -1,5 +1,9 @@
-kfreebsd-11 (11.0~svn258494-2) UNRELEASED; urgency=low
+kfreebsd-11 (11.0~svn259528-1) experimental; urgency=low
 
+  * New upstream snapshot.
+    - Refresh all patches.
+
+  [ Robert Millan ]
   * Implement a watchdog to detect when upstream switches to a new Clang
     version.
   * Disable pty(4) to follow upstream.
@@ -12,7 +16,7 @@ kfreebsd-11 (11.0~svn258494-2) UNRELEASED; urgency=low
     later.
   * Build and install linker.hints. (Closes: #684595)
 
- -- Robert Millan <rmh@debian.org>  Fri, 29 Nov 2013 14:05:10 +0100
+ -- Robert Millan <rmh@debian.org>  Wed, 18 Dec 2013 12:19:58 +0100
 
 kfreebsd-11 (11.0~svn258494-1) experimental; urgency=low
 

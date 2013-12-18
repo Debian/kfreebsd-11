@@ -15,7 +15,7 @@ ignoring the problem in ctfutils. Fixing it here is a bit quicker
  _wbwd=		wbwd
  _wi=		wi
  _xe=		xe
-@@ -763,7 +765,9 @@
+@@ -764,7 +766,9 @@
  _viawd=		viawd
  _virtio=	virtio
  _vmm=		vmm
