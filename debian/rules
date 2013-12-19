@@ -19,7 +19,6 @@ revision	:= $(shell echo $(full_version) | sed -e 's/^[^+-]*//g')
 cpu		:= $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
 config_files	:= $(wildcard debian/arch/$(cpu)/*.config)
 flavours	:= $(config_files:debian/arch/$(cpu)/%.config=%)
-configfile	:= DEBCUSTOM
 abiname		:= 0
 ld_target	:= $(shell ld --help | sed -ne "s/[^ :]*: supported targets: \([^ ]*\) .*/\1/p")
 clang_version	:= $(shell cat CLANG_VERSION)
@@ -40,7 +39,6 @@ HEADERS_PACKAGE	:= $(CURDIR)/debian/kfreebsd-headers-$(version)-$(abiname)
 SRC_TAR		:= kfreebsd-source-$(version).tar.xz
 SRC_DIR		:= kfreebsd-source-$(version)
 HEADERS_DIR	:= kfreebsd-headers-$(version)-$(abiname)
-FLAVOR_DIR	:= flavor-$(version)-$(abiname)
 ORIG_DIR	:= kfreebsd-$(major)-$(tar_version)
 ORIG_TAR	:= kfreebsd-$(major)_$(tar_version).orig.tar.xz
 MAKE		:= make MACHINE_ARCH=$(kfreebsd_cpu) -DWITHOUT_SOURCELESS
@@ -129,11 +127,8 @@ control: clean
 clean:
 	dh_testdir
 	dh_testroot
-	rm -rf kfreebsd-source-* flavor-*
-	rm -f debian/kfreebsd-image-*.preinst
-	rm -f debian/kfreebsd-image-*.prerm
-	rm -f debian/kfreebsd-image-*.postinst
-	rm -f debian/kfreebsd-image-*.postrm
+	rm -rf kfreebsd-source-* sys/*/compile/* sys/*/conf/*.config
+	rm -f debian/kfreebsd-image-*.{preinst,prerm,postinst,postrm}
 
 	rm -f *-stamp
 	dh_clean
@@ -163,26 +158,20 @@ install-indep-stamp: build-indep
 	touch install-indep-stamp
 
 build-arch: $(foreach flavor,$(flavours),build-flavor-$(flavor)-stamp)
-src-flavor-%-stamp:
-	mkdir -p $(FLAVOR_DIR)-$*
-	cp -af sys $(FLAVOR_DIR)-$*/
-	touch $@
-build-flavor-%-stamp: src-flavor-%-stamp
+build-flavor-%-stamp:
 	# Configure the kernel
-	cp debian/arch/$(cpu)/$*.config $(FLAVOR_DIR)-$*/sys/$(kfreebsd_cpu)/conf/
-	ln -sf $*.config $(FLAVOR_DIR)-$*/sys/$(kfreebsd_cpu)/conf/$(configfile)
-	cd $(FLAVOR_DIR)-$*/sys/$(kfreebsd_cpu)/conf \
-		&& config $(configfile)
+	cp debian/arch/$(cpu)/$*.config sys/$(kfreebsd_cpu)/conf/
+	cd sys/$(kfreebsd_cpu)/conf && config $*.config
 
 	# Change ident to the kernel version
 	sed -i -e 's/^KERN_IDENT=.*/KERN_IDENT=Debian $* ($(full_version))/g' \
-		$(FLAVOR_DIR)-$*/sys/$(kfreebsd_cpu)/compile/DEBCUSTOM/Makefile
+		sys/$(kfreebsd_cpu)/compile/$*.config/Makefile
 
 	# Build it
 	$(MAKE) \
 		BRANCH_OVERRIDE="$(abiname)-$*" \
 		CC=$(cc_cmd) \
-		-C $(FLAVOR_DIR)-$*/sys/$(kfreebsd_cpu)/compile/$(configfile)/ \
+		-C sys/$(kfreebsd_cpu)/compile/$*.config/ \
 		depend all
 
 	touch build-flavor-$*-stamp
@@ -220,23 +209,23 @@ install-flavor-%-stamp: install-common-stamp build-flavor-%-stamp
 	# make the install target happy
 	mkdir -p $(IMAGE_PACKAGE)-$*/boot
 	install -o root -g root -m 644 \
-		$(FLAVOR_DIR)-$*/sys/$(kfreebsd_cpu)/conf/GENERIC.hints \
+		sys/$(kfreebsd_cpu)/conf/GENERIC.hints \
 		$(IMAGE_PACKAGE)-$*/boot/device.hints || touch $(IMAGE_PACKAGE)-$*/boot/device.hints
 	install -o root -g root -m 644 \
-		$(FLAVOR_DIR)-$*/sys/boot/forth/loader.conf \
+		sys/boot/forth/loader.conf \
 		$(IMAGE_PACKAGE)-$*/boot/loader.conf
 	mkdir -p $(IMAGE_PACKAGE)-$*/boot/defaults
 	install -o root -g root -m 644 \
-		$(FLAVOR_DIR)-$*/sys/boot/forth/loader.conf \
+		sys/boot/forth/loader.conf \
 		$(IMAGE_PACKAGE)-$*/boot/defaults/loader.conf
 
 	# install the config file
 	install -o root -g root -m 644 \
-		$(FLAVOR_DIR)-$*/sys/$(kfreebsd_cpu)/conf/$*.config \
+		sys/$(kfreebsd_cpu)/conf/$*.config \
 		$(IMAGE_PACKAGE)-$*/boot/config-$(version)-$(abiname)-$*
 
 	# now install the kernel
-	$(MAKE) CC=$(cc_cmd) -C $(FLAVOR_DIR)-$*/sys/$(kfreebsd_cpu)/compile/$(configfile) DESTDIR=$(IMAGE_PACKAGE)-$* install
+	$(MAKE) CC=$(cc_cmd) -C sys/$(kfreebsd_cpu)/compile/$*.config DESTDIR=$(IMAGE_PACKAGE)-$* install
 
 	# reallocate kernel image
 	mv \
@@ -288,10 +277,10 @@ install-flavor-%-stamp: install-common-stamp build-flavor-%-stamp
 
 	# headers package
 	mkdir -p $(HEADERS_PACKAGE)-$*/usr/src/$(HEADERS_DIR)-$*/sys/$(kfreebsd_cpu)
-	cd $(FLAVOR_DIR)-$*/sys/$(kfreebsd_cpu) \
+	cd sys/$(kfreebsd_cpu) \
 		&& find . -type f -name "*.h" -not -regex ".*modules.*" -exec cp --parents {} $(HEADERS_PACKAGE)-$*/usr/src/$(HEADERS_DIR)-$*/sys/$(kfreebsd_cpu) \; \
-		&& cp -d --parents compile/$(configfile)/machine $(HEADERS_PACKAGE)-$*/usr/src/$(HEADERS_DIR)-$*/sys/$(kfreebsd_cpu) \
-		&& cp -d --parents conf/$(configfile) $(HEADERS_PACKAGE)-$*/usr/src/$(HEADERS_DIR)-$*/sys/$(kfreebsd_cpu)
+		&& cp -d --parents compile/$*.config/machine $(HEADERS_PACKAGE)-$*/usr/src/$(HEADERS_DIR)-$*/sys/$(kfreebsd_cpu) \
+		&& cp -d --parents conf/$*.config $(HEADERS_PACKAGE)-$*/usr/src/$(HEADERS_DIR)-$*/sys/$(kfreebsd_cpu)
 	find $(HEADERS_PACKAGE)-$*/usr/src/$(HEADERS_DIR)-$*/sys/$(kfreebsd_cpu) -type f -exec chmod 644 {} \;
 	for dir in `ls $(HEADERS_PACKAGE)/usr/src/$(HEADERS_DIR)/sys` ; do \
 		ln -s ../../$(HEADERS_DIR)/sys/$$dir $(HEADERS_PACKAGE)-$*/usr/src/$(HEADERS_DIR)-$*/sys/$$dir ; \

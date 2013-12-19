@@ -1,3 +1,9 @@
+kfreebsd-11 (11.0~svn259528-2) UNRELEASED; urgency=low
+
+  * Drop one more round of srcdir copying.
+
+ -- Robert Millan <rmh@debian.org>  Thu, 19 Dec 2013 12:20:51 +0100
+
 kfreebsd-11 (11.0~svn259528-1) experimental; urgency=low
 
   * New upstream snapshot.
