@@ -176,7 +176,7 @@ build-flavor-%-stamp: src-flavor-%-stamp
 
 	# Change ident to the kernel version
 	sed -i -e 's/^KERN_IDENT=.*/KERN_IDENT=Debian $* ($(full_version))/g' \
-		$(FLAVOR_DIR)-$*/sys/amd64/compile/DEBCUSTOM/Makefile
+		$(FLAVOR_DIR)-$*/sys/$(kfreebsd_cpu)/compile/DEBCUSTOM/Makefile
 
 	# Build it
 	$(MAKE) \
