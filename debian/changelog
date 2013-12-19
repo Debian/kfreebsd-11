@@ -1,4 +1,4 @@
-kfreebsd-11 (11.0~svn259528-2) UNRELEASED; urgency=low
+kfreebsd-11 (11.0~svn259528-2) experimental; urgency=low
 
   * Drop one more round of srcdir copying.
   * Switch default console to Newcons.
