@@ -1,3 +1,9 @@
+kfreebsd-11 (11.0~svn259528-3) UNRELEASED; urgency=low
+
+  * Only assert linker.hints presence on kfreebsd-any.
+
+ -- Robert Millan <rmh@debian.org>  Fri, 27 Dec 2013 14:23:10 +0100
+
 kfreebsd-11 (11.0~svn259528-2) experimental; urgency=low
 
   * Drop one more round of srcdir copying.
