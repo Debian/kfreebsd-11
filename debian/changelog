@@ -2,8 +2,9 @@ kfreebsd-11 (11.0~svn259528-3) UNRELEASED; urgency=low
 
   * Only assert linker.hints presence on kfreebsd-any.
   * Correctly setup BSD version of MAKEFLAGS to support parallel builds.
+  * Switch to bmake to follow upstream.
 
- -- Robert Millan <rmh@debian.org>  Fri, 27 Dec 2013 14:23:10 +0100
+ -- Robert Millan <rmh@debian.org>  Thu, 02 Jan 2014 23:25:01 +0100
 
 kfreebsd-11 (11.0~svn259528-2) experimental; urgency=low
 

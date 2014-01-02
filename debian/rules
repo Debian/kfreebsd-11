@@ -52,7 +52,7 @@ endif
 
 MAKE		:= \
 		MAKEFLAGS=$(BSD_MAKEFLAGS) \
-		make \
+		bmake \
 		MACHINE_ARCH=$(kfreebsd_cpu) \
 		-DWITHOUT_SOURCELESS
 
