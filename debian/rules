@@ -160,7 +160,7 @@ install-indep: install-indep-stamp
 install-indep-stamp: build-indep
 	dh_testdir
 	dh_testroot
-	dh_clean -k
+	dh_clean -k -i
 	dh_installdirs -i
 
 	mkdir -p $(SOURCE_PACKAGE)/usr/src
@@ -170,7 +170,8 @@ install-indep-stamp: build-indep
 	touch install-indep-stamp
 
 build-arch: $(foreach flavor,$(flavours),build-flavor-$(flavor)-stamp)
-build-flavor-%-stamp:
+# Anti-dependency on build-indep (it needs a pristine build directory)
+build-flavor-%-stamp: build-indep
 	# Configure the kernel
 	cp debian/arch/$(cpu)/$*.config sys/$(kfreebsd_cpu)/conf/
 	cd sys/$(kfreebsd_cpu)/conf && config $*.config
@@ -191,6 +192,8 @@ build-flavor-%-stamp:
 install-common-stamp:
 	dh_testdir
 	dh_testroot
+	dh_clean -k -p$(HEADERS_PACKAGE)
+
 	mkdir -p $(HEADERS_PACKAGE)/usr/src/$(HEADERS_DIR)
 	find sys -type f -name "*.h" -not -regex ".*modules.*" -not -regex ".*sys/$(kfreebsd_cpu)/.*" -exec cp --parents {} $(HEADERS_PACKAGE)/usr/src/$(HEADERS_DIR) \;
 
@@ -332,7 +335,7 @@ endif
 
 
 # Build architecture-independent files here.
-binary-indep: build-indep install-indep
+binary-indep: install-indep
 	dh_testdir
 	dh_testroot
 	dh_installdocs -i
@@ -349,7 +352,7 @@ binary-indep: build-indep install-indep
 	dh_builddeb -i
 
 # Build architecture-dependent files here.
-binary-arch: build-arch install-arch
+binary-arch: install-arch
 	dh_testdir
 	dh_testroot
 	dh_installdocs -s
