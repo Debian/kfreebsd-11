@@ -1,0 +1,11 @@
+--- a/sys/amd64/vmm/intel/vmx_support.S
++++ b/sys/amd64/vmm/intel/vmx_support.S
+@@ -187,7 +187,7 @@
+ 
+ 	VMX_HOST_RESTORE(%r10)
+ 	ret
+-END(vmx_execute_guest)
++END(vmx_enter_guest)
+ 
+ /*
+  * void vmx_exit_guest(void)

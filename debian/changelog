@@ -1,10 +1,13 @@
-kfreebsd-11 (11.0~svn259528-3) UNRELEASED; urgency=low
+kfreebsd-11 (11.0~svn260207-1) experimental; urgency=low
+
+  * New upstream snapshot.
+    - vmx_ftbfs.diff: Fix FTBFS in VMX code.
 
   * Only assert linker.hints presence on kfreebsd-any.
   * Correctly setup BSD version of MAKEFLAGS to support parallel builds.
   * Switch to bmake to follow upstream.
 
- -- Robert Millan <rmh@debian.org>  Thu, 02 Jan 2014 23:25:01 +0100
+ -- Robert Millan <rmh@debian.org>  Fri, 03 Jan 2014 13:54:51 +0100
 
 kfreebsd-11 (11.0~svn259528-2) experimental; urgency=low
 
