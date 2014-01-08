@@ -4,7 +4,6 @@
 mount_remount.diff
 ldscript_output_format.diff
 unescaped_kern_ident.diff
-vmx_ftbfs.diff
 
 # Other patches that might or might not be mergeable
 userland.diff

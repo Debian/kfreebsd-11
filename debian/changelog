@@ -1,3 +1,11 @@
+kfreebsd-11 (11.0~svn260450-1) experimental; urgency=low
+
+  * New upstream snapshot.
+    - Fixes build of vt_xboxfb.
+    - vmx_ftbfs.diff: Remove (merged).
+
+ -- Robert Millan <rmh@debian.org>  Wed, 08 Jan 2014 21:00:00 +0100
+
 kfreebsd-11 (11.0~svn260207-2) experimental; urgency=low
 
   * s/xboxfb/vt_xboxfb/ to fix FTBFS on kfreebsd-i386.
