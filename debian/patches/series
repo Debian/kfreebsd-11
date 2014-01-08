@@ -18,6 +18,7 @@ userland.diff
 
 # Patches that are likely to be Debian-specific
 vxge_no_ctf.diff
+firmware_load.diff
 902_version.diff
 904_dev_full.diff
 906_grow_sysv_ipc_limits.diff

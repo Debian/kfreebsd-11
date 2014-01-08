@@ -1,0 +1,115 @@
+
+Loads firmware blobs from /lib/firmware/
+
+Currently only radeonkmsfw is supported.
+
+--- a/sys/kern/subr_firmware.c
++++ b/sys/kern/subr_firmware.c
+@@ -45,6 +45,12 @@
+ 
+ #include <sys/filedesc.h>
+ #include <sys/vnode.h>
++#include <sys/fcntl.h>
++#define lookup(a)	namei_lookup(a)
++#include <sys/namei.h>
++#undef lookup
++
++MALLOC_DEFINE(M_FIRMWARE, "firmware", "firmware loader");
+ 
+ /*
+  * Loadable firmware support. See sys/sys/firmware.h and firmware(9)
+@@ -137,6 +143,71 @@
+ static struct mtx firmware_mtx;
+ MTX_SYSINIT(firmware, &firmware_mtx, "firmware table", MTX_DEF);
+ 
++MALLOC_DECLARE(M_FIRMWARE);
++
++static const struct firmware *
++firmware_load(const char *path, const char *imagename)
++{
++	struct thread *td = curthread;	/* XXX */
++	struct ucred *cred = td ? td->td_ucred : NULL;
++	struct nameidata nd;
++	struct vattr vattr;
++	u_char *fwdata = NULL;
++	u_char *cp;
++	int error, flags;
++	ssize_t reclen;
++	const struct firmware *result = NULL;
++
++	NDINIT(&nd, LOOKUP, NOFOLLOW, UIO_SYSSPACE, path, td);
++	flags = FREAD;
++	error = vn_open(&nd, &flags, 0, NULL);
++	if (error)
++		goto bad;
++	NDFREE(&nd, NDF_ONLY_PNBUF);
++	if (nd.ni_vp->v_type != VREG)
++		goto bad;
++	cp = NULL;
++	error = VOP_GETATTR(nd.ni_vp, &vattr, cred);
++	if (error)
++		goto bad;
++	/*
++	 * XXX: we need to limit this number to some reasonable value
++	 */
++	if (vattr.va_size > 100 * 1024) {
++		printf("firmware image file too large %ld\n", (long)vattr.va_size);
++		goto bad;
++	}
++	fwdata = malloc(vattr.va_size, M_FIRMWARE, M_WAITOK);
++	if (fwdata == NULL)
++		goto bad;
++	error = vn_rdwr(UIO_READ, nd.ni_vp, (caddr_t)fwdata, vattr.va_size, 0,
++	    UIO_SYSSPACE, IO_NODELOCKED, cred, NOCRED, &reclen, td);
++	if (error)
++		goto bad;
++	VOP_UNLOCK(nd.ni_vp, 0);
++	vn_close(nd.ni_vp, FREAD, cred, td);
++	nd.ni_vp = NULL;
++	if (reclen != 0) {
++		printf("can't read %zd\n", reclen);
++		goto bad;
++	}
++	result = firmware_register(imagename, fwdata, vattr.va_size, 0, NULL);
++	if (result == NULL) {
++		printf("unable to register firmware");
++		goto bad;
++	}
++
++bad:
++	if (fwdata && !result)
++		free(fwdata, M_FIRMWARE);
++	if (nd.ni_vp != NULL) {
++		VOP_UNLOCK(nd.ni_vp, 0);
++		vn_close(nd.ni_vp, FREAD, cred, td);
++	}
++
++	return (result);
++}
++
+ /*
+  * Helper function to lookup a name.
+  * As a side effect, it sets the pointer to a free slot, if any.
+@@ -307,6 +378,22 @@
+ 	struct thread *td;
+ 	struct priv_fw *fp;
+ 
++	/* must call firmware_load *before* entering the mutex */
++	if (!strncmp (imagename, "radeonkmsfw_", sizeof("radeonkmsfw_") - 1)) {
++		const char *basename = imagename + sizeof("radeonkmsfw_") - 1;
++		u_char *pathbuf;
++		ssize_t reclen;
++		reclen = sizeof("/lib/firmware/radeon/") - 1
++			+ strlen(basename)
++			+ sizeof(".bin");
++		pathbuf = malloc(reclen, M_TEMP, M_WAITOK);
++		snprintf(pathbuf, reclen, "/lib/firmware/radeon/%s.bin", basename);
++
++		firmware_load(pathbuf, imagename);
++
++		free(pathbuf, M_TEMP);
++	}
++
+ 	mtx_lock(&firmware_mtx);
+ 	fp = lookup(imagename, NULL);
+ 	if (fp != NULL)
