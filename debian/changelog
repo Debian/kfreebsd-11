@@ -3,6 +3,7 @@ kfreebsd-11 (11.0~svn260207-2) UNRELEASED; urgency=low
   * s/xboxfb/vt_xboxfb/ to fix FTBFS on kfreebsd-i386.
   * firmware_load.diff: Loads firmware blobs from /lib/firmware/.
     Currently only radeonkmsfw is supported.  (Closes: #642468)
+  * B-D on freebsd-glue >= 0.2.15 (for bmake with right permissions).
 
  -- Robert Millan <rmh@debian.org>  Sun, 05 Jan 2014 22:12:54 +0100
 
