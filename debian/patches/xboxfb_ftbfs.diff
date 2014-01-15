@@ -1,0 +1,19 @@
+--- a/sys/dev/vt/hw/xboxfb/xboxfb.c
++++ b/sys/dev/vt/hw/xboxfb/xboxfb.c
+@@ -110,6 +110,7 @@
+     int bpl, vt_axis_t top, vt_axis_t left, unsigned int width,
+     unsigned int height, term_color_t fg, term_color_t bg)
+ {
++	struct fb_info *info;
+ 	struct xbox_softc *sc = vd->vd_softc;
+ 	u_long line;
+ 	uint32_t fgc, bgc;
+@@ -119,6 +120,8 @@
+ 	fgc = colormap[fg];
+ 	bgc = colormap[bg];
+ 
++	info = vd->vd_softc;
++
+ 	/* Don't try to put off screen pixels */
+ 	if (((left + width) > info->fb_width) || ((top + height) >
+ 	    info->fb_height))

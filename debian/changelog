@@ -1,3 +1,9 @@
+kfreebsd-11 (11.0~svn260450-2) UNRELEASED; urgency=low
+
+  * Additional build fixes for vt_xboxfb.
+
+ -- Robert Millan <rmh@debian.org>  Wed, 15 Jan 2014 12:57:28 +0100
+
 kfreebsd-11 (11.0~svn260450-1) experimental; urgency=low
 
   * New upstream snapshot.
