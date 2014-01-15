@@ -18,11 +18,65 @@ Currently only radeonkmsfw is supported.
  
  /*
   * Loadable firmware support. See sys/sys/firmware.h and firmware(9)
-@@ -137,6 +143,71 @@
+@@ -137,6 +143,124 @@
  static struct mtx firmware_mtx;
  MTX_SYSINIT(firmware, &firmware_mtx, "firmware table", MTX_DEF);
  
 +MALLOC_DECLARE(M_FIRMWARE);
++
++static const struct
++{
++	char *file;
++	char *name;
++} firmware_map[] = {
++
++	/*
++	 * Second column is the argument to firmware_get() used by the
++	 * driver. If there are no firmware_get() calls this means it
++	 * needs to be ported to firmware(9) framework first.
++	 *
++	 * Note that the first column may refer to a versioned file
++	 * name, but the second one is NOT versioned. The versioned
++	 * references are supposed to match with whatever this version
++	 * of the kernel expects (check the makefiles for *fw modules
++	 * in sys/modules/ for hints).
++	 */
++
++	/* ral */
++	{ "/lib/firmware/rt2561.bin",			"rt2561fw" },
++	{ "/lib/firmware/rt2661.bin",			"rt2661fw" },
++	{ "/lib/firmware/rt2561s.bin",			"rt2561sfw" },
++
++	/* iwi */
++	{ "/lib/firmware/ipw2200-bss.fw",		"iwi_bss" },
++	{ "/lib/firmware/ipw2200-ibss.fw",		"iwi_ibss" },
++	{ "/lib/firmware/ipw2200-sniffer.fw",		"iwi_monitor" },
++
++	/* wpi */
++	{ "/lib/firmware/iwlwifi-3945-2.ucode",		"wpifw" },
++
++	/* ipw */
++	{ "/lib/firmware/ipw2100-1.3.fw",		"ipw_bss" },
++	{ "/lib/firmware/ipw2100-1.3-i.fw",		"ipw_ibss" },
++	{ "/lib/firmware/ipw2100-1.3-p.fw",		"ipw_monitor" },
++
++	/* iwn */
++	{ "/lib/firmware/iwlwifi-105-6.ucode",		"iwn105fw" },
++	{ "/lib/firmware/iwlwifi-135-6.ucode",		"iwn135fw" },
++	{ "/lib/firmware/iwlwifi-1000-5.ucode",		"iwn1000fw" },
++	{ "/lib/firmware/iwlwifi-2000-6.ucode",		"iwn2000fw" },
++	{ "/lib/firmware/iwlwifi-2030-6.ucode",		"iwn2030fw" },
++	{ "/lib/firmware/iwlwifi-4965-2.ucode",		"iwn4965fw" },
++	{ "/lib/firmware/iwlwifi-5000-5.ucode",		"iwn5000fw" },
++	{ "/lib/firmware/iwlwifi-5150-2.ucode",		"iwn5150fw" },
++	{ "/lib/firmware/iwlwifi-6000-4.ucode",		"iwn6000fw" },
++	{ "/lib/firmware/iwlwifi-6050-5.ucode",		"iwn6050fw" },
++	{ "/lib/firmware/iwlwifi-6000g2a-6.ucode",	"iwn6000g2afw" },
++	{ "/lib/firmware/iwlwifi-6000g2b-6.ucode",	"iwn6000g2bfw" },
++
++	/* rsu */
++	{ "/lib/firmware/rtlwifi/rtl8712u.bin",		"rsu-rtl8712fw" },
++};
 +
 +static const struct firmware *
 +firmware_load(const char *path, const char *imagename)
@@ -71,12 +125,11 @@ Currently only radeonkmsfw is supported.
 +		goto bad;
 +	}
 +	result = firmware_register(imagename, fwdata, vattr.va_size, 0, NULL);
++bad:
 +	if (result == NULL) {
-+		printf("unable to register firmware");
-+		goto bad;
++		printf("unable to load %s", path);
 +	}
 +
-+bad:
 +	if (fwdata && !result)
 +		free(fwdata, M_FIRMWARE);
 +	if (nd.ni_vp != NULL) {
@@ -90,11 +143,13 @@ Currently only radeonkmsfw is supported.
  /*
   * Helper function to lookup a name.
   * As a side effect, it sets the pointer to a free slot, if any.
-@@ -307,6 +378,22 @@
+@@ -307,6 +431,31 @@
  	struct thread *td;
  	struct priv_fw *fp;
  
-+	/* must call firmware_load *before* entering the mutex */
++	/*
++	 * Must call firmware_load *before* entering the mutex.
++	 */
 +	if (!strncmp (imagename, "radeonkmsfw_", sizeof("radeonkmsfw_") - 1)) {
 +		const char *basename = imagename + sizeof("radeonkmsfw_") - 1;
 +		u_char *pathbuf;
@@ -108,6 +163,13 @@ Currently only radeonkmsfw is supported.
 +		firmware_load(pathbuf, imagename);
 +
 +		free(pathbuf, M_TEMP);
++	} else {
++		int i;
++		for (i = 0; i < sizeof(firmware_map)/sizeof(firmware_map[0]); i++)
++			if (!strcmp (firmware_map[i].name, imagename)) {
++				firmware_load(firmware_map[i].file, imagename);
++				break;
++			}
 +	}
 +
  	mtx_lock(&firmware_mtx);
