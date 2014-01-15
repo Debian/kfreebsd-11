@@ -6,6 +6,8 @@ kfreebsd-11 (11.0~svn260666-1) UNRELEASED; urgency=low
   * Additional build fixes for vt_xboxfb.
   * firmware_load.diff: Add support for: ral, iwi, wpi, wpi, ipw,
     iwn and rsu.
+  * xboxfb_ftbfs.diff: Replace with more complete patch from Aleksandr
+    Rybalko.
 
  -- Robert Millan <rmh@debian.org>  Wed, 15 Jan 2014 12:57:28 +0100
 
