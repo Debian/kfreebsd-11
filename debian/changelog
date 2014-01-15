@@ -1,4 +1,4 @@
-kfreebsd-11 (11.0~svn260666-1) UNRELEASED; urgency=low
+kfreebsd-11 (11.0~svn260666-1) experimental; urgency=low
 
   * New upstream snapshot.
 
@@ -9,7 +9,7 @@ kfreebsd-11 (11.0~svn260666-1) UNRELEASED; urgency=low
   * xboxfb_ftbfs.diff: Replace with more complete patch from Aleksandr
     Rybalko.
 
- -- Robert Millan <rmh@debian.org>  Wed, 15 Jan 2014 12:57:28 +0100
+ -- Robert Millan <rmh@debian.org>  Wed, 15 Jan 2014 14:12:13 +0100
 
 kfreebsd-11 (11.0~svn260450-1) experimental; urgency=low
 
