@@ -1,5 +1,8 @@
-kfreebsd-11 (11.0~svn260450-2) UNRELEASED; urgency=low
+kfreebsd-11 (11.0~svn260666-1) UNRELEASED; urgency=low
 
+  * New upstream snapshot.
+
+  [ Robert Millan ]
   * Additional build fixes for vt_xboxfb.
   * firmware_load.diff: Add support for: ral, iwi, wpi, wpi, ipw,
     iwn and rsu.
