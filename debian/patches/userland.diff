@@ -327,6 +327,15 @@ Staging area for fixes needed by userland.
  
  #if __POSIX_VISIBLE >= 200112 || __XSI_VISIBLE
  #define	SIZE_T_MAX	__SIZE_T_MAX	/* max value for a size_t */
+@@ -79,7 +85,7 @@
+ #define	OFF_MIN		__OFF_MIN	/* min value for an off_t */
+ #endif
+ 
+-#if __BSD_VISIBLE
++#if 1
+ #define	GID_MAX		UINT_MAX	/* max value for a gid_t */
+ #define	UID_MAX		UINT_MAX	/* max value for a uid_t */
+ 
 --- a/sys/sys/param.h
 +++ b/sys/sys/param.h
 @@ -40,9 +40,15 @@
