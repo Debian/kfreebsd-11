@@ -319,15 +319,17 @@ Staging area for fixes needed by userland.
  #define	CHAR_BIT	__CHAR_BIT	/* number of bits in a char */
  
  #define	SCHAR_MAX	__SCHAR_MAX	/* max value for a signed char */
-@@ -71,6 +76,7 @@
+@@ -71,15 +76,16 @@
  #if __POSIX_VISIBLE || __XSI_VISIBLE
  #define	SSIZE_MAX	__SSIZE_MAX	/* max value for an ssize_t */
  #endif
 +#endif /* 0 */
  
- #if __POSIX_VISIBLE >= 200112 || __XSI_VISIBLE
+-#if __POSIX_VISIBLE >= 200112 || __XSI_VISIBLE
++#if 1
  #define	SIZE_T_MAX	__SIZE_T_MAX	/* max value for a size_t */
-@@ -79,7 +85,7 @@
+ 
+ #define	OFF_MAX		__OFF_MAX	/* max value for an off_t */
  #define	OFF_MIN		__OFF_MIN	/* min value for an off_t */
  #endif
  
