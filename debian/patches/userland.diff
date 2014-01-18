@@ -1163,3 +1163,33 @@ Staging area for fixes needed by userland.
 +#endif
 +
  #endif /* !_SYS_SIGNAL_H_ */
+--- a/sys/net80211/ieee80211_ioctl.h
++++ b/sys/net80211/ieee80211_ioctl.h
+@@ -575,7 +575,7 @@
+ 	uint16_t	sv_vlan;
+ };
+ 
+-#ifdef __FreeBSD__
++#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
+ /*
+  * FreeBSD-style ioctls.
+  */
+@@ -856,6 +856,6 @@
+ #define	IEEE80211_CLONE_WDSLEGACY	0x0004	/* legacy WDS processing */
+ #define	IEEE80211_CLONE_MACADDR		0x0008	/* use specified mac addr */
+ #define	IEEE80211_CLONE_TDMA		0x0010	/* operate in TDMA mode */
+-#endif /* __FreeBSD__ */
++#endif /* __FreeBSD__ || __FreeBSD_kernel__ */
+ 
+ #endif /* _NET80211_IEEE80211_IOCTL_H_ */
+--- a/sys/net80211/ieee80211_var.h
++++ b/sys/net80211/ieee80211_var.h
+@@ -34,7 +34,7 @@
+ /* NB: portability glue must go first */
+ #if defined(__NetBSD__)
+ #include <net80211/ieee80211_netbsd.h>
+-#elif defined(__FreeBSD__)
++#elif defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
+ #include <net80211/ieee80211_freebsd.h>
+ #elif defined(__linux__)
+ #include <net80211/ieee80211_linux.h>
