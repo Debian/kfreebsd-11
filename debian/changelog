@@ -2,6 +2,8 @@ kfreebsd-11 (11.0~svn260666-2) UNRELEASED; urgency=low
 
   * B-D on libdwarf-freebsd-3 >= 10.0-2 (older versions break ctfconvert
     on i386-linux-gnu).
+  * radeonkms: Disable R600+ drivers when no firmware blob is available.
+    (Closes: #732692)
 
  -- Robert Millan <rmh@debian.org>  Sun, 26 Jan 2014 17:46:34 +0100
 
