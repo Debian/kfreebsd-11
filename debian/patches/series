@@ -1,8 +1,6 @@
 # Patches from (or merged in) upstream
-xboxfb_ftbfs.diff
 
 # Patches that are in good shape for merging upstream
-radeonkms_abort_nofw.diff
 mount_remount.diff
 ldscript_output_format.diff
 unescaped_kern_ident.diff

@@ -959,7 +959,7 @@ Staging area for fixes needed by userland.
  /*
   * Definitions related to sockets: types, address families, options.
   */
-@@ -360,6 +362,10 @@
+@@ -370,6 +372,10 @@
  
  #define	PF_MAX		AF_MAX
  
@@ -970,7 +970,7 @@ Staging area for fixes needed by userland.
  /*
   * Definitions for network related sysctl, CTL_NET.
   *
-@@ -388,6 +394,8 @@
+@@ -398,6 +404,8 @@
  
  #endif /* __BSD_VISIBLE */
  
@@ -979,7 +979,7 @@ Staging area for fixes needed by userland.
  /*
   * Maximum queue length specifiable by listen.
   */
-@@ -661,5 +669,6 @@
+@@ -687,5 +695,6 @@
  
  #endif
  

@@ -3,8 +3,9 @@ Co-authored by Nali Toja
 
 --- a/sys/conf/kern.mk
 +++ b/sys/conf/kern.mk
-@@ -1,5 +1,15 @@
- # $FreeBSD$
+@@ -3,6 +3,16 @@
+ # Compat
+ MK_FORMAT_EXTENSIONS?=no
  
 +FREEBSD_CC!=   ${CC} -dM -E -</dev/null | awk '/__FreeBSD_cc_version/ { print $$3 }' || true
 +
@@ -19,7 +20,7 @@ Co-authored by Nali Toja
  #
  # Warning flags for compiling the kernel and components of the kernel:
  #
-@@ -61,7 +71,7 @@
+@@ -64,7 +74,7 @@
  #
  .if ${MACHINE_CPUARCH} == "i386"
  .if ${COMPILER_TYPE} != "clang"

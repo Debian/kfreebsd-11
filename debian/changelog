@@ -1,4 +1,8 @@
-kfreebsd-11 (11.0~svn260666-2) UNRELEASED; urgency=low
+kfreebsd-11 (11.0~svn261628-1) UNRELEASED; urgency=low
+
+  * New upstream snapshot.
+    - xboxfb_ftbfs.diff: Remove (merged).
+    - radeonkms_abort_nofw.diff: Remove (merged).
 
   * B-D on libdwarf-freebsd-3 >= 10.0-2 (older versions break ctfconvert
     on i386-linux-gnu).
@@ -6,7 +10,7 @@ kfreebsd-11 (11.0~svn260666-2) UNRELEASED; urgency=low
     (Closes: #732692)
   * Require freebsd-net-tools with new SIOCAIFADDR ABI.  (Closes: #732693)
 
- -- Robert Millan <rmh@debian.org>  Sun, 26 Jan 2014 17:46:34 +0100
+ -- Robert Millan <rmh@debian.org>  Sat, 08 Feb 2014 15:17:30 +0100
 
 kfreebsd-11 (11.0~svn260666-1) experimental; urgency=low
 
