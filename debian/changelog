@@ -1,4 +1,4 @@
-kfreebsd-11 (11.0~svn261628-1) UNRELEASED; urgency=low
+kfreebsd-11 (11.0~svn261628-1) experimental; urgency=low
 
   * New upstream snapshot.
     - xboxfb_ftbfs.diff: Remove (merged).
