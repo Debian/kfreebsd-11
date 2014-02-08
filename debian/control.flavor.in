@@ -13,6 +13,8 @@ Breaks:
  libc0.1 (<< 2.17-4~) [kfreebsd-any],
 # Require ZFS v28 userland
  zfsutils (<< 8.3~) [kfreebsd-any],
+# 9.x uses old SIOCAIFADDR ABI (see #732693), and 10.0-1 uses inconsistent/mixed ABI (see #736238)
+ freebsd-net-tools (<< 10.0-2~) [kfreebsd-any],
 Provides: kfreebsd-image-@major@, kfreebsd-image
 Recommends: @recommends@
 Description: kernel of FreeBSD @version@ image
