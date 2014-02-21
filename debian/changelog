@@ -1,4 +1,7 @@
-kfreebsd-11 (11.0~svn261628-2) UNRELEASED; urgency=low
+kfreebsd-11 (11.0~svn262281-1) UNRELEASED; urgency=low
+
+  * New upstream snapshot.
+    - Switch to clang-3.4.
 
   * Support debug flag in DEB_BUILD_OPTIONS.
   * Depend on freebsd-net-tools to avoid auto-removal (see comment in
