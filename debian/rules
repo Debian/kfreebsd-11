@@ -89,14 +89,6 @@ endif
 # "unstripped-binary-or-object" lintian error).
 MAKE += -DWITHOUT_KERNEL_SYMBOLS	
 
-# Disable ssp for now ...
-# at least under QEMU it panics, might be due to
-#   - QEMU
-#   - newer gcc compared to plain FreeBSD
-#   - different init order
-#   - ...
-MAKE += -DWITHOUT_SSP
-
 get-orig-source:
 	rm -rf $(ORIG_DIR)
 	svn export -r $(svn_revision) $(SVN)/sys $(ORIG_DIR)/sys
