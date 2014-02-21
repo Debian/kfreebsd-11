@@ -50,6 +50,12 @@ ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 	BSD_MAKEFLAGS += -j$(NUMJOBS)
 endif
 
+ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS)))
+	debug_config	:= sys/conf/DEBIAN_DEBUG
+else
+	debug_config	:= sys/conf/DEBIAN_NODEBUG
+endif
+
 MAKE		:= \
 		MAKEFLAGS=$(BSD_MAKEFLAGS) \
 		bmake \
@@ -173,7 +179,10 @@ build-arch: $(foreach flavor,$(flavours),build-flavor-$(flavor)-stamp)
 # Anti-dependency on build-indep (it needs a pristine build directory)
 build-flavor-%-stamp: build-indep
 	# Configure the kernel
-	cp debian/arch/$(cpu)/$*.config sys/$(kfreebsd_cpu)/conf/
+	cat \
+		debian/arch/$(cpu)/$*.config \
+		$(debug_config) \
+		> sys/$(kfreebsd_cpu)/conf/$*.config
 	cd sys/$(kfreebsd_cpu)/conf && config $*.config
 
 	# Change ident to the kernel version

@@ -48,7 +48,7 @@
  options 	SYSVSHM			# SYSV-style shared memory
 --- /dev/null
 +++ b/sys/conf/DEBIAN
-@@ -0,0 +1,36 @@
+@@ -0,0 +1,32 @@
 +# Common options to all Debian GNU/kFreeBSD kernels
 +
 +options		LINPROCFS
@@ -71,10 +71,6 @@
 +device		pfsync
 +device		pflog
 +
-+# Toggle to enable/disable debug options.
-+include		DEBIAN_DEBUG
-+#include	DEBIAN_NODEBUG
-+
 +# Alternate queueing
 +options		ALTQ
 +options		ALTQ_CBQ	# Class Bases Queuing (CBQ)
@@ -87,7 +83,10 @@
 +include		WITHOUT_SOURCELESS
 --- /dev/null
 +++ b/sys/conf/DEBIAN_DEBUG
-@@ -0,0 +1,20 @@
+@@ -0,0 +1,23 @@
++
++## Enable debugging options
++
 +makeoptions	DEBUG=-g		# Build kernel with gdb(1) debug symbols
 +
 +makeoptions	WITH_CTF=1		# Run ctfconvert(1) for DTrace support
@@ -110,7 +109,10 @@
 +nooptions 	KDB_TRACE		# Print a stack trace for a panic.
 --- /dev/null
 +++ b/sys/conf/DEBIAN_NODEBUG
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,21 @@
++
++## Disable debugging options (except KDB_TRACE)
++
 +nomakeoptions	DEBUG			# Build kernel with gdb(1) debug symbols
 +nomakeoptions	WITH_CTF		# Run ctfconvert(1) for DTrace support
 +

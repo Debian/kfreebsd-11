@@ -1,3 +1,9 @@
+kfreebsd-11 (11.0~svn261628-2) UNRELEASED; urgency=low
+
+  * Support debug flag in DEB_BUILD_OPTIONS.
+
+ -- Robert Millan <rmh@debian.org>  Fri, 21 Feb 2014 15:06:38 +0100
+
 kfreebsd-11 (11.0~svn261628-1) experimental; urgency=low
 
   * New upstream snapshot.
