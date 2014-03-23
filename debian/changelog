@@ -1,3 +1,9 @@
+kfreebsd-11 (11.0~svn263651-1) experimental; urgency=low
+
+  * New upstream snapshot.
+
+ -- Robert Millan <rmh@debian.org>  Sat, 22 Mar 2014 23:43:21 +0100
+
 kfreebsd-11 (11.0~svn262281-2) experimental; urgency=low
 
   * Remove -DWITHOUT_SSP kludge. Apparently SSP doesn't break QEMU

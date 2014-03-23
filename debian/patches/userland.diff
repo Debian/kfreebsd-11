@@ -970,8 +970,8 @@ Staging area for fixes needed by userland.
  /*
   * Definitions for network related sysctl, CTL_NET.
   *
-@@ -398,6 +404,8 @@
- 
+@@ -395,6 +401,8 @@
+ 					 * versions of msghdr structs. */
  #endif /* __BSD_VISIBLE */
  
 +#ifdef __FreeBSD__
@@ -979,7 +979,7 @@ Staging area for fixes needed by userland.
  /*
   * Maximum queue length specifiable by listen.
   */
-@@ -687,5 +695,6 @@
+@@ -684,5 +692,6 @@
  
  #endif
  
