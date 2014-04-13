@@ -1,3 +1,9 @@
+kfreebsd-11 (11.0~svn264364-1) experimental; urgency=low
+
+  * New upstream snapshot.
+
+ -- Robert Millan <rmh@debian.org>  Sat, 12 Apr 2014 20:12:10 +0200
+
 kfreebsd-11 (11.0~svn263651-1) experimental; urgency=low
 
   * New upstream snapshot.

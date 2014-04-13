@@ -5,7 +5,7 @@ ignoring the problem in ctfutils. Fixing it here is a bit quicker
 
 --- a/sys/modules/Makefile
 +++ b/sys/modules/Makefile
-@@ -544,7 +544,9 @@
+@@ -546,7 +546,9 @@
  _stg=		stg
  _streams=	streams
  _svr4=		svr4
@@ -15,7 +15,7 @@ ignoring the problem in ctfutils. Fixing it here is a bit quicker
  _wbwd=		wbwd
  _wi=		wi
  _xe=		xe
-@@ -756,7 +758,9 @@
+@@ -758,7 +760,9 @@
  _viawd=		viawd
  _virtio=	virtio
  _vmm=		vmm

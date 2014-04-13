@@ -9,7 +9,7 @@
 +#cpu		HAMMER
 +#ident		GENERIC
  
- makeoptions	DEBUG=-gdwarf-2		# Build kernel with gdb(1) debug symbols
+ makeoptions	DEBUG=-g
  makeoptions	WITH_CTF=1		# Run ctfconvert(1) for DTrace support
 @@ -53,7 +53,7 @@
  options 	COMPAT_FREEBSD5		# Compatible with FreeBSD5
@@ -35,7 +35,7 @@
 +#cpu		I686_CPU
 +#ident		GENERIC
  
- makeoptions	DEBUG=-gdwarf-2		# Build kernel with gdb(1) debug symbols
+ makeoptions	DEBUG=-g
  makeoptions	WITH_CTF=1		# Run ctfconvert(1) for DTrace support
 @@ -54,7 +54,7 @@
  options 	COMPAT_FREEBSD5		# Compatible with FreeBSD5
