@@ -1,3 +1,10 @@
+kfreebsd-11 (11.0~svn264364-1) UNRELEASED; urgency=medium
+
+  * Increase firmware size limit to 1MiB. This should be enough for at
+    least iwlwifi firmware to safely load
+
+ -- Christoph Egger <christoph@debian.org>  Fri, 18 Apr 2014 15:51:39 +0200
+
 kfreebsd-11 (11.0~svn264364-1) experimental; urgency=low
 
   * New upstream snapshot.
