@@ -1,9 +1,15 @@
-kfreebsd-11 (11.0~svn264364-1) UNRELEASED; urgency=medium
+kfreebsd-11 (11.0~svn265310-1) UNRELEASED; urgency=medium
 
+  * New upstream snapshot.
+    - Fix for SA-14:08 / CVE-2014-3000 (TCP reassembly vulnerability).
+      (Closes: #746954)
+    - 904_dev_full.diff: Remove (superceded by upstream).
+
+  [ Christoph Egger ]
   * Increase firmware size limit to 1MiB. This should be enough for at
     least iwlwifi firmware to safely load
 
- -- Christoph Egger <christoph@debian.org>  Fri, 18 Apr 2014 15:51:39 +0200
+ -- Robert Millan <rmh@debian.org>  Sun, 04 May 2014 12:04:51 +0200
 
 kfreebsd-11 (11.0~svn264364-1) experimental; urgency=low
 

@@ -19,7 +19,6 @@ userland.diff
 vxge_no_ctf.diff
 firmware_load.diff
 902_version.diff
-904_dev_full.diff
 906_grow_sysv_ipc_limits.diff
 908_linprocfs_is_not_proc.diff
 910_GENERIC_hints.diff
