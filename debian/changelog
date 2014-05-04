@@ -1,9 +1,12 @@
-kfreebsd-11 (11.0~svn265310-1) UNRELEASED; urgency=medium
+kfreebsd-11 (11.0~svn265310-1) experimental; urgency=medium
 
   * New upstream snapshot.
     - Fix for SA-14:08 / CVE-2014-3000 (TCP reassembly vulnerability).
       (Closes: #746954)
     - 904_dev_full.diff: Remove (superceded by upstream).
+    - Adapt to upstream removal of eisa module (r264654).
+      - B-D on freebsd-mk with MK_EISA support.
+      - debian/installer/modules/scsi-modules: Disable ahc_eisa.
 
   [ Christoph Egger ]
   * Increase firmware size limit to 1MiB. This should be enough for at
