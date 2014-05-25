@@ -62,8 +62,8 @@ MAKE		:= \
 		MACHINE_ARCH=$(kfreebsd_cpu) \
 		-DWITHOUT_SOURCELESS
 
-# Clang is the default compiler on these architectures (see src/share/mk/bsd.own.mk)
-clang_cpus	:= i386 amd64 armel
+# Clang is the default compiler on these architectures (see src/share/mk/src.opts.mk)
+clang_cpus	:= i386 amd64 arm
 
 ifneq ($(clang_version), 3.4)
 $(error Upstream is now using a different Clang version than we expected. Consider updating cc_pkg and cc_cmd)
