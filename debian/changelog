@@ -1,12 +1,14 @@
-kfreebsd-11 (11.0~svn266464-1) UNRELEASED; urgency=medium
+kfreebsd-11 (11.0~svn273432-1) UNRELEASED; urgency=medium
 
   * Team upload.
-  * New upstream snapshot.
+  * New upstream snapshot of -CURRENT
     - Fix for EN-14:05:
       ciss(4) potential data corruption bug (Closes: #748079)
     - Fix for EN-14:06:
       Triple fault on execve from 64-bit thread to 32-bit process
       (Closes: #748745)
+    - Fix memory leak in sandboxed namei lookup. [SA-14:22]
+      (CVE-2014-3711) (Closes: #766279)
   * DEB_HOST_ARCH_CPU on armel is arm;  update debian/rules detection
     and thereby correctly specify any-arm in debian/control too.
 
