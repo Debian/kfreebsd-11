@@ -65,15 +65,15 @@ MAKE		:= \
 # Clang is the default compiler on these architectures (see src/share/mk/src.opts.mk)
 clang_cpus	:= i386 amd64 arm
 
-ifneq ($(clang_version), 3.4)
+ifneq ($(clang_version), 3.6)
 $(error Upstream is now using a different Clang version than we expected. Consider updating cc_pkg and cc_cmd)
 endif
 
-cc_pkg		:= clang-3.4 [$(foreach cpu,$(clang_cpus),any-$(cpu))], \
+cc_pkg		:= clang-3.6 [$(foreach cpu,$(clang_cpus),any-$(cpu))], \
 		gcc-4.8 [$(foreach cpu,$(clang_cpus),!any-$(cpu))]
 
 ifneq (, $(filter $(clang_cpus), $(DEB_HOST_ARCH_CPU)))
-cc_cmd		:= clang
+cc_cmd		:= clang-3.6
 else
 cc_cmd		:= gcc-4.8
 endif

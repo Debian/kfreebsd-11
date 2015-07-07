@@ -1,6 +1,5 @@
 kfreebsd-11 (11.0~svn273432-1) UNRELEASED; urgency=medium
 
-  * Team upload.
   * New upstream snapshot of -CURRENT
     - Fix for EN-14:05:
       ciss(4) potential data corruption bug (Closes: #748079)
@@ -11,8 +10,10 @@ kfreebsd-11 (11.0~svn273432-1) UNRELEASED; urgency=medium
       (CVE-2014-3711) (Closes: #766279)
   * DEB_HOST_ARCH_CPU on armel is arm;  update debian/rules detection
     and thereby correctly specify any-arm in debian/control too.
+  * Build with clang-3.6 on i386, amd64, arm;  due to clang-3.4
+    going away soon. (Closes: #790358)
 
- -- Steven Chamberlain <steven@pyro.eu.org>  Tue, 20 May 2014 13:04:21 +0100
+ -- Steven Chamberlain <steven@pyro.eu.org>  Tue, 07 Jul 2015 21:00:25 +0100
 
 kfreebsd-11 (11.0~svn265310-1) experimental; urgency=medium
 
