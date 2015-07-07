@@ -9,12 +9,12 @@
 +#cpu		HAMMER
 +#ident		GENERIC
  
- makeoptions	DEBUG=-g
+ makeoptions	DEBUG=-g		# Build kernel with gdb(1) debug symbols
  makeoptions	WITH_CTF=1		# Run ctfconvert(1) for DTrace support
-@@ -53,7 +53,7 @@
- options 	COMPAT_FREEBSD5		# Compatible with FreeBSD5
- options 	COMPAT_FREEBSD6		# Compatible with FreeBSD6
+@@ -56,7 +56,7 @@
  options 	COMPAT_FREEBSD7		# Compatible with FreeBSD7
+ options 	COMPAT_FREEBSD9		# Compatible with FreeBSD9
+ options 	COMPAT_FREEBSD10	# Compatible with FreeBSD10
 -options 	SCSI_DELAY=5000		# Delay (in ms) before probing SCSI
 +options 	SCSI_DELAY=2000		# Delay (in ms) before probing SCSI
  options 	KTRACE			# ktrace(1) support
@@ -35,12 +35,12 @@
 +#cpu		I686_CPU
 +#ident		GENERIC
  
- makeoptions	DEBUG=-g
+ makeoptions	DEBUG=-g		# Build kernel with gdb(1) debug symbols
  makeoptions	WITH_CTF=1		# Run ctfconvert(1) for DTrace support
-@@ -54,7 +54,7 @@
- options 	COMPAT_FREEBSD5		# Compatible with FreeBSD5
- options 	COMPAT_FREEBSD6		# Compatible with FreeBSD6
+@@ -57,7 +57,7 @@
  options 	COMPAT_FREEBSD7		# Compatible with FreeBSD7
+ options 	COMPAT_FREEBSD9		# Compatible with FreeBSD9
+ options 	COMPAT_FREEBSD10	# Compatible with FreeBSD10
 -options 	SCSI_DELAY=5000		# Delay (in ms) before probing SCSI
 +options 	SCSI_DELAY=2000		# Delay (in ms) before probing SCSI
  options 	KTRACE			# ktrace(1) support

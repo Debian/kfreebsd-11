@@ -8,7 +8,30 @@ kfreebsd-11 (11.0~svn285254-1) UNRELEASED; urgency=medium
       (Closes: #748745)
     - Fix memory leak in sandboxed namei lookup. [SA-14:22]
       (CVE-2014-3711) (Closes: #766279)
-    - :TODO:
+    - Refresh patches:
+      - userland.diff
+      - unescaped_kern_ident.diff
+      - 001_misc.diff
+      - 004_xargs.diff
+      - 107_mount_update.diff
+      - 902_version.diff
+      - 906_grow_sysv_ipc_limits.diff
+      - 908_linprocfs_is_not_proc.diff
+      - 914_psm.diff
+      - 915_ip6.v6only.diff
+      - 917_disable_kgssapi.diff
+      - 918_unix_socket_overflow.diff
+      - 920_linux_cflags.diff
+      - 921_signal_watchdog.diff
+    - Remove obsolete patch:
+      - vxge_no_ctf.diff
+      - 922_cc_version.diff
+    - New patch:
+      - 930_freebsd_cc.diff (Unset FREEBSD_CC)
+  * Manually set COMPILER_TYPE and COMPILER_VERSION in debian/rules, as
+    bsd.compiler.mk doesn't detect our own compiler version correctly
+  * Set WITHOUT_FORMAT_EXTENSIONS, a FreeBSD compiler extension we
+    don't have
   * Build kernel images only on kfreebsd-any arches.
   * DEB_HOST_ARCH_CPU on armel is arm;  update debian/rules detection
     and thereby correctly specify any-arm in debian/control too.

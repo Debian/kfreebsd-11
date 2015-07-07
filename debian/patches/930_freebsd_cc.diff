@@ -1,0 +1,18 @@
+From: Steven Chamberlain <steven@pyro.eu.org>
+Date: Wed, 08 Jul 2015 00:22:18 +0100
+Subject: Unset FREEBSD_CC
+
+This detection displays a warning on non-FreeBSD, for every source file
+compiled, and is likely also slow;  so just manually unset it.
+
+--- a/sys/conf/kern.mk
++++ b/sys/conf/kern.mk
+@@ -64,7 +64,7 @@
+ FORMAT_EXTENSIONS=	-fformat-extensions
+ .endif
+ 
+-FREEBSD_CC!=   ${CC} -dM -E -</dev/null | awk '/__FreeBSD_cc_version/ { print $$3 }' || true
++FREEBSD_CC=
+ 
+ .if ${FREEBSD_CC}
+ # FreeBSD extensions

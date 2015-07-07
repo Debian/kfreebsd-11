@@ -1,6 +1,6 @@
 --- a/sys/conf/newvers.sh
 +++ b/sys/conf/newvers.sh
-@@ -212,6 +212,9 @@
+@@ -216,6 +216,9 @@
  #define VERSTR "${VERSION} #${v}${svn}${git}${hg}${p4version}: ${t}\\n    ${u}@${h}:${d}\\n"
  #define RELSTR "${RELEASE}"
  

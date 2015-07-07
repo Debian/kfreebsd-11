@@ -9,9 +9,9 @@ Author: Steven Chamberlain <steven@pyro.eu.org>
 
 --- a/sys/conf/newvers.sh
 +++ b/sys/conf/newvers.sh
-@@ -91,6 +91,12 @@
+@@ -95,6 +95,12 @@
  i=`${MAKE:-make} -V KERN_IDENT`
- compiler_v=$($(${MAKE:-make} -V CC) -v 2>&1 | grep ' version ')
+ compiler_v=$($(${MAKE:-make} -V CC) -v 2>&1 | grep -w 'version')
  
 +if [ -f "${SYSDIR}/../../debian/changelog" ] ; then
 +	# Use timestamp from the most recent debian/changelog entry,

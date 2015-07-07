@@ -16,7 +16,6 @@ userland.diff
 109_linprocfs_non_x86.diff
 
 # Patches that are likely to be Debian-specific
-vxge_no_ctf.diff
 firmware_load.diff
 902_version.diff
 906_grow_sysv_ipc_limits.diff
@@ -29,6 +28,6 @@ firmware_load.diff
 919_delete_key.diff
 920_linux_cflags.diff
 921_signal_watchdog.diff
-922_cc_version.diff
 923_newvers_timestamp.diff
+930_freebsd_cc.diff
 999_config.diff

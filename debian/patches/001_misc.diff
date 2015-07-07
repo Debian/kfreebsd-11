@@ -3,9 +3,9 @@ Co-authored by Nali Toja
 
 --- a/sys/conf/kern.mk
 +++ b/sys/conf/kern.mk
-@@ -3,6 +3,16 @@
- # Compat
- MK_FORMAT_EXTENSIONS?=no
+@@ -64,6 +64,16 @@
+ FORMAT_EXTENSIONS=	-fformat-extensions
+ .endif
  
 +FREEBSD_CC!=   ${CC} -dM -E -</dev/null | awk '/__FreeBSD_cc_version/ { print $$3 }' || true
 +
@@ -18,14 +18,14 @@ Co-authored by Nali Toja
 +.endif
 +
  #
- # Warning flags for compiling the kernel and components of the kernel:
- #
-@@ -65,7 +75,7 @@
+ # On i386, do not align the stack to 16-byte boundaries.  Otherwise GCC 2.95
+ # and above adds code to the entry and exit point of every function to align the
+@@ -84,7 +94,7 @@
+ # Setting -mno-sse implies -mno-sse2, -mno-sse3, -mno-ssse3, -mno-sse41 and -mno-sse42
  #
  .if ${MACHINE_CPUARCH} == "i386"
- .if ${COMPILER_TYPE} != "clang"
--CFLAGS+=	-mno-align-long-strings -mpreferred-stack-boundary=2
-+CFLAGS+=	${no_align_long_strings} -mpreferred-stack-boundary=2
- .else
- CFLAGS+=	-mno-aes -mno-avx
- .endif
+-CFLAGS.gcc+=	-mno-align-long-strings -mpreferred-stack-boundary=2
++CFLAGS.gcc+=	${no-align-long-strings} -mpreferred-stack-boundary=2
+ CFLAGS.clang+=	-mno-aes -mno-avx
+ CFLAGS+=	-mno-mmx -mno-sse -msoft-float
+ INLINE_LIMIT?=	8000

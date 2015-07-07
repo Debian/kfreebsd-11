@@ -1,18 +1,5 @@
-
 Staging area for fixes needed by userland.
 
---- a/sys/ia64/include/_types.h
-+++ b/sys/ia64/include/_types.h
-@@ -74,7 +74,9 @@
- typedef	__int32_t	__int_least32_t;
- typedef	__int64_t	__int_least64_t;
- typedef	__int64_t	__ptrdiff_t;		/* ptr1 - ptr2 */
-+#ifdef __FreeBSD__
- typedef	__int64_t	__register_t;
-+#endif
- typedef	__int64_t	__segsz_t;		/* segment size (in pages) */
- typedef	__uint64_t	__size_t;		/* sizeof() */
- typedef	__int64_t	__ssize_t;		/* byte count or error */
 --- a/sys/mips/include/_types.h
 +++ b/sys/mips/include/_types.h
 @@ -94,10 +94,14 @@
@@ -181,7 +168,7 @@ Staging area for fixes needed by userland.
  /*
   * ELF header.
   */
-@@ -165,6 +172,8 @@
+@@ -177,6 +184,8 @@
  #define	ELF32_M_SIZE(info)	((unsigned char)(info))
  #define	ELF32_M_INFO(sym, size)	(((sym)<<8)+(unsigned char)(size))
  
@@ -190,7 +177,7 @@ Staging area for fixes needed by userland.
  /*
   *	Hardware/Software capabilities entry
   */
-@@ -176,6 +185,7 @@
+@@ -188,6 +197,7 @@
  	} c_un;
  } Elf32_Cap;
  
@@ -198,7 +185,7 @@ Staging area for fixes needed by userland.
  /*
   * Symbol table entries.
   */
-@@ -234,12 +244,15 @@
+@@ -246,12 +256,15 @@
  	Elf32_Word	vna_name;
  	Elf32_Word	vna_next;
  } Elf32_Vernaux;
@@ -251,7 +238,7 @@ Staging area for fixes needed by userland.
  /*
   * ELF header.
   */
-@@ -172,6 +181,8 @@
+@@ -184,6 +193,8 @@
  #define	ELF64_M_SIZE(info)	((unsigned char)(info))
  #define	ELF64_M_INFO(sym, size)	(((sym)<<8)+(unsigned char)(size))
  
@@ -260,7 +247,7 @@ Staging area for fixes needed by userland.
  /*
   *	Hardware/Software capabilities entry
   */
-@@ -183,6 +194,7 @@
+@@ -195,6 +206,7 @@
  	} c_un;
  } Elf64_Cap;
  
@@ -268,7 +255,7 @@ Staging area for fixes needed by userland.
  /*
   * Symbol table entries.
   */
-@@ -237,12 +249,15 @@
+@@ -249,12 +261,15 @@
  	Elf64_Word	vna_name;
  	Elf64_Word	vna_next;
  } Elf64_Vernaux;
@@ -358,7 +345,7 @@ Staging area for fixes needed by userland.
  
  /* 
   * __FreeBSD_version numbers are documented in the Porter's Handbook.
-@@ -97,11 +103,15 @@
+@@ -98,11 +104,15 @@
  #include <sys/syslimits.h>
  
  #define	MAXCOMLEN	19		/* max command name remembered */
@@ -374,7 +361,7 @@ Staging area for fixes needed by userland.
  #define	NOFILE		OPEN_MAX	/* max open files per process */
  #define	NOGROUP		65535		/* marker for empty group set member */
  #define MAXHOSTNAMELEN	256		/* max hostname size */
-@@ -138,7 +148,9 @@
+@@ -139,7 +149,9 @@
  #ifndef DEV_BSHIFT
  #define	DEV_BSHIFT	9		/* log2(DEV_BSIZE) */
  #endif
@@ -384,7 +371,7 @@ Staging area for fixes needed by userland.
  
  #ifndef BLKDEV_IOSIZE
  #define BLKDEV_IOSIZE  PAGE_SIZE	/* default block device I/O size */
-@@ -214,9 +226,11 @@
+@@ -215,9 +227,11 @@
  #define	PCATCH	0x100		/* OR'd with pri for tsleep to check signals */
  #define	PDROP	0x200	/* OR'd with pri to stop re-entry of interlock mutex */
  
@@ -396,7 +383,7 @@ Staging area for fixes needed by userland.
  #define	NBPW	sizeof(int)	/* number of bytes per word (integer) */
  
  #define	CMASK	022		/* default file mask: S_IWGRP|S_IWOTH */
-@@ -262,6 +276,7 @@
+@@ -277,6 +291,7 @@
  #define	MAXPATHLEN	PATH_MAX
  #define MAXSYMLINKS	32
  
@@ -404,7 +391,7 @@ Staging area for fixes needed by userland.
  /* Bit map related macros. */
  #define	setbit(a,i)	(((unsigned char *)(a))[(i)/NBBY] |= 1<<((i)%NBBY))
  #define	clrbit(a,i)	(((unsigned char *)(a))[(i)/NBBY] &= ~(1<<((i)%NBBY)))
-@@ -269,6 +284,7 @@
+@@ -284,6 +299,7 @@
  	(((const unsigned char *)(a))[(i)/NBBY] & (1<<((i)%NBBY)))
  #define	isclr(a,i)							\
  	((((const unsigned char *)(a))[(i)/NBBY] & (1<<((i)%NBBY))) == 0)
@@ -412,7 +399,7 @@ Staging area for fixes needed by userland.
  
  /* Macros for counting and rounding. */
  #ifndef howmany
-@@ -277,9 +293,13 @@
+@@ -292,9 +308,13 @@
  #define	nitems(x)	(sizeof((x)) / sizeof((x)[0]))
  #define	rounddown(x, y)	(((x)/(y))*(y))
  #define	rounddown2(x, y) ((x)&(~((y)-1)))          /* if y is power of two */
@@ -443,7 +430,7 @@ Staging area for fixes needed by userland.
  
  #include <sys/cdefs.h>
  
-@@ -166,10 +170,12 @@
+@@ -187,10 +191,12 @@
  
  #define	SLIST_FIRST(head)	((head)->slh_first)
  
@@ -456,7 +443,7 @@ Staging area for fixes needed by userland.
  
  #define	SLIST_FOREACH_FROM(var, head, field)				\
  	for ((var) = ((var) ? (var) : SLIST_FIRST((head)));		\
-@@ -191,6 +197,7 @@
+@@ -212,6 +218,7 @@
  	    ((var) = *(varp)) != NULL;					\
  	    (varp) = &SLIST_NEXT((var), field))
  
@@ -464,7 +451,7 @@ Staging area for fixes needed by userland.
  #define	SLIST_INIT(head) do {						\
  	SLIST_FIRST((head)) = NULL;					\
  } while (0)
-@@ -204,9 +211,11 @@
+@@ -225,9 +232,11 @@
  	SLIST_NEXT((elm), field) = SLIST_FIRST((head));			\
  	SLIST_FIRST((head)) = (elm);					\
  } while (0)
@@ -476,7 +463,7 @@ Staging area for fixes needed by userland.
  #define	SLIST_REMOVE(head, elm, type, field) do {			\
  	QMD_SAVELINK(oldnext, (elm)->field.sle_next);			\
  	if (SLIST_FIRST((head)) == (elm)) {				\
-@@ -220,7 +229,9 @@
+@@ -241,7 +250,9 @@
  	}								\
  	TRASHIT(*oldnext);						\
  } while (0)
@@ -486,16 +473,16 @@ Staging area for fixes needed by userland.
  #define SLIST_REMOVE_AFTER(elm, field) do {				\
  	SLIST_NEXT(elm, field) =					\
  	    SLIST_NEXT(SLIST_NEXT(elm, field), field);			\
-@@ -229,6 +240,7 @@
+@@ -250,6 +261,7 @@
  #define	SLIST_REMOVE_HEAD(head, field) do {				\
  	SLIST_FIRST((head)) = SLIST_NEXT(SLIST_FIRST((head)), field);	\
  } while (0)
 +#endif
  
  #define SLIST_SWAP(head1, head2, type) do {				\
- 	struct type *swap_first = SLIST_FIRST(head1);			\
-@@ -245,8 +257,10 @@
- 	struct type **stqh_last;/* addr of last next element */		\
+ 	QUEUE_TYPEOF(type) *swap_first = SLIST_FIRST(head1);		\
+@@ -272,8 +284,10 @@
+ 	class type **stqh_last;	/* addr of last next element */		\
  }
  
 +#if defined(__FreeBSD__) || defined(_KERNEL)
@@ -505,7 +492,7 @@ Staging area for fixes needed by userland.
  
  #define	STAILQ_ENTRY(type)						\
  struct {								\
-@@ -256,6 +270,7 @@
+@@ -288,6 +302,7 @@
  /*
   * Singly-linked Tail queue functions.
   */
@@ -513,7 +500,7 @@ Staging area for fixes needed by userland.
  #define	STAILQ_CONCAT(head1, head2) do {				\
  	if (!STAILQ_EMPTY((head2))) {					\
  		*(head1)->stqh_last = (head2)->stqh_first;		\
-@@ -263,36 +278,44 @@
+@@ -295,36 +310,44 @@
  		STAILQ_INIT((head2));					\
  	}								\
  } while (0)
@@ -558,15 +545,15 @@ Staging area for fixes needed by userland.
  #define	STAILQ_INSERT_AFTER(head, tqelm, elm, field) do {		\
  	if ((STAILQ_NEXT((elm), field) = STAILQ_NEXT((tqelm), field)) == NULL)\
  		(head)->stqh_last = &STAILQ_NEXT((elm), field);		\
-@@ -310,6 +333,7 @@
+@@ -342,6 +365,7 @@
  	*(head)->stqh_last = (elm);					\
  	(head)->stqh_last = &STAILQ_NEXT((elm), field);			\
  } while (0)
 +#endif
  
- #define	STAILQ_LAST(head, type, field)					\
- 	(STAILQ_EMPTY((head)) ? NULL :					\
-@@ -317,6 +341,7 @@
+ #define	STAILQ_LAST(head, type, field)				\
+ 	(STAILQ_EMPTY((head)) ? NULL :				\
+@@ -350,6 +374,7 @@
  
  #define	STAILQ_NEXT(elm, field)	((elm)->field.stqe_next)
  
@@ -574,7 +561,7 @@ Staging area for fixes needed by userland.
  #define	STAILQ_REMOVE(head, elm, type, field) do {			\
  	QMD_SAVELINK(oldnext, (elm)->field.stqe_next);			\
  	if (STAILQ_FIRST((head)) == (elm)) {				\
-@@ -330,6 +355,7 @@
+@@ -363,6 +388,7 @@
  	}								\
  	TRASHIT(*oldnext);						\
  } while (0)
@@ -582,7 +569,7 @@ Staging area for fixes needed by userland.
  
  #define STAILQ_REMOVE_AFTER(head, elm, field) do {			\
  	if ((STAILQ_NEXT(elm, field) =					\
-@@ -337,11 +363,13 @@
+@@ -370,11 +396,13 @@
  		(head)->stqh_last = &STAILQ_NEXT((elm), field);		\
  } while (0)
  
@@ -595,8 +582,8 @@ Staging area for fixes needed by userland.
 +#endif
  
  #define STAILQ_SWAP(head1, head2, type) do {				\
- 	struct type *swap_first = STAILQ_FIRST(head1);			\
-@@ -407,30 +435,37 @@
+ 	QUEUE_TYPEOF(type) *swap_first = STAILQ_FIRST(head1);		\
+@@ -451,30 +479,37 @@
  
  #define	LIST_FIRST(head)	((head)->lh_first)
  
@@ -634,7 +621,7 @@ Staging area for fixes needed by userland.
  #define	LIST_INSERT_AFTER(listelm, elm, field) do {			\
  	QMD_LIST_CHECK_NEXT(listelm, field);				\
  	if ((LIST_NEXT((elm), field) = LIST_NEXT((listelm), field)) != NULL)\
-@@ -455,6 +490,7 @@
+@@ -499,6 +534,7 @@
  	LIST_FIRST((head)) = (elm);					\
  	(elm)->field.le_prev = &LIST_FIRST((head));			\
  } while (0)
@@ -642,23 +629,23 @@ Staging area for fixes needed by userland.
  
  #define	LIST_NEXT(elm, field)	((elm)->field.le_next)
  
-@@ -462,6 +498,7 @@
- 	((elm)->field.le_prev == &LIST_FIRST((head)) ? NULL :		\
- 	    __containerof((elm)->field.le_prev, struct type, field.le_next))
+@@ -507,6 +543,7 @@
+ 	    __containerof((elm)->field.le_prev,			\
+ 	    QUEUE_TYPEOF(type), field.le_next))
  
 +#if !defined(__GLIBC__) || defined(_KERNEL)
  #define	LIST_REMOVE(elm, field) do {					\
  	QMD_SAVELINK(oldnext, (elm)->field.le_next);			\
  	QMD_SAVELINK(oldprev, (elm)->field.le_prev);			\
-@@ -474,6 +511,7 @@
+@@ -519,6 +556,7 @@
  	TRASHIT(*oldnext);						\
  	TRASHIT(*oldprev);						\
  } while (0)
 +#endif
  
  #define LIST_SWAP(head1, head2, type, field) do {			\
- 	struct type *swap_tmp = LIST_FIRST((head1));			\
-@@ -488,22 +526,28 @@
+ 	QUEUE_TYPEOF(type) *swap_tmp = LIST_FIRST(head1);		\
+@@ -533,6 +571,7 @@
  /*
   * Tail queue declarations.
   */
@@ -666,7 +653,8 @@ Staging area for fixes needed by userland.
  #define	TAILQ_HEAD(name, type)						\
  struct name {								\
  	struct type *tqh_first;	/* first element */			\
- 	struct type **tqh_last;	/* addr of last next element */		\
+@@ -546,10 +585,14 @@
+ 	class type **tqh_last;	/* addr of last next element */		\
  	TRACEBUF							\
  }
 +#endif
@@ -680,14 +668,15 @@ Staging area for fixes needed by userland.
  #define	TAILQ_ENTRY(type)						\
  struct {								\
  	struct type *tqe_next;	/* next element */			\
- 	struct type **tqe_prev;	/* address of previous next element */	\
+@@ -563,6 +606,7 @@
+ 	class type **tqe_prev;	/* address of previous next element */	\
  	TRACEBUF							\
  }
 +#endif
  
  /*
   * Tail queue functions.
-@@ -539,6 +583,7 @@
+@@ -598,6 +642,7 @@
  #define	QMD_TAILQ_CHECK_PREV(elm, field)
  #endif /* (_KERNEL && INVARIANTS) */
  
@@ -695,7 +684,7 @@ Staging area for fixes needed by userland.
  #define	TAILQ_CONCAT(head1, head2, field) do {				\
  	if (!TAILQ_EMPTY(head2)) {					\
  		*(head1)->tqh_last = (head2)->tqh_first;		\
-@@ -549,51 +594,61 @@
+@@ -608,51 +653,61 @@
  		QMD_TRACE_HEAD(head2);					\
  	}								\
  } while (0)
@@ -757,7 +746,7 @@ Staging area for fixes needed by userland.
  #define	TAILQ_INIT(head) do {						\
  	TAILQ_FIRST((head)) = NULL;					\
  	(head)->tqh_last = &TAILQ_FIRST((head));			\
-@@ -647,6 +702,7 @@
+@@ -706,6 +761,7 @@
  	QMD_TRACE_HEAD(head);						\
  	QMD_TRACE_ELEM(&(elm)->field);					\
  } while (0)
@@ -765,7 +754,7 @@ Staging area for fixes needed by userland.
  
  #define	TAILQ_LAST(head, headname)					\
  	(*(((struct headname *)((head)->tqh_last))->tqh_last))
-@@ -656,6 +712,7 @@
+@@ -715,6 +771,7 @@
  #define	TAILQ_PREV(elm, headname, field)				\
  	(*(((struct headname *)((elm)->field.tqe_prev))->tqh_last))
  
@@ -773,14 +762,14 @@ Staging area for fixes needed by userland.
  #define	TAILQ_REMOVE(head, elm, field) do {				\
  	QMD_SAVELINK(oldnext, (elm)->field.tqe_next);			\
  	QMD_SAVELINK(oldprev, (elm)->field.tqe_prev);			\
-@@ -673,6 +730,7 @@
+@@ -732,6 +789,7 @@
  	TRASHIT(*oldprev);						\
  	QMD_TRACE_ELEM(&(elm)->field);					\
  } while (0)
 +#endif
  
  #define TAILQ_SWAP(head1, head2, type, field) do {			\
- 	struct type *swap_first = (head1)->tqh_first;			\
+ 	QUEUE_TYPEOF(type) *swap_first = (head1)->tqh_first;		\
 --- a/sys/sys/time.h
 +++ b/sys/sys/time.h
 @@ -37,10 +37,16 @@
@@ -913,7 +902,7 @@ Staging area for fixes needed by userland.
  
  #ifndef _RLIM_T_DECLARED
  typedef	__rlim_t	rlim_t;		/* resource limit */
-@@ -285,10 +301,10 @@
+@@ -290,10 +306,10 @@
   * The following are all things that really shouldn't exist in this header,
   * since its purpose is to provide typedefs, not miscellaneous doodads.
   */
@@ -922,10 +911,10 @@ Staging area for fixes needed by userland.
  #include <sys/select.h>
  
 +#ifdef __FreeBSD__
- /*
-  * minor() gives a cookie instead of an index since we don't want to
-  * change the meanings of bits 0-15 or waste time and space shifting
-@@ -303,7 +319,7 @@
+ #ifdef __POPCNT__
+ #define	__bitcount64(x)	__builtin_popcountll((__uint64_t)(x))
+ #define	__bitcount32(x)	__builtin_popcount((__uint32_t)(x))
+@@ -370,7 +386,7 @@
   * <stdio.h> to give broken programs a better chance of working with
   * 64-bit off_t's.
   */
@@ -979,7 +968,7 @@ Staging area for fixes needed by userland.
  /*
   * Maximum queue length specifiable by listen.
   */
-@@ -684,5 +692,6 @@
+@@ -668,5 +676,6 @@
  
  #endif
  

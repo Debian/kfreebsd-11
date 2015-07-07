@@ -7,7 +7,7 @@ Also see PR kern/150206
 
 --- a/sys/kern/vfs_mount.c
 +++ b/sys/kern/vfs_mount.c
-@@ -652,6 +652,24 @@
+@@ -656,6 +656,24 @@
  	}
  
  	/*

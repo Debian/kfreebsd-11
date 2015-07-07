@@ -18,15 +18,15 @@ It is a revert of upstream commit r18970:
  #include <sys/syslog.h>
  #include <machine/bus.h>
  #include <sys/rman.h>
-@@ -335,7 +332,6 @@
+@@ -338,7 +335,6 @@
  	struct cdev	*bdev;
  	int		lasterr;
  	int		cmdcount;
 -	struct sigio	*async;		/* Processes waiting for SIGIO */
+ 	int		extended_buttons;
  };
  static devclass_t psm_devclass;
- 
-@@ -1565,7 +1561,6 @@
+@@ -1580,7 +1576,6 @@
  	sc->mode.level = sc->dflt_mode.level;
  	sc->mode.protocol = sc->dflt_mode.protocol;
  	sc->watchdog = FALSE;
@@ -34,7 +34,7 @@ It is a revert of upstream commit r18970:
  
  	/* flush the event queue */
  	sc->queue.count = 0;
-@@ -1706,12 +1701,6 @@
+@@ -1721,12 +1716,6 @@
  	/* remove anything left in the output buffer */
  	empty_aux_buffer(sc->kbdc, 10);
  
@@ -47,7 +47,7 @@ It is a revert of upstream commit r18970:
  	/* close is almost always successful */
  	sc->state &= ~PSM_OPEN;
  	kbdc_lock(sc->kbdc, FALSE);
-@@ -2273,15 +2262,6 @@
+@@ -2302,15 +2291,6 @@
  		break;
  #endif /* MOUSE_GETHWID */
  
@@ -63,7 +63,7 @@ It is a revert of upstream commit r18970:
  	default:
  		return (ENOTTY);
  	}
-@@ -3579,9 +3559,6 @@
+@@ -3661,9 +3641,6 @@
  		wakeup(sc);
  	}
  	selwakeuppri(&sc->rsel, PZERO);
