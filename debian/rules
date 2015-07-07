@@ -65,7 +65,7 @@ MAKE		:= \
 # Clang is the default compiler on these architectures (see src/share/mk/src.opts.mk)
 clang_cpus	:= i386 amd64 arm
 
-ifneq ($(clang_version), 3.6)
+ifneq ($(clang_version), 3.6.1)
 $(error Upstream is now using a different Clang version than we expected. Consider updating cc_pkg and cc_cmd)
 endif
 
@@ -91,7 +91,7 @@ MAKE += -DWITHOUT_KERNEL_SYMBOLS
 
 get-orig-source:
 	rm -rf $(ORIG_DIR)
-	svn export -r $(svn_revision) $(SVN)/sys $(ORIG_DIR)/sys
+	svn export --ignore-keywords -r $(svn_revision) $(SVN)/sys $(ORIG_DIR)/sys
 	# The Clang version used by upstream
 	svn cat -r $(svn_revision) $(SVN)/lib/clang/include/clang/Basic/Version.inc \
 		| sed -ne 's/.*\sCLANG_VERSION\s\+//p' \

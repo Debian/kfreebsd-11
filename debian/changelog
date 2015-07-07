@@ -1,4 +1,4 @@
-kfreebsd-11 (11.0~svn273432-1) UNRELEASED; urgency=medium
+kfreebsd-11 (11.0~svn285254-1) UNRELEASED; urgency=medium
 
   * New upstream snapshot of -CURRENT
     - Fix for EN-14:05:
@@ -8,6 +8,8 @@ kfreebsd-11 (11.0~svn273432-1) UNRELEASED; urgency=medium
       (Closes: #748745)
     - Fix memory leak in sandboxed namei lookup. [SA-14:22]
       (CVE-2014-3711) (Closes: #766279)
+    - :TODO:
+  * Build kernel images only on kfreebsd-any arches.
   * DEB_HOST_ARCH_CPU on armel is arm;  update debian/rules detection
     and thereby correctly specify any-arm in debian/control too.
   * Build with clang-3.6 on i386, amd64, arm;  due to clang-3.4
@@ -22,7 +24,8 @@ kfreebsd-11 (11.0~svn273432-1) UNRELEASED; urgency=medium
     and directories in the tarball are not writable by the src
     group, but readable by all, regardless of the umask setting
     when the package is built. (Closes: #791584)
-  * Build kernel images only on kfreebsd-any arches.
+  * In get-orig-source, svn export with --ignore-keywords so that
+    revision tags do not fuzzy the patches
   * Add myself to Uploaders.
 
  -- Steven Chamberlain <steven@pyro.eu.org>  Tue, 07 Jul 2015 21:00:25 +0100
