@@ -12,6 +12,16 @@ kfreebsd-11 (11.0~svn273432-1) UNRELEASED; urgency=medium
     and thereby correctly specify any-arm in debian/control too.
   * Build with clang-3.6 on i386, amd64, arm;  due to clang-3.4
     going away soon. (Closes: #790358)
+  * Create tarballs of upstream source, and of the kfreebsd-source
+    binary-indep package, using a reproducible stable file order.
+    (Closes: #786615)
+  * In the kfreebsd-source binary-indep package, clamp timestamps
+    to be no later than the last debian/changelog entry.
+    (Closes: #788238)
+  * In the kfreebsd-source binary-indep package, ensure files
+    and directories in the tarball are not writable by the src
+    group, but readable by all, regardless of the umask setting
+    when the package is built. (Closes: #791584)
 
  -- Steven Chamberlain <steven@pyro.eu.org>  Tue, 07 Jul 2015 21:00:25 +0100
 

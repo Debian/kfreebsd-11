@@ -97,7 +97,12 @@ get-orig-source:
 		| sed -ne 's/.*\sCLANG_VERSION\s\+//p' \
 		> $(ORIG_DIR)/CLANG_VERSION
 	cd $(ORIG_DIR) && $(CURDIR)/debian/prune.sh
-	tar --numeric-owner --owner 0 --group 0 -cJf ../$(ORIG_TAR) $(ORIG_DIR)
+	# Create tarball with files sorted in a stable order, see
+	# https://wiki.debian.org/ReproducibleBuilds/FileOrderInTarballs
+	find $(ORIG_DIR) -print0 | LC_ALL=C sort -z \
+	 | tar --null --no-recursion --files-from - \
+	    --numeric-owner --owner 0 --group 0 \
+	    -cJf ../$(ORIG_TAR)
 	rm -rf $(ORIG_DIR)
 
 control: clean
@@ -163,7 +168,18 @@ install-indep-stamp: build-indep
 
 	mkdir -p $(SOURCE_PACKAGE)/usr/src
 	chown -R root.src $(SRC_DIR)
-	tar cfJ $(SOURCE_PACKAGE)/usr/src/$(SRC_TAR) $(SRC_DIR)
+	# Clamp timestamps to be no newer than last changelog entry, see
+	# https://wiki.debian.org/ReproducibleBuilds/TimestampsInTarball
+	find $(SRC_DIR) -newermt "$(BUILD_DATE)" -print0 \
+	 | xargs -0r touch --no-dereference --date="$(BUILD_DATE)"
+	# Create tarball with files sorted in a stable order, see
+	# https://wiki.debian.org/ReproducibleBuilds/FileOrderInTarballs
+	# and normalised file permissions regardless of umask, see
+	# https://wiki.debian.org/ReproducibleBuilds/VaryingPermissionsInTarballs
+	find $(SRC_DIR) -print0 | LC_ALL=C sort -z \
+	 | tar --null --no-recursion --files-from - \
+	    --mode=go=rX,u+rw,a-s \
+	    -cJf $(SOURCE_PACKAGE)/usr/src/$(SRC_TAR)
 
 	touch install-indep-stamp
 
