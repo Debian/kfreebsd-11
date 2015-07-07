@@ -22,6 +22,8 @@ kfreebsd-11 (11.0~svn273432-1) UNRELEASED; urgency=medium
     and directories in the tarball are not writable by the src
     group, but readable by all, regardless of the umask setting
     when the package is built. (Closes: #791584)
+  * Build kernel images only on kfreebsd-any arches.
+  * Add myself to Uploaders.
 
  -- Steven Chamberlain <steven@pyro.eu.org>  Tue, 07 Jul 2015 21:00:25 +0100
 

@@ -1,5 +1,5 @@
 Package: kfreebsd-image-@version@-@abiname@-@flavor@
-Architecture: any-@arch@
+Architecture: kfreebsd-@arch@
 Depends: ${misc:Depends},
  freebsd-utils (>= 8.1-5) [kfreebsd-any], kldutils (>= 7.1) [kfreebsd-any],
  devd [kfreebsd-any] | freebsd-utils (<< 8.2+ds2-9) [kfreebsd-any],
@@ -28,7 +28,7 @@ Description: kernel of FreeBSD @version@ image
  This package is compiled for a @flavor@-class machine.
 
 Package: kfreebsd-image-@major@-@flavor@
-Architecture: any-@arch@
+Architecture: kfreebsd-@arch@
 Depends: kfreebsd-image-@version@-@abiname@-@flavor@, ${misc:Depends}
 Description: kernel of FreeBSD @major@ image (meta-package)
  This package depends on the latest binary image for kernel of FreeBSD @major@ on
