@@ -38,12 +38,11 @@ kfreebsd-11 (11.0~svn284956-1) UNRELEASED; urgency=medium
     - No longer provide nfsclient module in nfs-modules-udeb;  it has
       been obsoleted by nfscl.
     - Bump freebsd-mk Build-Depends to (>= 10.0-7~)
-  * Manually set COMPILER_TYPE and COMPILER_VERSION in debian/rules, as
-    bsd.compiler.mk doesn't detect our own compiler version correctly
-  * Set WITHOUT_FORMAT_EXTENSIONS, a FreeBSD compiler extension we
-    don't have
-  * DEB_HOST_ARCH_CPU on armel is arm;  update debian/rules detection
-    and thereby correctly specify any-arm in debian/control too.
+    - Manually set COMPILER_TYPE and COMPILER_VERSION in debian/rules,
+      as bsd.compiler.mk doesn't detect our own compiler version
+      correctly
+    - Set WITHOUT_FORMAT_EXTENSIONS, a FreeBSD compiler extension we
+      don't have.
   * Merge changes from kfreebsd-10:
     - Compile objects with relative, not absolute paths, to avoid embedding
       full build tree paths into modules. (Closes: #757629)
@@ -63,6 +62,8 @@ kfreebsd-11 (11.0~svn284956-1) UNRELEASED; urgency=medium
     - In get-orig-source, svn export with --ignore-keywords so that
       revision tags do not fuzzy the patches
     - Add myself to Uploaders.
+  * DEB_HOST_ARCH_CPU on armel is arm;  update debian/rules detection
+    and thereby correctly specify any-arm in debian/control too.
   * Build with clang-3.6 on i386, amd64, arm;  due to clang-3.4
     going away soon. (Closes: #790358)
 
