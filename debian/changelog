@@ -8,8 +8,23 @@ kfreebsd-11 (11.0~svn284956-1) UNRELEASED; urgency=medium
     - Fix for EN-14:06:
       Triple fault on execve from 64-bit thread to 32-bit process
       (Closes: #748745)
-    - Fix memory leak in sandboxed namei lookup. [SA-14:22]
+    - SA-14:22: Fix memory leak in sandboxed namei lookup.
       (CVE-2014-3711) (Closes: #766279)
+    - SA-14:25: Fix kernel stack disclosure in setlogin(2) / getlogin(2)
+      (CVE-2014-8476) (Closes: #768109)
+    - SA-15:02: SCTP SCTP_SS_VALUE kernel memory corruption and
+      disclosure vulnerability (CVE-2014-8612) (Closes: #776415)
+    - SA-15:03: SCTP stream reset vulnerability (CVE-2014-8613)
+      (Closes: #776416)
+    - EN-15:01: vt(4) crash with improper ioctl parameters
+      (CVE-2014-0998) (Closes: #779194)
+    - SA-15:04: integer overflow in IGMP protocol (CVE-2015-1414)
+      updated patch from advisory revision 1.1 (Closes: #779195)
+    - SA-15:09: Denial of Service with IPv6 Router Advertisements
+      (CVE-2015-2923) (Closes: #782107)
+    - EN-15:05: Fix deadlock on reboot with UFS tuned with SU+J.
+      (Closes: #786619)
+    - vt(4) optimisations (Closes: #738188)
     - Refresh patches:
       - userland.diff
       - unescaped_kern_ident.diff
