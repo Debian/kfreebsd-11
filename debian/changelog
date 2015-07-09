@@ -1,6 +1,8 @@
-kfreebsd-11 (11.0~svn285254-1) UNRELEASED; urgency=medium
+kfreebsd-11 (11.0~svn284956-1) UNRELEASED; urgency=medium
 
-  * New upstream snapshot of -CURRENT
+  * New upstream snapshot of -CURRENT (not the latest available
+    snapshot, but the last that can build with currently packaged
+    freebsd-buildutils version):
     - Fix for EN-14:05:
       ciss(4) potential data corruption bug (Closes: #748079)
     - Fix for EN-14:06:
