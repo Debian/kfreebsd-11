@@ -37,7 +37,7 @@ It handles three situations:
  };
 --- a/sys/kern/kern_prot.c
 +++ b/sys/kern/kern_prot.c
-@@ -1557,8 +1557,8 @@
+@@ -1560,8 +1560,8 @@
  	 * pretty safe to do since the only way to create two processes
  	 * with the same p_leader is via rfork(2).
  	 */

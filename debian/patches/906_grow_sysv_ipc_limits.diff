@@ -23,7 +23,7 @@ options         SEMMAP=256
 
 --- a/sys/amd64/conf/GENERIC
 +++ b/sys/amd64/conf/GENERIC
-@@ -62,6 +62,11 @@
+@@ -61,6 +61,11 @@
  options 	SYSVSHM			# SYSV-style shared memory
  options 	SYSVMSG			# SYSV-style message queues
  options 	SYSVSEM			# SYSV-style semaphores
@@ -37,7 +37,7 @@ options         SEMMAP=256
  options 	KBD_INSTALL_CDEV	# install a CDEV entry in /dev
 --- a/sys/i386/conf/GENERIC
 +++ b/sys/i386/conf/GENERIC
-@@ -63,6 +63,11 @@
+@@ -62,6 +62,11 @@
  options 	SYSVSHM			# SYSV-style shared memory
  options 	SYSVMSG			# SYSV-style message queues
  options 	SYSVSEM			# SYSV-style semaphores

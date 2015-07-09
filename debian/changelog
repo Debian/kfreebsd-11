@@ -25,11 +25,13 @@ kfreebsd-11 (11.0~svn284956-1) UNRELEASED; urgency=medium
       - 918_unix_socket_overflow.diff
       - 920_linux_cflags.diff
       - 921_signal_watchdog.diff
-    - Remove obsolete patch:
+      - 999_config.diff
+    - Remove obsolete patches:
       - vxge_no_ctf.diff
       - 922_cc_version.diff
     - New patch:
       - 930_freebsd_cc.diff (Unset FREEBSD_CC)
+    - Disable building si(4) as module, due to non-free microcode
   * Manually set COMPILER_TYPE and COMPILER_VERSION in debian/rules, as
     bsd.compiler.mk doesn't detect our own compiler version correctly
   * Set WITHOUT_FORMAT_EXTENSIONS, a FreeBSD compiler extension we
