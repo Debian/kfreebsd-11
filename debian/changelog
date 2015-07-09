@@ -1,4 +1,4 @@
-kfreebsd-11 (11.0~svn284956-1) UNRELEASED; urgency=medium
+kfreebsd-11 (11.0~svn284956-1) experimental; urgency=medium
 
   * New upstream snapshot of -CURRENT (not the latest available
     snapshot, but the last that can build with currently packaged
