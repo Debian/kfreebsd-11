@@ -37,6 +37,7 @@ kfreebsd-11 (11.0~svn284956-1) UNRELEASED; urgency=medium
       - 999_config.diff
     - No longer provide nfsclient module in nfs-modules-udeb;  it has
       been obsoleted by nfscl.
+    - Bump freebsd-mk Build-Depends to (>= 10.0-7~)
   * Manually set COMPILER_TYPE and COMPILER_VERSION in debian/rules, as
     bsd.compiler.mk doesn't detect our own compiler version correctly
   * Set WITHOUT_FORMAT_EXTENSIONS, a FreeBSD compiler extension we
