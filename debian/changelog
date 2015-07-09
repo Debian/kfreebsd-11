@@ -35,6 +35,8 @@ kfreebsd-11 (11.0~svn284956-1) UNRELEASED; urgency=medium
       - 940_ld_verbose.diff
     - Disable building si(4) as module, due to non-free microcode
       - 999_config.diff
+    - No longer provide nfsclient module in nfs-modules-udeb;  it has
+      been obsoleted by nfscl.
   * Manually set COMPILER_TYPE and COMPILER_VERSION in debian/rules, as
     bsd.compiler.mk doesn't detect our own compiler version correctly
   * Set WITHOUT_FORMAT_EXTENSIONS, a FreeBSD compiler extension we
