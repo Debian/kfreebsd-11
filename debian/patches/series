@@ -29,6 +29,7 @@ firmware_load.diff
 920_linux_cflags.diff
 921_signal_watchdog.diff
 923_newvers_timestamp.diff
+924_module_objdir.diff
 930_freebsd_cc.diff
 940_ld_verbose.diff
 999_config.diff

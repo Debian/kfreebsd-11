@@ -157,6 +157,12 @@ build-indep: build-indep-stamp
 build-indep-stamp:
 	dh_testdir
 
+	# Compile objects with relative, not absolute paths, to avoid embedding
+	# full build tree paths into modules (Bug #757629)
+	find sys/modules/ \
+	 \( -name Makefile -o -name Makefile.inc \) \
+	 -exec sed -i 's@$${.CURDIR}/@@g' \{\} \;
+
 	mkdir -p $(SRC_DIR)
 	cp -af sys $(SRC_DIR)/
 

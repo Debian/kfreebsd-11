@@ -42,6 +42,10 @@ kfreebsd-11 (11.0~svn284956-1) UNRELEASED; urgency=medium
   * DEB_HOST_ARCH_CPU on armel is arm;  update debian/rules detection
     and thereby correctly specify any-arm in debian/control too.
   * Merge changes from kfreebsd-10:
+    - Compile objects with relative, not absolute paths, to avoid embedding
+      full build tree paths into modules. (Closes: #757629)
+    - Build modules in-place instead of creating a deep nested hierarchy
+      - 924_module_objdir.diff (Closes: #757632)
     - Build kernel images only on kfreebsd-any arches.
     - Create tarballs of upstream source, and of the kfreebsd-source
       binary-indep package, using a reproducible stable file order.
