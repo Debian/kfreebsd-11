@@ -29,31 +29,32 @@ kfreebsd-11 (11.0~svn284956-1) UNRELEASED; urgency=medium
     - Remove obsolete patches:
       - vxge_no_ctf.diff
       - 922_cc_version.diff
-    - New patch:
-      - 930_freebsd_cc.diff (Unset FREEBSD_CC)
+    - Unset FREEBSD_CC, as we lack FreeBSD compiler extensions
+      - 930_freebsd_cc.diff
     - Disable building si(4) as module, due to non-free microcode
   * Manually set COMPILER_TYPE and COMPILER_VERSION in debian/rules, as
     bsd.compiler.mk doesn't detect our own compiler version correctly
   * Set WITHOUT_FORMAT_EXTENSIONS, a FreeBSD compiler extension we
     don't have
-  * Build kernel images only on kfreebsd-any arches.
   * DEB_HOST_ARCH_CPU on armel is arm;  update debian/rules detection
     and thereby correctly specify any-arm in debian/control too.
+  * Merge changes from kfreebsd-10:
+    - Build kernel images only on kfreebsd-any arches.
+    - Create tarballs of upstream source, and of the kfreebsd-source
+      binary-indep package, using a reproducible stable file order.
+      (Closes: #786615)
+    - In the kfreebsd-source binary-indep package, clamp timestamps
+      to be no later than the last debian/changelog entry.
+      (Closes: #788238)
+    - In the kfreebsd-source binary-indep package, ensure files
+      and directories in the tarball are not writable by the src
+      group, but readable by all, regardless of the umask setting
+      when the package is built. (Closes: #791584)
+    - In get-orig-source, svn export with --ignore-keywords so that
+      revision tags do not fuzzy the patches
+    - Add myself to Uploaders.
   * Build with clang-3.6 on i386, amd64, arm;  due to clang-3.4
     going away soon. (Closes: #790358)
-  * Create tarballs of upstream source, and of the kfreebsd-source
-    binary-indep package, using a reproducible stable file order.
-    (Closes: #786615)
-  * In the kfreebsd-source binary-indep package, clamp timestamps
-    to be no later than the last debian/changelog entry.
-    (Closes: #788238)
-  * In the kfreebsd-source binary-indep package, ensure files
-    and directories in the tarball are not writable by the src
-    group, but readable by all, regardless of the umask setting
-    when the package is built. (Closes: #791584)
-  * In get-orig-source, svn export with --ignore-keywords so that
-    revision tags do not fuzzy the patches
-  * Add myself to Uploaders.
 
  -- Steven Chamberlain <steven@pyro.eu.org>  Tue, 07 Jul 2015 21:00:25 +0100
 
