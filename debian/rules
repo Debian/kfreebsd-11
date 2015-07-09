@@ -148,6 +148,8 @@ clean:
 	dh_testdir
 	dh_testroot
 	rm -rf kfreebsd-source-* sys/*/compile/* sys/*/conf/*.config
+	find sys/modules/ \( -name '*.o' -o -name '*.ko' -o -name '*.so' -o -name 'export_syms' \) -delete
+	find sys/modules/ -type l -delete
 	rm -f debian/kfreebsd-image-*.{preinst,prerm,postinst,postrm}
 
 	rm -f *-stamp
