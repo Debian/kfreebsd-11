@@ -1,8 +1,8 @@
 From: Steven Chamberlain <steven@pyro.eu.org>
 Date: Wed, 08 Jul 2015 00:22:18 +0100
-Subject: Unset FREEBSD_CC
+Subject: Unset FREEBSD_CC, as we lack FreeBSD compiler extensions
 
-This detection displays a warning on non-FreeBSD, for every source file
+The detection displays a warning on non-FreeBSD, for every source file
 compiled, and is likely also slow;  so just manually unset it.
 
 --- a/sys/conf/kern.mk
