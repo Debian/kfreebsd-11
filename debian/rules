@@ -29,10 +29,10 @@ else
 kfreebsd_cpu	:= $(cpu)
 endif
 
-#SVN		:= https://svn0.us-west.freebsd.org/base/release/$(version).0
-#SVN		:= https://svn0.us-west.freebsd.org/base/releng/$(version)
-#SVN		:= https://svn0.us-west.freebsd.org/base/stable/$(major)
-SVN		:= https://svn0.us-west.freebsd.org/base/head
+#SVN		:= https://svn.freebsd.org/base/release/$(version).0
+#SVN		:= https://svn.freebsd.org/base/releng/$(version)
+#SVN		:= https://svn.freebsd.org/base/stable/$(major)
+SVN		:= https://svn.freebsd.org/base/head
 SOURCE_PACKAGE	:= $(CURDIR)/debian/kfreebsd-source-$(version)
 IMAGE_PACKAGE	:= $(CURDIR)/debian/kfreebsd-image-$(version)-$(abiname)
 HEADERS_PACKAGE	:= $(CURDIR)/debian/kfreebsd-headers-$(version)-$(abiname)
