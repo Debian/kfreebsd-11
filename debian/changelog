@@ -5,6 +5,23 @@ kfreebsd-11 (11.0~svn295083-1) UNRELEASED; urgency=medium
     as it is preferred now to use the generic kernel in HVM mode.
   * Use new preferred hostname for upstream SVN with HTTPS
     (svn.freebsd.org)
+  * Refresh patches:
+    - unescaped_kern_ident.diff
+    - userland.diff
+    - 001_misc.diff
+    - 004_xargs.diff
+    - 109_linprocfs_non_x86.diff
+    - 902_version.diff
+    - 906_grow_sysv_ipc_limits.diff
+    - 914_psm.diff
+    - 917_disable_kgssapi.diff
+    - 918_unix_socket_overflow.diff
+    - 920_linux_cflags.diff
+    - 923_newvers_timestamp.diff
+    - 924_module_objdir.diff
+    - 930_freebsd_cc.diff
+    - 940_ld_verbose.diff
+    - 999_config.diff
 
  -- Steven Chamberlain <steven@pyro.eu.org>  Sat, 06 Feb 2016 16:17:19 +0000
 

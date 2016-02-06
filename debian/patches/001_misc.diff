@@ -3,7 +3,7 @@ Co-authored by Nali Toja
 
 --- a/sys/conf/kern.mk
 +++ b/sys/conf/kern.mk
-@@ -64,6 +64,16 @@
+@@ -67,6 +67,16 @@
  FORMAT_EXTENSIONS=	-fformat-extensions
  .endif
  
@@ -20,7 +20,7 @@ Co-authored by Nali Toja
  #
  # On i386, do not align the stack to 16-byte boundaries.  Otherwise GCC 2.95
  # and above adds code to the entry and exit point of every function to align the
-@@ -84,7 +94,7 @@
+@@ -87,7 +97,7 @@
  # Setting -mno-sse implies -mno-sse2, -mno-sse3, -mno-ssse3, -mno-sse41 and -mno-sse42
  #
  .if ${MACHINE_CPUARCH} == "i386"

@@ -11,7 +11,7 @@
  
  makeoptions	DEBUG=-g		# Build kernel with gdb(1) debug symbols
  makeoptions	WITH_CTF=1		# Run ctfconvert(1) for DTrace support
-@@ -55,7 +55,7 @@
+@@ -56,7 +56,7 @@
  options 	COMPAT_FREEBSD7		# Compatible with FreeBSD7
  options 	COMPAT_FREEBSD9		# Compatible with FreeBSD9
  options 	COMPAT_FREEBSD10	# Compatible with FreeBSD10
@@ -37,7 +37,7 @@
  
  makeoptions	DEBUG=-g		# Build kernel with gdb(1) debug symbols
  makeoptions	WITH_CTF=1		# Run ctfconvert(1) for DTrace support
-@@ -56,7 +56,7 @@
+@@ -57,7 +57,7 @@
  options 	COMPAT_FREEBSD7		# Compatible with FreeBSD7
  options 	COMPAT_FREEBSD9		# Compatible with FreeBSD9
  options 	COMPAT_FREEBSD10	# Compatible with FreeBSD10
@@ -131,7 +131,7 @@
 +options 	KDB_TRACE		# Print a stack trace for a panic.
 --- a/sys/modules/Makefile
 +++ b/sys/modules/Makefile
-@@ -528,7 +528,9 @@
+@@ -561,7 +561,9 @@
  .endif
  _safe=		safe
  _scsi_low=	scsi_low

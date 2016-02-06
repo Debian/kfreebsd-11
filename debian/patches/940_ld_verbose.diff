@@ -2,10 +2,10 @@ Show the kernel link command line in the build log
 
 --- a/sys/conf/kern.pre.mk
 +++ b/sys/conf/kern.pre.mk
-@@ -193,10 +193,10 @@
- SYSTEM_OBJS= locore.o ${MDOBJS} ${OBJS}
- SYSTEM_OBJS+= ${SYSTEM_CFILES:.c=.o}
- SYSTEM_OBJS+= hack.So
+@@ -200,10 +200,10 @@
+ .if ${MFS_IMAGE:Uno} != "no"
+ SYSTEM_OBJS+= embedfs_${MFS_IMAGE:T:R}.o
+ .endif
 -SYSTEM_LD= @${LD} -Bdynamic -T ${LDSCRIPT} ${_LDFLAGS} --no-warn-mismatch \
 +SYSTEM_LD= ${LD} -Bdynamic -T ${LDSCRIPT} ${_LDFLAGS} --no-warn-mismatch \
  	--warn-common --export-dynamic --dynamic-linker /red/herring \

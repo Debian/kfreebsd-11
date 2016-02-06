@@ -6,10 +6,10 @@ http://savannah.gnu.org/patch/?4916
 
 --- a/sys/conf/kmod.mk
 +++ b/sys/conf/kmod.mk
-@@ -215,7 +215,7 @@
+@@ -233,7 +233,7 @@
  	grep -v '^#' < ${EXPORT_SYMS} > export_syms
  .endif
- 	awk -f ${SYSDIR}/conf/kmod_syms.awk ${.TARGET} \
+ 	${AWK} -f ${SYSDIR}/conf/kmod_syms.awk ${.TARGET} \
 -	    export_syms | xargs -J% ${OBJCOPY} % ${.TARGET}
 +	    export_syms | xargs -I% ${OBJCOPY} % ${.TARGET}
  .endif
@@ -32,17 +32,21 @@ http://savannah.gnu.org/patch/?4916
  for H in ${src_headers}; do
 --- a/sys/conf/kern.post.mk
 +++ b/sys/conf/kern.post.mk
-@@ -200,12 +200,9 @@
- 	rm -f .newdep
- 	${MAKE} -V CFILES_NOCDDL -V SYSTEM_CFILES -V GEN_CFILES | \
- 	    MKDEP_CPP="${CC} -E" CC="${CC}" xargs mkdep -a -f .newdep ${CFLAGS}
+@@ -234,8 +234,6 @@
+ # C files
+ 	${MAKE} -V CFILES_NORMAL -V SYSTEM_CFILES -V GEN_CFILES | \
+ 	    CC="${_MKDEPCC}" xargs mkdep -a -f ${.TARGET}.tmp ${CFLAGS}
 -	${MAKE} -V CFILES_CDDL | \
--	    MKDEP_CPP="${CC} -E" CC="${CC}" xargs mkdep -a -f .newdep ${ZFS_CFLAGS} ${FBT_CFLAGS} ${DTRACE_CFLAGS}
-+	# GNU xargs behaves differently when given a single newline character.
- 	${MAKE} -V SFILES_NOCDDL | \
- 	    MKDEP_CPP="${CC} -E" xargs mkdep -a -f .newdep ${ASM_CFLAGS}
+-	    CC="${_MKDEPCC}" xargs mkdep -a -f ${.TARGET}.tmp ${ZFS_CFLAGS} \
+ 	    ${FBT_CFLAGS} ${DTRACE_CFLAGS}
+ 	${MAKE} -V CFILES_LINUXKPI | \
+ 	    CC="${_MKDEPCC}" xargs mkdep -a -f ${.TARGET}.tmp \
+@@ -246,8 +244,6 @@
+ # Assembly files
+ 	${MAKE} -V SFILES_NORMAL | \
+ 	    CC="${_MKDEPCC}" xargs mkdep -a -f ${.TARGET}.tmp ${ASM_CFLAGS}
 -	${MAKE} -V SFILES_CDDL | \
--	    MKDEP_CPP="${CC} -E" xargs mkdep -a -f .newdep ${ZFS_ASM_CFLAGS}
- 	rm -f .depend
- 	mv .newdep .depend
- 
+-	    CC="${_MKDEPCC}" xargs mkdep -a -f ${.TARGET}.tmp ${ZFS_ASM_CFLAGS}
+ 	mv ${.TARGET}.tmp ${.TARGET}
+ .else
+ 	: > ${.TARGET}

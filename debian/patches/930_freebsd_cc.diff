@@ -7,7 +7,7 @@ compiled, and is likely also slow;  so just manually unset it.
 
 --- a/sys/conf/kern.mk
 +++ b/sys/conf/kern.mk
-@@ -64,7 +64,7 @@
+@@ -67,7 +67,7 @@
  FORMAT_EXTENSIONS=	-fformat-extensions
  .endif
  

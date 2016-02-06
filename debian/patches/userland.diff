@@ -122,7 +122,7 @@ Staging area for fixes needed by userland.
  typedef	struct __mq	*__mqd_t;	/* mq_open()... */
  typedef	__uint32_t	__uid_t;
  typedef	unsigned int	__useconds_t;	/* microseconds (unsigned) */
-@@ -107,9 +120,13 @@
+@@ -107,10 +120,14 @@
   * mbstate_t is an opaque object to keep conversion state during multibyte
   * stream conversions.
   */
@@ -135,7 +135,8 @@ Staging area for fixes needed by userland.
  } __mbstate_t;
 +#endif
  
- #endif /* !_SYS__TYPES_H_ */
+ typedef unsigned long	__rman_res_t;
+ 
 --- a/sys/sys/elf32.h
 +++ b/sys/sys/elf32.h
 @@ -31,15 +31,21 @@
@@ -345,7 +346,7 @@ Staging area for fixes needed by userland.
  
  /* 
   * __FreeBSD_version numbers are documented in the Porter's Handbook.
-@@ -98,11 +104,15 @@
+@@ -99,11 +105,15 @@
  #include <sys/syslimits.h>
  
  #define	MAXCOMLEN	19		/* max command name remembered */
@@ -361,7 +362,7 @@ Staging area for fixes needed by userland.
  #define	NOFILE		OPEN_MAX	/* max open files per process */
  #define	NOGROUP		65535		/* marker for empty group set member */
  #define MAXHOSTNAMELEN	256		/* max hostname size */
-@@ -139,7 +149,9 @@
+@@ -140,7 +150,9 @@
  #ifndef DEV_BSHIFT
  #define	DEV_BSHIFT	9		/* log2(DEV_BSIZE) */
  #endif
@@ -371,7 +372,7 @@ Staging area for fixes needed by userland.
  
  #ifndef BLKDEV_IOSIZE
  #define BLKDEV_IOSIZE  PAGE_SIZE	/* default block device I/O size */
-@@ -215,9 +227,11 @@
+@@ -216,9 +228,11 @@
  #define	PCATCH	0x100		/* OR'd with pri for tsleep to check signals */
  #define	PDROP	0x200	/* OR'd with pri to stop re-entry of interlock mutex */
  
@@ -383,7 +384,7 @@ Staging area for fixes needed by userland.
  #define	NBPW	sizeof(int)	/* number of bytes per word (integer) */
  
  #define	CMASK	022		/* default file mask: S_IWGRP|S_IWOTH */
-@@ -277,6 +291,7 @@
+@@ -278,6 +292,7 @@
  #define	MAXPATHLEN	PATH_MAX
  #define MAXSYMLINKS	32
  
@@ -391,7 +392,7 @@ Staging area for fixes needed by userland.
  /* Bit map related macros. */
  #define	setbit(a,i)	(((unsigned char *)(a))[(i)/NBBY] |= 1<<((i)%NBBY))
  #define	clrbit(a,i)	(((unsigned char *)(a))[(i)/NBBY] &= ~(1<<((i)%NBBY)))
-@@ -284,6 +299,7 @@
+@@ -285,6 +300,7 @@
  	(((const unsigned char *)(a))[(i)/NBBY] & (1<<((i)%NBBY)))
  #define	isclr(a,i)							\
  	((((const unsigned char *)(a))[(i)/NBBY] & (1<<((i)%NBBY))) == 0)
@@ -399,7 +400,7 @@ Staging area for fixes needed by userland.
  
  /* Macros for counting and rounding. */
  #ifndef howmany
-@@ -292,9 +308,13 @@
+@@ -293,9 +309,13 @@
  #define	nitems(x)	(sizeof((x)) / sizeof((x)[0]))
  #define	rounddown(x, y)	(((x)/(y))*(y))
  #define	rounddown2(x, y) ((x)&(~((y)-1)))          /* if y is power of two */
@@ -902,19 +903,20 @@ Staging area for fixes needed by userland.
  
  #ifndef _RLIM_T_DECLARED
  typedef	__rlim_t	rlim_t;		/* resource limit */
-@@ -290,10 +306,10 @@
-  * The following are all things that really shouldn't exist in this header,
-  * since its purpose is to provide typedefs, not miscellaneous doodads.
-  */
+@@ -355,10 +371,11 @@
+ #define	__bitcount(x)	__bitcount32((unsigned int)(x))
+ #endif
+ 
 -#if __BSD_VISIBLE
  
  #include <sys/select.h>
  
 +#ifdef __FreeBSD__
- #ifdef __POPCNT__
- #define	__bitcount64(x)	__builtin_popcountll((__uint64_t)(x))
- #define	__bitcount32(x)	__builtin_popcount((__uint32_t)(x))
-@@ -370,7 +386,7 @@
++
+ /*
+  * minor() gives a cookie instead of an index since we don't want to
+  * change the meanings of bits 0-15 or waste time and space shifting
+@@ -373,7 +390,7 @@
   * <stdio.h> to give broken programs a better chance of working with
   * 64-bit off_t's.
   */
@@ -968,7 +970,7 @@ Staging area for fixes needed by userland.
  /*
   * Maximum queue length specifiable by listen.
   */
-@@ -668,5 +676,6 @@
+@@ -686,5 +694,6 @@
  
  #endif
  
@@ -1145,7 +1147,7 @@ Staging area for fixes needed by userland.
  /*
   * System defined signals.
   */
-@@ -441,4 +448,6 @@
+@@ -440,4 +447,6 @@
  __sighandler_t *signal(int, __sighandler_t *);
  __END_DECLS
  

@@ -1,6 +1,6 @@
 --- a/sys/conf/kern.pre.mk
 +++ b/sys/conf/kern.pre.mk
-@@ -203,7 +203,7 @@
+@@ -215,7 +215,7 @@
  # MKMODULESENV is set here so that port makefiles can augment
  # them.
  
