@@ -25,6 +25,7 @@ kfreebsd-11 (11.0~svn295083-1) UNRELEASED; urgency=medium
     - 940_ld_verbose.diff
     - 999_config.diff
   * Change Build-Depends from clang-3.6 to clang-3.7, to match upstream
+  * Bump Build-Depends: freebsd-buildutils and freebsd-mk to (>= 10.3~)
 
  -- Steven Chamberlain <steven@pyro.eu.org>  Sat, 06 Feb 2016 16:17:19 +0000
 
