@@ -42,7 +42,7 @@ HEADERS_DIR	:= kfreebsd-headers-$(version)-$(abiname)
 ORIG_DIR	:= kfreebsd-$(major)-$(tar_version)
 ORIG_TAR	:= kfreebsd-$(major)_$(tar_version).orig.tar.xz
 PATH		:= /usr/lib/freebsd:$(PATH)
-BUILD_DATE	?= $(shell dpkg-parsechangelog --show-field=Date)
+SOURCE_DATE_EPOCH ?= $(shell date -d "$$(dpkg-parsechangelog -SDate)" +%s)
 
 ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 	NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
@@ -103,6 +103,10 @@ get-orig-source:
 		| sed -ne 's/.*\sCLANG_VERSION\s\+//p' \
 		> $(ORIG_DIR)/CLANG_VERSION
 	cd $(ORIG_DIR) && $(CURDIR)/debian/prune.sh
+	# Clamp timestamps to be no newer than last changelog entry, see
+	# https://wiki.debian.org/ReproducibleBuilds/TimestampsInTarball
+	find $(ORIG_DIR) -newermt "@$(SOURCE_DATE_EPOCH)" -print0 \
+	 | xargs -0r touch --no-dereference --date="@$(SOURCE_DATE_EPOCH)"
 	# Create tarball with files sorted in a stable order, see
 	# https://wiki.debian.org/ReproducibleBuilds/FileOrderInTarballs
 	find $(ORIG_DIR) -print0 | LC_ALL=C sort -z \
@@ -184,8 +188,8 @@ install-indep-stamp: build-indep
 	chown -R root.src $(SRC_DIR)
 	# Clamp timestamps to be no newer than last changelog entry, see
 	# https://wiki.debian.org/ReproducibleBuilds/TimestampsInTarball
-	find $(SRC_DIR) -newermt "$(BUILD_DATE)" -print0 \
-	 | xargs -0r touch --no-dereference --date="$(BUILD_DATE)"
+	find $(SRC_DIR) -newermt "@$(SOURCE_DATE_EPOCH)" -print0 \
+	 | xargs -0r touch --no-dereference --date="@$(SOURCE_DATE_EPOCH)"
 	# Create tarball with files sorted in a stable order, see
 	# https://wiki.debian.org/ReproducibleBuilds/FileOrderInTarballs
 	# and normalised file permissions regardless of umask, see

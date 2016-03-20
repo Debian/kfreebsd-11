@@ -1,6 +1,8 @@
 kfreebsd-11 (11.0~svn295083-1) UNRELEASED; urgency=medium
 
   * New upstream snapshot of -CURRENT
+  * Make get-orig-source tarball reproducible
+  * Replace BUILD_DATE with SOURCE_DATE_EPOCH
   * Disable building the xen (PV, i386-only) flavour, removed upstream,
     as it is preferred now to use the generic kernel in HVM mode.
   * Use new preferred hostname for upstream SVN with HTTPS
