@@ -277,14 +277,14 @@ install-flavor-%-stamp: install-common-stamp build-flavor-%-stamp
 	# now install the kernel
 	$(MAKE) CC=$(cc_cmd) -C sys/$(kfreebsd_cpu)/compile/$*.config DESTDIR=$(IMAGE_PACKAGE)-$* install
 
-	# reallocate kernel image
+	# relocate kernel image
 	mv \
 		$(IMAGE_PACKAGE)-$*/boot/kernel/kernel \
 		$(IMAGE_PACKAGE)-$*/boot/kfreebsd-$(version)-$(abiname)-$*
 	chmod 644 $(IMAGE_PACKAGE)-$*/boot/kfreebsd-$(version)-$(abiname)-$*
 	gzip -9 -n $(IMAGE_PACKAGE)-$*/boot/kfreebsd-$(version)-$(abiname)-$*
 
-	# reallocate module dir (sans kernel image)
+	# relocate module dir (sans kernel image)
 	mkdir -p $(IMAGE_PACKAGE)-$*/lib/modules $(IMAGE_PACKAGE)-$*/boot/modules
 	mv \
 		$(IMAGE_PACKAGE)-$*/boot/kernel \
