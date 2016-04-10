@@ -51,7 +51,10 @@ ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 	BSD_MAKEFLAGS += -j$(NUMJOBS)
 endif
 
-ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS)))
+# Whether to enable extra debug features, at the expense of performance
+# Not recommended for release builds
+# Putting ~debug in the Version field enables this automatically
+ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS))$(findstring ~debug,$(full_version)))
 	debug_config	:= sys/conf/DEBIAN_DEBUG
 else
 	debug_config	:= sys/conf/DEBIAN_NODEBUG
