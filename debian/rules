@@ -12,7 +12,7 @@ DEB_HOST_ARCH_CPU	?= $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
 
 full_version	:= $(shell dpkg-parsechangelog | grep ^Version: | sed -e 's/^.*: //g')
 tar_version	:= $(shell echo $(full_version) | sed -e 's/-.*//g')
-svn_revision	:= $(shell echo $(full_version) | sed -e 's/.*~svn\([0-9]*\)-[0-9]*/\1/g' -e 's/^$(full_version)$$/HEAD/g')
+svn_revision	:= $(shell echo $(full_version) | sed -e 's/.*~svn\([0-9]*\)-[0-9]\+.*/\1/g' -e 's/^$(full_version)$$/HEAD/g')
 version		:= $(shell echo $(full_version) | sed -e 's/[~+-].*//g')
 major           := $(shell echo $(version) | sed -e 's/\..*//g')
 revision	:= $(shell echo $(full_version) | sed -e 's/^[^+-]*//g')
@@ -68,19 +68,21 @@ MAKE		:= \
 		-DWITHOUT_FORMAT_EXTENSIONS
 
 # Clang is the default compiler on these architectures (see src/share/mk/src.opts.mk)
-clang_cpus	:= i386 amd64 arm
+clang_cpus	:= # i386 amd64 arm
 
 ifeq (, $(filter 3.7.%, $(clang_version)))
 $(error Upstream is now using a different Clang version than we expected. Consider updating cc_pkg and cc_cmd)
 endif
 
-cc_pkg		:= clang-3.7 [$(foreach cpu,$(clang_cpus),any-$(cpu))], \
-		gcc-4.8 [$(foreach cpu,$(clang_cpus),!any-$(cpu))]
+# Experimentally build all arches with GCC for now
+cc_pkg          := gcc-5
+#cc_pkg		:= clang-3.7 [$(foreach cpu,$(clang_cpus),any-$(cpu))], \
+#		gcc-5 [$(foreach cpu,$(clang_cpus),!any-$(cpu))]
 
 ifneq (, $(filter $(clang_cpus), $(DEB_HOST_ARCH_CPU)))
 cc_cmd		:= clang-3.7
 else
-cc_cmd		:= gcc-4.8
+cc_cmd		:= gcc-5
 endif
 
 ifneq (, $(filter clang-%, $(cc_cmd)))
