@@ -17,9 +17,9 @@ Build-Depends: debhelper (>= 5.0.0), bzip2, sharutils, flex-old | flex,
  @cc_pkg@, libdb-dev,
  libsbuf-dev (>= 9.0+ds1-2),
  kernel-wedge (>= 2.88) [kfreebsd-any],
- ctfutils,
-# ctfconvert requires libdwarf with correct Dwarf_Off size
- libdwarf-freebsd-3 (>= 10.0-2~),
+# ctfutils (>= 10.3~),
+## ctfconvert requires libdwarf with correct Dwarf_Off size
+# libdwarf-freebsd-3 (>= 10.0-2~),
 Standards-Version: 3.9.2
 
 Package: kfreebsd-source-@version@
