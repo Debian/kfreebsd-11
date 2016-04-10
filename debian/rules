@@ -106,6 +106,9 @@ get-orig-source:
 		| sed -ne 's/.*\sCLANG_VERSION\s\+//p' \
 		> $(ORIG_DIR)/CLANG_VERSION
 	cd $(ORIG_DIR) && $(CURDIR)/debian/prune.sh
+	# Replace file with a DFSG-free re-implementation
+	cp -af debian/local/ar9300_devid.h $(ORIG_DIR)/sys/contrib/dev/ath/ath_hal/ar9300/
+	cp -af debian/local/ar9300_devid.h $(ORIG_DIR)/sys/dev/ath/ath_hal/ar9003/
 	# Clamp timestamps to be no newer than last changelog entry, see
 	# https://wiki.debian.org/ReproducibleBuilds/TimestampsInTarball
 	find $(ORIG_DIR) -newermt "@$(SOURCE_DATE_EPOCH)" -print0 \

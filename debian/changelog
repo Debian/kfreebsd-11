@@ -27,6 +27,7 @@ kfreebsd-11 (11.0~svn295083-1~debug1) UNRELEASED; urgency=medium
   * Change Build-Depends from clang-3.6 to clang-3.7, to match upstream
   * Bump Build-Depends: freebsd-buildutils and freebsd-mk to (>= 10.3~)
   * Automatically enable debug options if ~debug appears in the Version
+  * Replace ar9300_devid.h with a DFSG-free re-implementation
 
  -- Steven Chamberlain <steven@pyro.eu.org>  Sat, 06 Feb 2016 16:17:19 +0000
 
