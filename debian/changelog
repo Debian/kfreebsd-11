@@ -30,6 +30,7 @@ kfreebsd-11 (11.0~svn295083-1~debug1) experimental; urgency=medium
   * Replace ar9300_devid.h with a DFSG-free re-implementation
   * Disable generating DTrace CTF data, until our toolchain (ctfutils)
     is ready to support kfreebsd-11
+  * Remove non-existent device vt_xboxfb from i386 configs
 
  -- Steven Chamberlain <steven@pyro.eu.org>  Sat, 06 Feb 2016 16:17:19 +0000
 
