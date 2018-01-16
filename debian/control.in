@@ -6,8 +6,8 @@ Uploaders:
  Aurelien Jarno <aurel32@debian.org>,
  Robert Millan <rmh@debian.org>,
  Steven Chamberlain <steven@pyro.eu.org>,
-Vcs-Browser: http://anonscm.debian.org/viewvc/glibc-bsd/trunk/kfreebsd-@major@/
-Vcs-Svn: svn://anonscm.debian.org/glibc-bsd/trunk/kfreebsd-@major@/
+Vcs-Browser: https://salsa.debian.org/kfreebsd-team/kfreebsd-@major@
+Vcs-Git: https://salsa.debian.org/kfreebsd-team/kfreebsd-@major@.git
 Build-Depends: debhelper (>= 5.0.0), bzip2, sharutils, flex-old | flex,
  freebsd-buildutils (>= 10.3~),
  freebsd-glue (>= 0.2.15~),
