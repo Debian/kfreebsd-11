@@ -1,1 +1,2 @@
 /debian/control
+/debian/installer/*/kernel-versions
