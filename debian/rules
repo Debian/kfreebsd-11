@@ -21,7 +21,7 @@ config_files	:= $(wildcard debian/arch/$(cpu)/*.config)
 flavours	:= $(config_files:debian/arch/$(cpu)/%.config=%)
 abiname		:= 0
 ld_target	:= $(shell ld --help | sed -ne "s/[^ :]*: supported targets: \([^ ]*\) .*/\1/p")
-clang_version	:= $(shell cat CLANG_VERSION)
+clang_version	:= $(shell test -e CLANG_VERSION && cat CLANG_VERSION)
 
 ifeq ($(cpu), mipsel)
 kfreebsd_cpu	:= mips
@@ -70,8 +70,10 @@ MAKE		:= \
 # Clang is the default compiler on these architectures (see src/share/mk/src.opts.mk)
 clang_cpus	:= # i386 amd64 arm
 
+ifneq (, $(clang_version))
 ifeq (, $(filter 3.7.%, $(clang_version)))
 $(error Upstream is now using a different Clang version than we expected. Consider updating cc_pkg and cc_cmd)
+endif
 endif
 
 # Experimentally build all arches with GCC for now
